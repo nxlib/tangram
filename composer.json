@@ -1,0 +1,8 @@
+{
+  "config": {
+
+  },
+  "require": {
+    "nxlib/rdsorm":  "~0.0.1"
+  }
+}
