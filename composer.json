@@ -3,6 +3,7 @@
 
   },
   "require": {
-    "nxlib/rdsorm":  "~0.0.1"
+    "nxlib/rdsorm":  "1.0.*",
+    "nxlib/mvc":  "1.0.*"
   }
 }
