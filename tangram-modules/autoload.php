@@ -4,4 +4,4 @@
 
 require_once __DIR__ . '/tangram' . '/autoload_real.php';
 
-return TangramAutoloaderInit72215b02f8ca1f8307aae64ea94dd618::getLoader();
+return TangramAutoloaderInit::getLoader();
