@@ -18,5 +18,7 @@ include $path.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
 //tangram
 include $path.DIRECTORY_SEPARATOR.'tangram-modules'.DIRECTORY_SEPARATOR.'autoload.php';
 
+//get the permission
 pr(AutoPermissionMap::getMap());
+//get the router
 pr(AutoRouterMap::getMap());
