@@ -18,7 +18,6 @@ include $path.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
 //tangram
 include $path.DIRECTORY_SEPARATOR.'tangram-modules'.DIRECTORY_SEPARATOR.'autoload.php';
 
-//get the permission
-pr(AutoPermissionMap::getMap());
-//get the router
-pr(AutoRouterMap::getMap());
+\NxLib\Core\MVC::init(dirname(__FILE__),AutoLoadClassMap::getMap());
+
+\NxLib\Core\Dispatch::run(AutoRouterMap::getMap());

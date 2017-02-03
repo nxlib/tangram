@@ -2,11 +2,21 @@
 class AutoRouterMap
 {
     private static $map = [
-        'uri/uri1' => [
-            'namespace' => 'abc',
-            'class' => 'menu',
-            'function' => 'aaa'
-        ]
+        'GET' => [
+            '/reg' => [
+                'namespace' => 'NxLib\User\Controller',
+                'class' => 'RegisterController',
+                'function' => 'index'
+            ],
+            '/reg/index' => [
+                'namespace' => 'NxLib\User\Controller',
+                'class' => 'RegisterController',
+                'function' => 'index'
+            ]
+        ],
+        'POST' => [],
+        'PUT' => [],
+        'DELETE' => []
     ];
     public static function getMap()
     {
