@@ -9,7 +9,9 @@
 namespace Common;
 
 
-class TGController
+use NxLib\Core\Controller;
+
+class TGController extends Controller
 {
 
 }

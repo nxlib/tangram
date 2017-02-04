@@ -9,7 +9,15 @@
 namespace Common;
 
 
-class TGModel
-{
+use NxLib\RdsOrm\Instance;
+use NxLib\RdsOrm\Lib\Mysql\ORM;
 
+class TGModel extends ORM
+{
+    protected $db;
+    protected $connection = 'default';
+    public function __construct()
+    {
+        $this->db = Instance::get($this->connection);
+    }
 }
