@@ -14,14 +14,5 @@ return [
         'password' => 'root',
         'database' => 'testdb',
         'charset' => 'utf8'
-    ],
-//    'no_def' => [
-//        'driver' => 'mysql',
-//        'hostname' => '127.0.0.1',
-//        'port' => '8889',
-//        'username' => 'root',
-//        'password' => 'root',
-//        'database' => 'testdb',
-//        'charset' => 'utf8'
-//    ]
+    ]
 ];
