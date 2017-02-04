@@ -1,0 +1,23 @@
+{
+  "name": "nxlib/permission",
+  "description": "nxlib-permission",
+  "keywords": ["permission"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Garming Lau",
+      "email": "garming@msn.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "nxlib/user":  "dev"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "NxLib\\Permission\\": ""
+    }
+  }
+}
