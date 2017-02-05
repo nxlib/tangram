@@ -11,22 +11,22 @@ namespace Tangram\Demo\Controller;
 
 use Common\TGController;
 
-class Demo extends TGController
+class DemoController extends TGController
 {
     public function getDemo()
     {
-        //todo
+        pr($this->getParam('name'));
     }
     public function postDemo()
     {
-        //todo
+        pr($this->postParam('name'));
     }
     public function putDemo()
     {
-        //todo
+        pr($this->putParam('name'));
     }
     public function deleteDemo()
     {
-        //todo
+        pr($this->deleteParam('name'));
     }
 }

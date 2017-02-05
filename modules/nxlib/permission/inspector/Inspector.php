@@ -16,7 +16,7 @@ class Inspector
     public function check(){
         $map = \AutoPermissionMap::getMap();
         if(!empty($map)){
-            pr($map);
+//            pr($map);
         }
     }
 }
