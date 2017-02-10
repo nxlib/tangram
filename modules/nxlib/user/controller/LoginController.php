@@ -11,5 +11,8 @@ namespace NxLib\User\Controller;
 
 class LoginController
 {
-
+    public function index()
+    {
+        //todo
+    }
 }

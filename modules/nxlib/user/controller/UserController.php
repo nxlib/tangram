@@ -13,5 +13,8 @@ use NxLib\Core\Controller;
 
 class UserController extends Controller
 {
-    //todo
+    public function index()
+    {
+        //todo
+    }
 }
