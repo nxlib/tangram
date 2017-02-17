@@ -15,7 +15,7 @@ class UserModel extends Model
 {
     public function getAll(){
         $data = [
-            "garming",
+            "tangram-user",
             "abc"
         ];
         return $data;
