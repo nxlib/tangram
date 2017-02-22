@@ -6,7 +6,7 @@
  * Time: 15:58
  */
 
-namespace NxLib\Permission\Exception;
+namespace Tangram\Permission\Exception;
 
 
 class PermissionException extends \Exception

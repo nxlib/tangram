@@ -3,13 +3,15 @@
  * Created by PhpStorm.
  * User: garming
  * Date: 03/02/2017
- * Time: 19:04
+ * Time: 19:00
  */
 
-namespace NxLib\User\Controller;
+namespace Tangram\User\Controller;
 
 
-class LoginController
+use NxLib\Core\Controller;
+
+class UserController extends Controller
 {
     public function index()
     {

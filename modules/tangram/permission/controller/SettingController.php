@@ -7,7 +7,7 @@
  * Time: 15:40
  */
 
-namespace NxLib\Permission\Controller;
+namespace Tangram\Permission\Controller;
 
 class SettingController
 {

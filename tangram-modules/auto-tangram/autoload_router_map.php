@@ -4,17 +4,17 @@ class AutoRouterMap
     private static $map = [
         'GET' => [
             '/' => [
-                'namespace' => 'NxLib\User\Controller',
+                'namespace' => 'Tangram\User\Controller',
                 'class' => 'RegisterController',
                 'function' => 'index'
             ],
             '/reg' => [
-                'namespace' => 'NxLib\User\Controller',
+                'namespace' => 'Tangram\User\Controller',
                 'class' => 'RegisterController',
                 'function' => 'index'
             ],
             '/reg/index' => [
-                'namespace' => 'NxLib\User\Controller',
+                'namespace' => 'Tangram\User\Controller',
                 'class' => 'RegisterController',
                 'function' => 'index'
             ],

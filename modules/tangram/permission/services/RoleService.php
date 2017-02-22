@@ -6,7 +6,7 @@
  * Time: 15:35
  */
 
-namespace NxLib\Permission\Services;
+namespace Tangram\Permission\Services;
 
 
 class RoleService

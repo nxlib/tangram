@@ -1,5 +1,5 @@
 {
-  "name": "nxlib/user",
+  "name": "tangram/user",
   "description": "nxlib-user",
   "keywords": ["user-center"],
   "type": "library",
@@ -16,7 +16,7 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "NxLib\\User\\": ""
+      "Tangram\\User\\": ""
     }
   }
 }

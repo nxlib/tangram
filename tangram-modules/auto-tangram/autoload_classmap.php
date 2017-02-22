@@ -1,8 +1,8 @@
 <?php
 class AutoLoadClassMap{
     private static $map = [
-        'NxLib\\User\\' => ['modules/nxlib/user'],
-        'NxLib\\Permission\\' => ['modules/nxlib/permission'],
+        'Tangram\\User\\' => ['modules/tangram/user'],
+        'Tangram\\Permission\\' => ['modules/tangram/permission'],
         'Tangram\\Demo\\' => ['modules/tangram/demo'],
     ];
     public static function getMap()

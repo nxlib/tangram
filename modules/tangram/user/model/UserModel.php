@@ -6,7 +6,7 @@
  * Time: 19:02
  */
 
-namespace NxLib\User\Model;
+namespace Tangram\User\Model;
 
 
 use NxLib\Core\Model;

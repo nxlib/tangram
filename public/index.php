@@ -11,7 +11,6 @@ function pr($data = null){
     echo '</pre>';
 }
 $path = dirname(dirname(__FILE__));
-
 //composer
 include $path.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
 
@@ -26,4 +25,4 @@ $mysql_config = require $path.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'
 \NxLib\Core\MVC::init(dirname(__FILE__),AutoLoadClassMap::getMap());
 
 //run router dispatch
-\NxLib\Core\Dispatch::run(AutoRouterMap::getMap(),[(new NxLib\Permission\Inspector\Inspector()),'check']);
+\NxLib\Core\Dispatch::run(AutoRouterMap::getMap(),[(new Tangram\Permission\Inspector\Inspector()),'check']);

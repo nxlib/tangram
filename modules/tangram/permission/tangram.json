@@ -1,5 +1,5 @@
 {
-  "name": "nxlib/permission",
+  "name": "tangram/permission",
   "description": "nxlib-permission",
   "keywords": ["permission"],
   "type": "library",
@@ -17,7 +17,7 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "NxLib\\Permission\\": ""
+      "Tangram\\Permission\\": ""
     }
   }
 }

@@ -6,13 +6,20 @@
  * Time: 19:03
  */
 
-namespace NxLib\User\Controller;
+namespace Tangram\User\Controller;
 
 
-use NxLib\User\Model\UserModel;
+use Tangram\User\Model\UserModel;
 
+/**
+ * Class RegisterController
+ * @package Tangram\User\Controller
+ */
 class RegisterController
 {
+    /**
+     * @requestMapping("/")
+     */
     public function index(){
         $user = (new UserModel())->getAll();
         pr($user);

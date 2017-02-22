@@ -6,7 +6,7 @@
  * Time: 15:31
  */
 
-namespace NxLib\Permission\Model;
+namespace Tangram\Permission\Model;
 
 
 use Common\TGModel;

@@ -6,10 +6,10 @@
  * Time: 15:21
  */
 
-namespace NxLib\Permission\Inspector;
+namespace Tangram\Permission\Inspector;
 
 
-use NxLib\Permission\Exception\PermissionException;
+use Tangram\Permission\Exception\PermissionException;
 
 class Inspector
 {
