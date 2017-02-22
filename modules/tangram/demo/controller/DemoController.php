@@ -9,9 +9,9 @@
 namespace Tangram\Demo\Controller;
 
 
-use Common\TGController;
+use Common\TGRestController;
 
-class DemoController extends TGController
+class DemoController extends TGRestController
 {
     public function getDemo()
     {
