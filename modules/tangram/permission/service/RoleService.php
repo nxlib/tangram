@@ -6,7 +6,7 @@
  * Time: 15:35
  */
 
-namespace Tangram\Permission\Services;
+namespace Tangram\Permission\Service;
 
 
 class RoleService
