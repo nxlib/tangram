@@ -11,6 +11,10 @@ namespace Tangram\Demo\Controller;
 
 use Common\TGRestController;
 
+/**
+ * Class DemoController
+ * @package Tangram\Demo\Controller
+ */
 class DemoController extends TGRestController
 {
     public function getDemo()
