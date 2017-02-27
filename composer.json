@@ -51,10 +51,10 @@
         "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages"
     },
     "autoload": {
-        "psr-4": { "Composer\\": "src/Composer" }
+        "psr-4": { "Tangram\\": "src/Composer" }
     },
     "autoload-dev": {
-        "psr-4": { "Composer\\Test\\": "tests/Composer/Test" }
+        "psr-4": { "Tangram\\Test\\": "tests/Composer/Test" }
     },
     "bin": ["bin/composer"],
     "extra": {
