@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Package\Archiver;
+namespace Tangram\Package\Archiver;
 
 /**
  * An exclude filter that processes gitignore and gitattributes

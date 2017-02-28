@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\DependencyResolver;
+namespace Tangram\DependencyResolver;
 
 /**
  * Stores decisions on installing, removing or keeping packages

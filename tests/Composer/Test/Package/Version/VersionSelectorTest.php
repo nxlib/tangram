@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Package\Version;
+namespace Tangram\Test\Package\Version;
 
 use Composer\Package\Version\VersionSelector;
 use Composer\Package\Package;

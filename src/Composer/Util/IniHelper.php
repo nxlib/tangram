@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Util;
+namespace Tangram\Util;
 
 /**
  * Provides ini file location functions that work with and without a restart.

@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Command;
+namespace Tangram\Test\Command;
 
 use Composer\Command\InitCommand;
 use Composer\TestCase;

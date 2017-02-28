@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test;
+namespace Tangram\Test;
 
 use Composer\Test\Mock\XdebugHandlerMock;
 use Composer\Util\IniHelper;

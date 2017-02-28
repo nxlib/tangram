@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Json;
+namespace Tangram\Json;
 
 /**
  * Formats json strings used for php < 5.4 because the json_encode doesn't

@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Package;
+namespace Tangram\Package;
 
 use Composer\Semver\Constraint\ConstraintInterface;
 

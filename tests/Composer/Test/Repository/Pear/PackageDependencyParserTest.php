@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Repository\Pear;
+namespace Tangram\Test\Repository\Pear;
 
 use Composer\Repository\Pear\DependencyConstraint;
 use Composer\Repository\Pear\PackageDependencyParser;

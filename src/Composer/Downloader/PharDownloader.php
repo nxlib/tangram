@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Downloader;
+namespace Tangram\Downloader;
 
 /**
  * Downloader for phar files

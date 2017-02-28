@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\DependencyResolver;
+namespace Tangram\DependencyResolver;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

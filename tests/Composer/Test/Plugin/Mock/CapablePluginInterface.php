@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Plugin\Mock;
+namespace Tangram\Test\Plugin\Mock;
 
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;

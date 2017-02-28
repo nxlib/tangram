@@ -16,7 +16,7 @@
  * (c) Fabien Potencier <fabien@symfony.com>
  */
 
-namespace Composer\Autoload;
+namespace Tangram\Autoload;
 
 use Symfony\Component\Finder\Finder;
 use Composer\IO\IOInterface;

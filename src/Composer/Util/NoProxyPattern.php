@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Util;
+namespace Tangram\Util;
 
 /**
  * Tests URLs against no_proxy patterns.

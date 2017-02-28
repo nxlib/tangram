@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Plugin;
+namespace Tangram\Plugin;
 
 /**
  * The Plugin Events.

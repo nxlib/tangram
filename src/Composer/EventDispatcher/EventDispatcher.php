@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\EventDispatcher;
+namespace Tangram\EventDispatcher;
 
 use Composer\DependencyResolver\PolicyInterface;
 use Composer\DependencyResolver\Pool;

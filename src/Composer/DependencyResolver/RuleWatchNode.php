@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\DependencyResolver;
+namespace Tangram\DependencyResolver;
 
 /**
  * Wrapper around a Rule which keeps track of the two literals it watches

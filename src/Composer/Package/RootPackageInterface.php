@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Package;
+namespace Tangram\Package;
 
 /**
  * Defines additional fields that are only needed for the root package

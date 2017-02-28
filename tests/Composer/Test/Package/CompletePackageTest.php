@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Package;
+namespace Tangram\Test\Package;
 
 use Composer\Package\Package;
 use Composer\Semver\VersionParser;

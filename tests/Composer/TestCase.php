@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer;
+namespace Tangram;
 
 use Composer\Semver\VersionParser;
 use Composer\Package\AliasPackage;

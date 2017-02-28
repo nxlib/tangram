@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Exception;
+namespace Tangram\Exception;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

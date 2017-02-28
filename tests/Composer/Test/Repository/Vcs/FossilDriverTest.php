@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Repository\Vcs;
+namespace Tangram\Test\Repository\Vcs;
 
 use Composer\Repository\Vcs\FossilDriver;
 use Composer\Config;

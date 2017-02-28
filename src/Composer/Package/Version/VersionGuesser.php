@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Package\Version;
+namespace Tangram\Package\Version;
 
 use Composer\Config;
 use Composer\Repository\Vcs\HgDriver;

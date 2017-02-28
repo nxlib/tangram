@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Util;
+namespace Tangram\Test\Util;
 
 use Composer\Util\TlsHelper;
 

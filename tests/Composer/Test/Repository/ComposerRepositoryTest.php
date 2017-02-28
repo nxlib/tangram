@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Repository;
+namespace Tangram\Test\Repository;
 
 use Composer\IO\NullIO;
 use Composer\Repository\ComposerRepository;

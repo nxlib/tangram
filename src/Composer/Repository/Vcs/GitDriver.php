@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Repository\Vcs;
+namespace Tangram\Repository\Vcs;
 
 use Composer\Json\JsonFile;
 use Composer\Util\ProcessExecutor;

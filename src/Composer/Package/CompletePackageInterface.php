@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Package;
+namespace Tangram\Package;
 
 /**
  * Defines package metadata that is not necessarily needed for solving and installing packages

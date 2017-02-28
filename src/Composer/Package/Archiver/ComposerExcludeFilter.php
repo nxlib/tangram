@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Package\Archiver;
+namespace Tangram\Package\Archiver;
 
 /**
  * An exclude filter which processes composer's own exclude rules

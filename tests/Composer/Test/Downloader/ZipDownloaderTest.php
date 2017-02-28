@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Downloader;
+namespace Tangram\Test\Downloader;
 
 use Composer\Downloader\ZipDownloader;
 use Composer\TestCase;

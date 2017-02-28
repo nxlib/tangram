@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Mock;
+namespace Tangram\Test\Mock;
 
 use Composer\Factory;
 use Composer\XdebugHandler;

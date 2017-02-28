@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Console;
+namespace Tangram\Console;
 
 use Symfony\Component\Console\Formatter\OutputFormatter;
 

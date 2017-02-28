@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Repository;
+namespace Tangram\Repository;
 
 /**
  * Thrown when a security problem, like a broken or missing signature

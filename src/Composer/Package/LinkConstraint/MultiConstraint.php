@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Package\LinkConstraint;
+namespace Tangram\Package\LinkConstraint;
 
 use Composer\Semver\Constraint\MultiConstraint as SemverMultiConstraint;
 

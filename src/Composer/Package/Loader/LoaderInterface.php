@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Package\Loader;
+namespace Tangram\Package\Loader;
 
 /**
  * Defines a loader that takes an array to create package instances

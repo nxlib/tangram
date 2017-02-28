@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Downloader;
+namespace Tangram\Test\Downloader;
 
 class ArchiveDownloaderTest extends \PHPUnit_Framework_TestCase
 {

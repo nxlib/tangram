@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\IO;
+namespace Tangram\IO;
 
 /**
  * IOInterface that is not interactive and never writes the output

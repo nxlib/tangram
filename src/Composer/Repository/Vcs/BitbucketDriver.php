@@ -1,6 +1,6 @@
 <?php
 
-namespace Composer\Repository\Vcs;
+namespace Tangram\Repository\Vcs;
 
 use Composer\Cache;
 use Composer\Downloader\TransportException;

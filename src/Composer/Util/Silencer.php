@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Util;
+namespace Tangram\Util;
 
 /**
  * Temporarily suppress PHP error reporting, usually warnings and below.

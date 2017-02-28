@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Package\Loader;
+namespace Tangram\Package\Loader;
 
 use Composer\Package;
 use Composer\Package\BasePackage;

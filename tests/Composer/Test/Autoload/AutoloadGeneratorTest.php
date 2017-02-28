@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Autoload;
+namespace Tangram\Test\Autoload;
 
 use Composer\Autoload\AutoloadGenerator;
 use Composer\Package\Link;

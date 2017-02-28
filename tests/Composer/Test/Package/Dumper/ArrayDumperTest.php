@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Package\Dumper;
+namespace Tangram\Test\Package\Dumper;
 
 use Composer\Package\Dumper\ArrayDumper;
 use Composer\Package\Link;

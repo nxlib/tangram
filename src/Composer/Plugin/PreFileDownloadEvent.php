@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Plugin;
+namespace Tangram\Plugin;
 
 use Composer\EventDispatcher\Event;
 use Composer\Util\RemoteFilesystem;

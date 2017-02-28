@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\IO;
+namespace Tangram\IO;
 
 use Composer\Config;
 

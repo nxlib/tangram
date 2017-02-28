@@ -16,7 +16,7 @@
  * (c) Fabien Potencier <fabien@symfony.com>
  */
 
-namespace Composer\Test\Autoload;
+namespace Tangram\Test\Autoload;
 
 use Composer\Autoload\ClassMapGenerator;
 use Composer\TestCase;

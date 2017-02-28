@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Console;
+namespace Tangram\Console;
 
 use Composer\Util\Platform;
 use Composer\Util\Silencer;

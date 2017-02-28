@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Command;
+namespace Tangram\Command;
 
 use Composer\Composer;
 use Composer\Installer;

@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Installer;
+namespace Tangram\Test\Installer;
 
 use Composer\Installer\SuggestedPackagesReporter;
 

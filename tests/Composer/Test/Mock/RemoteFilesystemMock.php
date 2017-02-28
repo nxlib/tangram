@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Mock;
+namespace Tangram\Test\Mock;
 
 use Composer\Util\RemoteFilesystem;
 use Composer\Downloader\TransportException;

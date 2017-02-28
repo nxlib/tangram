@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Repository;
+namespace Tangram\Repository;
 
 use Composer\Package\AliasPackage;
 use Composer\Package\PackageInterface;

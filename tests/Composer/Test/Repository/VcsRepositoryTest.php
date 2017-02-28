@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Repository;
+namespace Tangram\Test\Repository;
 
 use Composer\TestCase;
 use Symfony\Component\Process\ExecutableFinder;

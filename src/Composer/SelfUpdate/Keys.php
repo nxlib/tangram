@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\SelfUpdate;
+namespace Tangram\SelfUpdate;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

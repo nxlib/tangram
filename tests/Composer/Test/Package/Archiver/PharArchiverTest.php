@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\Package\Archiver;
+namespace Tangram\Test\Package\Archiver;
 
 use Composer\Package\Archiver\PharArchiver;
 

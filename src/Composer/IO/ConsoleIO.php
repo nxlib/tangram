@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\IO;
+namespace Tangram\IO;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;

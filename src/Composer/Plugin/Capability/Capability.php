@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Plugin\Capability;
+namespace Tangram\Plugin\Capability;
 
 /**
  * Marker interface for Plugin capabilities.

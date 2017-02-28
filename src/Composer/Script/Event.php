@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Script;
+namespace Tangram\Script;
 
 use Composer\Composer;
 use Composer\IO\IOInterface;

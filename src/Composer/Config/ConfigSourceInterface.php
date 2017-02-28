@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Config;
+namespace Tangram\Config;
 
 /**
  * Configuration Source Interface

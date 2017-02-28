@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Plugin;
+namespace Tangram\Plugin;
 
 /**
  * Plugins which need to expose various implementations

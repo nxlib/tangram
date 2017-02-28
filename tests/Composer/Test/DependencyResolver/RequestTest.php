@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Test\DependencyResolver;
+namespace Tangram\Test\DependencyResolver;
 
 use Composer\DependencyResolver\Request;
 use Composer\Repository\ArrayRepository;

@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Composer\Repository\Pear;
+namespace Tangram\Repository\Pear;
 
 /**
  * Read PEAR packages using REST 1.1 interface
