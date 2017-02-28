@@ -21,7 +21,7 @@ use Tangram\Repository\RepositoryInterface;
 use Tangram\Package\AliasPackage;
 use Tangram\Package\PackageInterface;
 use Tangram\Package\Link;
-use Tangram\Semver\Constraint\Constraint;
+use Composer\Semver\Constraint\Constraint;
 use Tangram\DependencyResolver\Pool;
 use Tangram\Plugin\Capability\Capability;
 

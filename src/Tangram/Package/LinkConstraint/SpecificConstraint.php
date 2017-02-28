@@ -12,7 +12,7 @@
 
 namespace Tangram\Package\LinkConstraint;
 
-use Tangram\Semver\Constraint\AbstractConstraint;
+use Composer\Semver\Constraint\AbstractConstraint;
 
 trigger_error('The ' . __NAMESPACE__ . '\SpecificConstraint abstract class is deprecated, there is no replacement for it.', E_USER_DEPRECATED);
 

@@ -17,7 +17,7 @@ use Tangram\Package\BasePackage;
 use Tangram\Package\PackageInterface;
 use Tangram\Package\Loader\ArrayLoader;
 use Tangram\Package\Dumper\ArrayDumper;
-use Tangram\Semver\Constraint\Constraint;
+use Composer\Semver\Constraint\Constraint;
 
 /**
  * Selects the best possible version for a package

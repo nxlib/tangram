@@ -12,7 +12,7 @@
 
 namespace Tangram\DependencyResolver;
 
-use Tangram\Semver\Constraint\ConstraintInterface;
+use Composer\Semver\Constraint\ConstraintInterface;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

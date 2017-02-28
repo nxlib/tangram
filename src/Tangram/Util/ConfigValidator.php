@@ -18,7 +18,7 @@ use Tangram\Package\Loader\InvalidPackageException;
 use Tangram\Json\JsonValidationException;
 use Tangram\IO\IOInterface;
 use Tangram\Json\JsonFile;
-use Tangram\Spdx\SpdxLicenses;
+use Composer\Spdx\SpdxLicenses;
 
 /**
  * Validates a composer configuration.

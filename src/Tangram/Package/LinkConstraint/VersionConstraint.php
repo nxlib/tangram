@@ -12,7 +12,7 @@
 
 namespace Tangram\Package\LinkConstraint;
 
-use Tangram\Semver\Constraint\Constraint;
+use Composer\Semver\Constraint\Constraint;
 
 trigger_error('The ' . __NAMESPACE__ . '\VersionConstraint class is deprecated, use Tangram\Semver\Constraint\Constraint instead.', E_USER_DEPRECATED);
 

@@ -15,7 +15,7 @@ namespace Tangram\DependencyResolver;
 use Tangram\Package\PackageInterface;
 use Tangram\Package\AliasPackage;
 use Tangram\Package\BasePackage;
-use Tangram\Semver\Constraint\Constraint;
+use Composer\Semver\Constraint\Constraint;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

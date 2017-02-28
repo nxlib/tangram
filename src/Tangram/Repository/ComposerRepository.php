@@ -27,8 +27,8 @@ use Tangram\Plugin\PluginEvents;
 use Tangram\Plugin\PreFileDownloadEvent;
 use Tangram\EventDispatcher\EventDispatcher;
 use Tangram\Downloader\TransportException;
-use Tangram\Semver\Constraint\ConstraintInterface;
-use Tangram\Semver\Constraint\Constraint;
+use Composer\Semver\Constraint\ConstraintInterface;
+use Composer\Semver\Constraint\Constraint;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

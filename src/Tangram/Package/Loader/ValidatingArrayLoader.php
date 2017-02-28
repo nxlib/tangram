@@ -14,7 +14,7 @@ namespace Tangram\Package\Loader;
 
 use Tangram\Package;
 use Tangram\Package\BasePackage;
-use Tangram\Semver\Constraint\Constraint;
+use Composer\Semver\Constraint\Constraint;
 use Tangram\Package\Version\VersionParser;
 use Tangram\Repository\PlatformRepository;
 

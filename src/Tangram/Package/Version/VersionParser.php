@@ -12,7 +12,7 @@
 
 namespace Tangram\Package\Version;
 
-use Tangram\Semver\VersionParser as SemverVersionParser;
+use Composer\Semver\VersionParser as SemverVersionParser;
 
 class VersionParser extends SemverVersionParser
 {

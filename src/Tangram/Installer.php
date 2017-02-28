@@ -36,7 +36,7 @@ use Tangram\Package\CompletePackage;
 use Tangram\Package\Link;
 use Tangram\Package\Loader\ArrayLoader;
 use Tangram\Package\Dumper\ArrayDumper;
-use Tangram\Semver\Constraint\Constraint;
+use Composer\Semver\Constraint\Constraint;
 use Tangram\Package\Locker;
 use Tangram\Package\PackageInterface;
 use Tangram\Package\RootPackageInterface;

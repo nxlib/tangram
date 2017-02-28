@@ -22,7 +22,7 @@ use Tangram\Config;
 use Tangram\Config\JsonConfigSource;
 use Tangram\Factory;
 use Tangram\Json\JsonFile;
-use Tangram\Semver\VersionParser;
+use Composer\Semver\VersionParser;
 use Tangram\Package\BasePackage;
 
 /**

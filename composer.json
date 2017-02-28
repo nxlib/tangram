@@ -1,5 +1,5 @@
 {
-    "name": "composer/composer",
+    "name": "tangram/tangram",
     "description": "Composer helps you declare, manage and install dependencies of PHP projects, ensuring you have the right stack everywhere.",
     "keywords": ["package", "dependency", "autoload"],
     "homepage": "https://getcomposer.org/",
@@ -51,10 +51,10 @@
         "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages"
     },
     "autoload": {
-        "psr-4": { "Tangram\\": "src/Composer" }
+        "psr-4": { "Tangram\\": "src/Tangram" }
     },
     "autoload-dev": {
-        "psr-4": { "Tangram\\Test\\": "tests/Composer/Test" }
+        "psr-4": { "Tangram\\Test\\": "tests/Tangram/Test" }
     },
     "bin": ["bin/composer"],
     "extra": {

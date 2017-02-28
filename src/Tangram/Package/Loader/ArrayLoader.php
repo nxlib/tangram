@@ -18,7 +18,7 @@ use Tangram\Package\Link;
 use Tangram\Package\RootAliasPackage;
 use Tangram\Package\RootPackageInterface;
 use Tangram\Package\Version\VersionParser;
-use Tangram\Semver\VersionParser as SemverVersionParser;
+use Composer\Semver\VersionParser as SemverVersionParser;
 
 /**
  * @author Konstantin Kudryashiv <ever.zet@gmail.com>

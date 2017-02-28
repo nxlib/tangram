@@ -15,7 +15,7 @@ namespace Tangram\Util;
 use Tangram\Config;
 use Tangram\IO\IOInterface;
 use Tangram\Downloader\TransportException;
-use Tangram\CaBundle\CaBundle;
+use Composer\CaBundle\CaBundle;
 use Psr\Log\LoggerInterface;
 
 /**

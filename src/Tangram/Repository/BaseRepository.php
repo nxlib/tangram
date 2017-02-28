@@ -13,8 +13,8 @@
 namespace Tangram\Repository;
 
 use Tangram\Package\RootPackageInterface;
-use Tangram\Semver\Constraint\ConstraintInterface;
-use Tangram\Semver\Constraint\Constraint;
+use Composer\Semver\Constraint\ConstraintInterface;
+use Composer\Semver\Constraint\Constraint;
 use Tangram\Package\Link;
 
 /**

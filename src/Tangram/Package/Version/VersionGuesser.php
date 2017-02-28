@@ -15,7 +15,7 @@ namespace Tangram\Package\Version;
 use Tangram\Config;
 use Tangram\Repository\Vcs\HgDriver;
 use Tangram\IO\NullIO;
-use Tangram\Semver\VersionParser as SemverVersionParser;
+use Composer\Semver\VersionParser as SemverVersionParser;
 use Tangram\Util\Git as GitUtil;
 use Tangram\Util\ProcessExecutor;
 use Tangram\Util\Svn as SvnUtil;

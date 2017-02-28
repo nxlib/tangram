@@ -12,7 +12,7 @@
 
 namespace Tangram\Package;
 
-use Tangram\Semver\Constraint\Constraint;
+use Composer\Semver\Constraint\Constraint;
 use Tangram\Package\Version\VersionParser;
 
 /**

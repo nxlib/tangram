@@ -21,7 +21,7 @@ use Tangram\Package\Version\VersionSelector;
 use Tangram\Plugin\CommandEvent;
 use Tangram\Plugin\PluginEvents;
 use Tangram\Package\PackageInterface;
-use Tangram\Semver\Constraint\ConstraintInterface;
+use Composer\Semver\Constraint\ConstraintInterface;
 use Tangram\Util\Platform;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,9 +34,9 @@ use Tangram\Repository\ComposerRepository;
 use Tangram\Repository\PlatformRepository;
 use Tangram\Repository\RepositoryInterface;
 use Tangram\Repository\RepositoryFactory;
-use Tangram\Spdx\SpdxLicenses;
+use Composer\Spdx\SpdxLicenses;
 use Tangram\Composer;
-use Tangram\Semver\Semver;
+use Composer\Semver\Semver;
 
 /**
  * @author Robert Schönthal <seroscho@googlemail.com>
