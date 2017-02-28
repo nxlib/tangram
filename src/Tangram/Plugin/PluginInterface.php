@@ -12,8 +12,8 @@
 
 namespace Tangram\Plugin;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
+use Tangram\Composer;
+use Tangram\IO\IOInterface;
 
 /**
  * Plugin interface

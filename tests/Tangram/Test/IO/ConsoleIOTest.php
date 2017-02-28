@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\IO;
 
-use Composer\IO\ConsoleIO;
-use Composer\TestCase;
+use Tangram\IO\ConsoleIO;
+use Tangram\TestCase;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ConsoleIOTest extends TestCase

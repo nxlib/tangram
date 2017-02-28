@@ -51,14 +51,14 @@ An example composer.json of such a template package would be:
 ## Creating an Installer
 
 A Custom Installer is defined as a class that implements the
-[`Composer\Installer\InstallerInterface`][4] and is usually distributed in a
+[`Tangram\Installer\InstallerInterface`][4] and is usually distributed in a
 Composer Plugin.
 
 A basic Installer Plugin would thus compose of three files:
 
 1. the package file: composer.json
-2. The Plugin class, e.g.: `My\Project\Composer\Plugin.php`, containing a class that implements `Composer\Plugin\PluginInterface`.
-3. The Installer class, e.g.: `My\Project\Composer\Installer.php`, containing a class that implements `Composer\Installer\InstallerInterface`.
+2. The Plugin class, e.g.: `My\Project\Tangram\Plugin.php`, containing a class that implements `Tangram\Plugin\PluginInterface`.
+3. The Installer class, e.g.: `My\Project\Tangram\Installer.php`, containing a class that implements `Tangram\Installer\InstallerInterface`.
 
 ### composer.json
 
@@ -81,7 +81,7 @@ Example:
         "psr-0": {"phpDocumentor\\Composer": "src/"}
     },
     "extra": {
-        "class": "phpDocumentor\\Composer\\TemplateInstallerPlugin"
+        "class": "phpDocumentor\\Tangram\\TemplateInstallerPlugin"
     },
     "require": {
         "composer-plugin-api": "^1.0"
@@ -92,7 +92,7 @@ Example:
 ### The Plugin class
 
 The class defining the Composer plugin must implement the
-[`Composer\Plugin\PluginInterface`][3]. It can then register the Custom
+[`Tangram\Plugin\PluginInterface`][3]. It can then register the Custom
 Installer in its `activate()` method.
 
 The class may be placed in any location and have any name, as long as it is
@@ -105,9 +105,9 @@ Example:
 
 namespace phpDocumentor\Composer;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Plugin\PluginInterface;
+use Tangram\Composer;
+use Tangram\IO\IOInterface;
+use Tangram\Plugin\PluginInterface;
 
 class TemplateInstallerPlugin implements PluginInterface
 {
@@ -122,7 +122,7 @@ class TemplateInstallerPlugin implements PluginInterface
 ### The Custom Installer class
 
 The class that executes the custom installation should implement the
-[`Composer\Installer\InstallerInterface`][4] (or extend another installer that
+[`Tangram\Installer\InstallerInterface`][4] (or extend another installer that
 implements that interface). It defines the [type][1] string as it will be
 recognized by packages that will use this installer in the `supports()` method.
 
@@ -151,8 +151,8 @@ Example:
 
 namespace phpDocumentor\Composer;
 
-use Composer\Package\PackageInterface;
-use Composer\Installer\LibraryInstaller;
+use Tangram\Package\PackageInterface;
+use Tangram\Installer\LibraryInstaller;
 
 class TemplateInstaller extends LibraryInstaller
 {
@@ -184,7 +184,7 @@ class TemplateInstaller extends LibraryInstaller
 ```
 
 The example demonstrates that it is quite simple to extend the
-[`Composer\Installer\LibraryInstaller`][5] class to strip a prefix
+[`Tangram\Installer\LibraryInstaller`][5] class to strip a prefix
 (`phpdocumentor/template-`) and use the remaining part to assemble a completely
 different installation path.
 

@@ -55,10 +55,10 @@ part omitted):
 ### Plugin Class
 
 Every plugin has to supply a class which implements the
-[`Composer\Plugin\PluginInterface`][3]. The `activate()` method of the plugin
+[`Tangram\Plugin\PluginInterface`][3]. The `activate()` method of the plugin
 is called after the plugin is loaded and receives an instance of
-[`Composer\Composer`][4] as well as an instance of
-[`Composer\IO\IOInterface`][5]. Using these two objects all configuration can
+[`Tangram\Composer`][4] as well as an instance of
+[`Tangram\IO\IOInterface`][5]. Using these two objects all configuration can
 be read and all internal objects and state can be manipulated as desired.
 
 Example:
@@ -68,9 +68,9 @@ Example:
 
 namespace phpDocumentor\Composer;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Plugin\PluginInterface;
+use Tangram\Composer;
+use Tangram\IO\IOInterface;
+use Tangram\Plugin\PluginInterface;
 
 class TemplateInstallerPlugin implements PluginInterface
 {
@@ -85,7 +85,7 @@ class TemplateInstallerPlugin implements PluginInterface
 ## Event Handler
 
 Furthermore plugins may implement the
-[`Composer\EventDispatcher\EventSubscriberInterface`][6] in order to have its
+[`Tangram\EventDispatcher\EventSubscriberInterface`][6] in order to have its
 event handlers automatically registered with the `EventDispatcher` when the
 plugin is loaded.
 
@@ -141,14 +141,14 @@ Here's a complete example:
 ```php
 <?php
 
-namespace Naderman\Composer\AWS;
+namespace Naderman\Tangram\AWS;
 
-use Composer\Composer;
-use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\IO\IOInterface;
-use Composer\Plugin\PluginInterface;
-use Composer\Plugin\PluginEvents;
-use Composer\Plugin\PreFileDownloadEvent;
+use Tangram\Composer;
+use Tangram\EventDispatcher\EventSubscriberInterface;
+use Tangram\IO\IOInterface;
+use Tangram\Plugin\PluginInterface;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Plugin\PreFileDownloadEvent;
 
 class AwsPlugin implements PluginInterface, EventSubscriberInterface
 {
@@ -187,10 +187,10 @@ class AwsPlugin implements PluginInterface, EventSubscriberInterface
 
 Composer defines a standard set of capabilities which may be implemented by plugins.
 Their goal is to make the plugin ecosystem more stable as it reduces the need to mess
-with [`Composer\Composer`][4]'s internal state, by providing explicit extension points
+with [`Tangram\Composer`][4]'s internal state, by providing explicit extension points
 for common plugin requirements.
 
-Capable Plugins classes must implement the [`Composer\Plugin\Capable`][8] interface
+Capable Plugins classes must implement the [`Tangram\Plugin\Capable`][8] interface
 and declare their capabilities in the `getCapabilities()` method. 
 This method must return an array, with the _key_ as a Composer Capability class name, 
 and the _value_ as the Plugin's own implementation class name of said Capability:
@@ -200,10 +200,10 @@ and the _value_ as the Plugin's own implementation class name of said Capability
 
 namespace My\Composer;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Plugin\PluginInterface;
-use Composer\Plugin\Capable;
+use Tangram\Composer;
+use Tangram\IO\IOInterface;
+use Tangram\Plugin\PluginInterface;
+use Tangram\Plugin\Capable;
 
 class Plugin implements PluginInterface, Capable
 {
@@ -214,7 +214,7 @@ class Plugin implements PluginInterface, Capable
     public function getCapabilities()
     {
         return array(
-            'Composer\Plugin\Capability\CommandProvider' => 'My\Composer\CommandProvider',
+            'Tangram\Plugin\Capability\CommandProvider' => 'My\Tangram\CommandProvider',
         );
     }
 }
@@ -222,7 +222,7 @@ class Plugin implements PluginInterface, Capable
 
 ### Command provider
 
-The [`Composer\Plugin\Capability\CommandProvider`][9] capability allows to register
+The [`Tangram\Plugin\Capability\CommandProvider`][9] capability allows to register
 additional commands for Composer :
 
 ```php
@@ -230,10 +230,10 @@ additional commands for Composer :
 
 namespace My\Composer;
 
-use Composer\Plugin\Capability\CommandProvider as CommandProviderCapability;
+use Tangram\Plugin\Capability\CommandProvider as CommandProviderCapability;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Composer\Command\BaseCommand;
+use Tangram\Command\BaseCommand;
 
 class CommandProvider implements CommandProviderCapability
 {

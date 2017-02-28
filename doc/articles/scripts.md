@@ -122,8 +122,8 @@ that might be used to execute the PHP callbacks:
 
 namespace MyVendor;
 
-use Composer\Script\Event;
-use Composer\Installer\PackageEvent;
+use Tangram\Script\Event;
+use Tangram\Installer\PackageEvent;
 
 class MyClass
 {
@@ -162,21 +162,21 @@ set to 1.
 ## Event classes
 
 When an event is fired, your PHP callback receives as first argument a
-`Composer\EventDispatcher\Event` object. This object has a `getName()` method
+`Tangram\EventDispatcher\Event` object. This object has a `getName()` method
 that lets you retrieve the event name.
 
 Depending on the [script types](#event-names) you will get various event
 subclasses containing various getters with relevant data and associated
 objects:
 
-- Base class: [`Composer\EventDispatcher\Event`](https://getcomposer.org/apidoc/master/Composer/EventDispatcher/Event.html)
-- Command Events: [`Composer\Script\Event`](https://getcomposer.org/apidoc/master/Composer/Script/Event.html)
-- Installer Events: [`Composer\Installer\InstallerEvent`](https://getcomposer.org/apidoc/master/Composer/Installer/InstallerEvent.html)
-- Package Events: [`Composer\Installer\PackageEvent`](https://getcomposer.org/apidoc/master/Composer/Installer/PackageEvent.html)
+- Base class: [`Tangram\EventDispatcher\Event`](https://getcomposer.org/apidoc/master/Composer/EventDispatcher/Event.html)
+- Command Events: [`Tangram\Script\Event`](https://getcomposer.org/apidoc/master/Composer/Script/Event.html)
+- Installer Events: [`Tangram\Installer\InstallerEvent`](https://getcomposer.org/apidoc/master/Composer/Installer/InstallerEvent.html)
+- Package Events: [`Tangram\Installer\PackageEvent`](https://getcomposer.org/apidoc/master/Composer/Installer/PackageEvent.html)
 - Plugin Events:
-  - init: [`Composer\EventDispatcher\Event`](https://getcomposer.org/apidoc/master/Composer/EventDispatcher/Event.html)
-  - command: [`Composer\Plugin\CommandEvent`](https://getcomposer.org/apidoc/master/Composer/Plugin/CommandEvent.html)
-  - pre-file-download: [`Composer\Plugin\PreFileDownloadEvent`](https://getcomposer.org/apidoc/master/Composer/Plugin/PreFileDownloadEvent.html)
+  - init: [`Tangram\EventDispatcher\Event`](https://getcomposer.org/apidoc/master/Composer/EventDispatcher/Event.html)
+  - command: [`Tangram\Plugin\CommandEvent`](https://getcomposer.org/apidoc/master/Composer/Plugin/CommandEvent.html)
+  - pre-file-download: [`Tangram\Plugin\PreFileDownloadEvent`](https://getcomposer.org/apidoc/master/Composer/Plugin/PreFileDownloadEvent.html)
 
 ## Running scripts manually
 

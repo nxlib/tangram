@@ -12,13 +12,13 @@
 
 namespace Tangram\Package\Version;
 
-use Composer\Config;
-use Composer\Repository\Vcs\HgDriver;
-use Composer\IO\NullIO;
-use Composer\Semver\VersionParser as SemverVersionParser;
-use Composer\Util\Git as GitUtil;
-use Composer\Util\ProcessExecutor;
-use Composer\Util\Svn as SvnUtil;
+use Tangram\Config;
+use Tangram\Repository\Vcs\HgDriver;
+use Tangram\IO\NullIO;
+use Tangram\Semver\VersionParser as SemverVersionParser;
+use Tangram\Util\Git as GitUtil;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Util\Svn as SvnUtil;
 
 /**
  * Try to guess the current version number based on different VCS configuration.

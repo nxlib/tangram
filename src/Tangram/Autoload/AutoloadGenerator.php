@@ -12,15 +12,15 @@
 
 namespace Tangram\Autoload;
 
-use Composer\Config;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Installer\InstallationManager;
-use Composer\IO\IOInterface;
-use Composer\Package\AliasPackage;
-use Composer\Package\PackageInterface;
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Util\Filesystem;
-use Composer\Script\ScriptEvents;
+use Tangram\Config;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Installer\InstallationManager;
+use Tangram\IO\IOInterface;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\PackageInterface;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\Util\Filesystem;
+use Tangram\Script\ScriptEvents;
 
 /**
  * @author Igor Wiedler <igor@wiedler.ch>
@@ -575,7 +575,7 @@ class ComposerAutoloaderInit$suffix
 
     public static function loadClassLoader(\$class)
     {
-        if ('Composer\\Autoload\\ClassLoader' === \$class) {
+        if ('Tangram\\Autoload\\ClassLoader' === \$class) {
             require __DIR__ . '/ClassLoader.php';
         }
     }
@@ -587,7 +587,7 @@ class ComposerAutoloaderInit$suffix
         }
 
         spl_autoload_register(array('ComposerAutoloaderInit$suffix', 'loadClassLoader'), true, $prependAutoloader);
-        self::\$loader = \$loader = new \\Composer\\Autoload\\ClassLoader();
+        self::\$loader = \$loader = new \\Tangram\\Autoload\\ClassLoader();
         spl_autoload_unregister(array('ComposerAutoloaderInit$suffix', 'loadClassLoader'));
 
 
@@ -608,7 +608,7 @@ INCLUDE_PATH;
         if (\$useStaticLoader) {
             require_once __DIR__ . '/autoload_static.php';
 
-            call_user_func(\Composer\Autoload\ComposerStaticInit$suffix::getInitializer(\$loader));
+            call_user_func(\Tangram\Autoload\ComposerStaticInit$suffix::getInitializer(\$loader));
         } else {
 
 STATIC_INIT;
@@ -680,7 +680,7 @@ REGISTER_LOADER;
         if ($useIncludeFiles) {
             $file .= <<<INCLUDE_FILES
         if (\$useStaticLoader) {
-            \$includeFiles = Composer\Autoload\ComposerStaticInit$suffix::\$files;
+            \$includeFiles = Tangram\Autoload\ComposerStaticInit$suffix::\$files;
         } else {
             \$includeFiles = require __DIR__ . '/autoload_files.php';
         }
@@ -764,7 +764,7 @@ HEADER;
         $absoluteAppBaseDirCode = ' => ' . substr(var_export(rtrim($baseDir, '\\/') . '/', true), 0, -1);
 
         $initializer = '';
-        $prefix = "\0Composer\Autoload\ClassLoader\0";
+        $prefix = "\0Tangram\Autoload\ClassLoader\0";
         $prefixLen = strlen($prefix);
         if (file_exists($targetDir . '/autoload_files.php')) {
             $maps = array('files' => require $targetDir . '/autoload_files.php');

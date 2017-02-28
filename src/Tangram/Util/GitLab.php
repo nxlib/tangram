@@ -12,11 +12,11 @@
 
 namespace Tangram\Util;
 
-use Composer\IO\IOInterface;
-use Composer\Config;
-use Composer\Factory;
-use Composer\Downloader\TransportException;
-use Composer\Json\JsonFile;
+use Tangram\IO\IOInterface;
+use Tangram\Config;
+use Tangram\Factory;
+use Tangram\Downloader\TransportException;
+use Tangram\Json\JsonFile;
 
 /**
  * @author Roshan Gautam <roshan.gautam@hotmail.com>

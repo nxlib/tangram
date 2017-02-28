@@ -12,14 +12,14 @@
 
 namespace Tangram\Command;
 
-use Composer\Composer;
-use Composer\Factory;
-use Composer\Config;
-use Composer\Util\Filesystem;
-use Composer\SelfUpdate\Keys;
-use Composer\SelfUpdate\Versions;
-use Composer\IO\IOInterface;
-use Composer\Downloader\FilesystemException;
+use Tangram\Composer;
+use Tangram\Factory;
+use Tangram\Config;
+use Tangram\Util\Filesystem;
+use Tangram\SelfUpdate\Keys;
+use Tangram\SelfUpdate\Versions;
+use Tangram\IO\IOInterface;
+use Tangram\Downloader\FilesystemException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;

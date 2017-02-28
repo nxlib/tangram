@@ -12,9 +12,9 @@
 
 namespace Tangram;
 
-use Composer\Json\JsonFile;
-use Composer\Spdx\SpdxLicenses;
-use Composer\CaBundle\CaBundle;
+use Tangram\Json\JsonFile;
+use Tangram\Spdx\SpdxLicenses;
+use Tangram\CaBundle\CaBundle;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 use Seld\PharUtils\Timestamps;

@@ -247,8 +247,8 @@
 ### [1.0.0-alpha10] - 2015-04-14
 
   * Break: The following event classes are deprecated and you should update your script handlers to use the new ones in type hints:
-    - `Composer\Script\CommandEvent` is deprecated, use `Composer\Script\Event`
-    - `Composer\Script\PackageEvent` is deprecated, use `Composer\Installer\PackageEvent`
+    - `Tangram\Script\CommandEvent` is deprecated, use `Tangram\Script\Event`
+    - `Tangram\Script\PackageEvent` is deprecated, use `Tangram\Installer\PackageEvent`
   * Break: Output is now split between stdout and stderr. Any irrelevant output to each command is on stderr as per unix best practices.
   * Added support for npm-style semver operators (`^` and `-` ranges, ` ` = AND, `||` = OR)
   * Added --prefer-lowest to `update` command to allow testing a package with the lowest declared dependencies

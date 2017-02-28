@@ -15,16 +15,16 @@ namespace Tangram\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Composer\Downloader\ChangeReportInterface;
-use Composer\Downloader\DvcsDownloaderInterface;
-use Composer\Downloader\VcsCapableDownloaderInterface;
-use Composer\Package\Dumper\ArrayDumper;
-use Composer\Package\Version\VersionGuesser;
-use Composer\Package\Version\VersionParser;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
-use Composer\Script\ScriptEvents;
-use Composer\Util\ProcessExecutor;
+use Tangram\Downloader\ChangeReportInterface;
+use Tangram\Downloader\DvcsDownloaderInterface;
+use Tangram\Downloader\VcsCapableDownloaderInterface;
+use Tangram\Package\Dumper\ArrayDumper;
+use Tangram\Package\Version\VersionGuesser;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Script\ScriptEvents;
+use Tangram\Util\ProcessExecutor;
 
 /**
  * @author Tiago Ribeiro <tiago.ribeiro@seegno.com>

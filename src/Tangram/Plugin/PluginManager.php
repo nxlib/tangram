@@ -12,18 +12,18 @@
 
 namespace Tangram\Plugin;
 
-use Composer\Composer;
-use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\IO\IOInterface;
-use Composer\Package\Package;
-use Composer\Package\Version\VersionParser;
-use Composer\Repository\RepositoryInterface;
-use Composer\Package\AliasPackage;
-use Composer\Package\PackageInterface;
-use Composer\Package\Link;
-use Composer\Semver\Constraint\Constraint;
-use Composer\DependencyResolver\Pool;
-use Composer\Plugin\Capability\Capability;
+use Tangram\Composer;
+use Tangram\EventDispatcher\EventSubscriberInterface;
+use Tangram\IO\IOInterface;
+use Tangram\Package\Package;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\Link;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\DependencyResolver\Pool;
+use Tangram\Plugin\Capability\Capability;
 
 /**
  * Plugin manager
@@ -374,7 +374,7 @@ class PluginManager
             // FIXME these could use is_a and do the check *before* instantiating once drop support for php<5.3.9
             if (!$capabilityObj instanceof Capability || !$capabilityObj instanceof $capabilityClassName) {
                 throw new \RuntimeException(
-                    'Class ' . $capabilityClass . ' must implement both Composer\Plugin\Capability\Capability and '. $capabilityClassName . '.'
+                    'Class ' . $capabilityClass . ' must implement both Tangram\Plugin\Capability\Capability and '. $capabilityClassName . '.'
                 );
             }
 

@@ -12,13 +12,13 @@
 
 namespace Tangram\Repository\Vcs;
 
-use Composer\Config;
-use Composer\Cache;
-use Composer\IO\IOInterface;
-use Composer\Json\JsonFile;
-use Composer\Downloader\TransportException;
-use Composer\Util\RemoteFilesystem;
-use Composer\Util\GitLab;
+use Tangram\Config;
+use Tangram\Cache;
+use Tangram\IO\IOInterface;
+use Tangram\Json\JsonFile;
+use Tangram\Downloader\TransportException;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\Util\GitLab;
 
 /**
  * Driver for GitLab API, use the Git driver for local checkouts.

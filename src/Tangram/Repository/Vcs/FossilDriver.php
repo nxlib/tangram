@@ -12,11 +12,11 @@
 
 namespace Tangram\Repository\Vcs;
 
-use Composer\Config;
-use Composer\Json\JsonFile;
-use Composer\Util\ProcessExecutor;
-use Composer\Util\Filesystem;
-use Composer\IO\IOInterface;
+use Tangram\Config;
+use Tangram\Json\JsonFile;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Util\Filesystem;
+use Tangram\IO\IOInterface;
 
 /**
  * @author BohwaZ <http://bohwaz.net/>

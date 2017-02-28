@@ -12,7 +12,7 @@
 
 namespace Tangram\Repository;
 
-use Composer\Package\AliasPackage;
+use Tangram\Package\AliasPackage;
 
 /**
  * Writable array repository.

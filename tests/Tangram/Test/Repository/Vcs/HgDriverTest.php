@@ -12,15 +12,15 @@
 
 namespace Tangram\Test\Repository\Vcs;
 
-use Composer\Repository\Vcs\HgDriver;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Config;
+use Tangram\Repository\Vcs\HgDriver;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Config;
 
 class HgDriverTest extends TestCase
 {
 
-    /** @type \Composer\IO\IOInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @type \Tangram\IO\IOInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $io;
     /** @type Config */
     private $config;
@@ -29,7 +29,7 @@ class HgDriverTest extends TestCase
 
     public function setUp()
     {
-        $this->io = $this->getMock('Composer\IO\IOInterface');
+        $this->io = $this->getMock('Tangram\IO\IOInterface');
         $this->home = $this->getUniqueTmpDirectory();
         $this->config = new Config();
         $this->config->merge(array(

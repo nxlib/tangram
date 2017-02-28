@@ -12,7 +12,7 @@
 
 namespace Tangram\Plugin;
 
-use Composer\EventDispatcher\Event;
+use Tangram\EventDispatcher\Event;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

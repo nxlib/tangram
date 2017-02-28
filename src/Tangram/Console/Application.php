@@ -12,21 +12,21 @@
 
 namespace Tangram\Console;
 
-use Composer\Util\Platform;
-use Composer\Util\Silencer;
+use Tangram\Util\Platform;
+use Tangram\Util\Silencer;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Composer\Command;
-use Composer\Composer;
-use Composer\Factory;
-use Composer\IO\IOInterface;
-use Composer\IO\ConsoleIO;
-use Composer\Json\JsonValidationException;
-use Composer\Util\ErrorHandler;
-use Composer\EventDispatcher\ScriptExecutionException;
-use Composer\Exception\NoSslException;
+use Tangram\Command;
+use Tangram\Composer;
+use Tangram\Factory;
+use Tangram\IO\IOInterface;
+use Tangram\IO\ConsoleIO;
+use Tangram\Json\JsonValidationException;
+use Tangram\Util\ErrorHandler;
+use Tangram\EventDispatcher\ScriptExecutionException;
+use Tangram\Exception\NoSslException;
 
 /**
  * The console application that handles the commands
@@ -206,7 +206,7 @@ class Application extends BaseApplication
             if (is_file($file) && is_readable($file) && is_array($composer = json_decode(file_get_contents($file), true))) {
                 if (isset($composer['scripts']) && is_array($composer['scripts'])) {
                     foreach ($composer['scripts'] as $script => $dummy) {
-                        if (!defined('Composer\Script\ScriptEvents::'.str_replace('-', '_', strtoupper($script)))) {
+                        if (!defined('Tangram\Script\ScriptEvents::'.str_replace('-', '_', strtoupper($script)))) {
                             if ($this->has($script)) {
                                 $io->writeError('<warning>A script named '.$script.' would override a Composer command and has been skipped</warning>');
                             } else {
@@ -301,7 +301,7 @@ class Application extends BaseApplication
      * @param  bool                    $required
      * @param  bool|null               $disablePlugins
      * @throws JsonValidationException
-     * @return \Composer\Composer
+     * @return \Tangram\Composer
      */
     public function getComposer($required = true, $disablePlugins = null)
     {
@@ -430,14 +430,14 @@ class Application extends BaseApplication
 
         if (null !== $composer) {
             $pm = $composer->getPluginManager();
-            foreach ($pm->getPluginCapabilities('Composer\Plugin\Capability\CommandProvider', array('composer' => $composer, 'io' => $this->io)) as $capability) {
+            foreach ($pm->getPluginCapabilities('Tangram\Plugin\Capability\CommandProvider', array('composer' => $composer, 'io' => $this->io)) as $capability) {
                 $newCommands = $capability->getCommands();
                 if (!is_array($newCommands)) {
                     throw new \UnexpectedValueException('Plugin capability '.get_class($capability).' failed to return an array from getCommands');
                 }
                 foreach ($newCommands as $command) {
                     if (!$command instanceof Command\BaseCommand) {
-                        throw new \UnexpectedValueException('Plugin capability '.get_class($capability).' returned an invalid value, we expected an array of Composer\Command\BaseCommand objects');
+                        throw new \UnexpectedValueException('Plugin capability '.get_class($capability).' returned an invalid value, we expected an array of Tangram\Command\BaseCommand objects');
                     }
                 }
                 $commands = array_merge($commands, $newCommands);

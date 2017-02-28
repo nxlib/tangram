@@ -18,10 +18,10 @@
 
 namespace Tangram\Test\Autoload;
 
-use Composer\Autoload\ClassMapGenerator;
-use Composer\TestCase;
+use Tangram\Autoload\ClassMapGenerator;
+use Tangram\TestCase;
 use Symfony\Component\Finder\Finder;
-use Composer\Util\Filesystem;
+use Tangram\Util\Filesystem;
 
 class ClassMapGeneratorTest extends TestCase
 {
@@ -134,7 +134,7 @@ class ClassMapGeneratorTest extends TestCase
      */
     public function testFindClassesThrowsWhenFileDoesNotExist()
     {
-        $r = new \ReflectionClass('Composer\\Autoload\\ClassMapGenerator');
+        $r = new \ReflectionClass('Tangram\\Autoload\\ClassMapGenerator');
         $find = $r->getMethod('findClasses');
         $find->setAccessible(true);
 
@@ -151,7 +151,7 @@ class ClassMapGeneratorTest extends TestCase
         $finder = new Finder();
         $finder->files()->in($tempDir);
 
-        $io = $this->getMockBuilder('Composer\IO\ConsoleIO')
+        $io = $this->getMockBuilder('Tangram\IO\ConsoleIO')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -208,7 +208,7 @@ class ClassMapGeneratorTest extends TestCase
             file_put_contents($tempDir . '/' . $keyword . '/A.php', "<?php\nclass A {}");
         }
 
-        $io = $this->getMockBuilder('Composer\IO\ConsoleIO')
+        $io = $this->getMockBuilder('Tangram\IO\ConsoleIO')
             ->disableOriginalConstructor()
             ->getMock();
 

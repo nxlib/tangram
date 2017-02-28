@@ -12,31 +12,31 @@
 
 namespace Tangram\Command;
 
-use Composer\DependencyResolver\Pool;
-use Composer\DependencyResolver\DefaultPolicy;
-use Composer\Package\CompletePackageInterface;
-use Composer\Package\Version\VersionParser;
-use Composer\Package\BasePackage;
-use Composer\Package\Version\VersionSelector;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
-use Composer\Package\PackageInterface;
-use Composer\Semver\Constraint\ConstraintInterface;
-use Composer\Util\Platform;
+use Tangram\DependencyResolver\Pool;
+use Tangram\DependencyResolver\DefaultPolicy;
+use Tangram\Package\CompletePackageInterface;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Package\BasePackage;
+use Tangram\Package\Version\VersionSelector;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Package\PackageInterface;
+use Tangram\Semver\Constraint\ConstraintInterface;
+use Tangram\Util\Platform;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Composer\Repository\ArrayRepository;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\ComposerRepository;
-use Composer\Repository\PlatformRepository;
-use Composer\Repository\RepositoryInterface;
-use Composer\Repository\RepositoryFactory;
-use Composer\Spdx\SpdxLicenses;
-use Composer\Composer;
-use Composer\Semver\Semver;
+use Tangram\Repository\ArrayRepository;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Repository\ComposerRepository;
+use Tangram\Repository\PlatformRepository;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Repository\RepositoryFactory;
+use Tangram\Spdx\SpdxLicenses;
+use Tangram\Composer;
+use Tangram\Semver\Semver;
 
 /**
  * @author Robert Schönthal <seroscho@googlemail.com>

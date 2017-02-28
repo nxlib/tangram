@@ -12,9 +12,9 @@
 
 namespace Tangram\DependencyResolver;
 
-use Composer\IO\IOInterface;
-use Composer\Repository\RepositoryInterface;
-use Composer\Repository\PlatformRepository;
+use Tangram\IO\IOInterface;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Repository\PlatformRepository;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

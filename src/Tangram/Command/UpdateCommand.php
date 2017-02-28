@@ -12,11 +12,11 @@
 
 namespace Tangram\Command;
 
-use Composer\Composer;
-use Composer\Installer;
-use Composer\IO\IOInterface;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
+use Tangram\Composer;
+use Tangram\Installer;
+use Tangram\IO\IOInterface;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

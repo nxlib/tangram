@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Package\Archiver;
 
-use Composer\Package\Archiver\HgExcludeFilter;
+use Tangram\Package\Archiver\HgExcludeFilter;
 
 class HgExcludeFilterTest extends \PHPUnit_Framework_TestCase
 {

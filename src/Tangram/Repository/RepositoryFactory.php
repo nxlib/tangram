@@ -12,12 +12,12 @@
 
 namespace Tangram\Repository;
 
-use Composer\Factory;
-use Composer\IO\IOInterface;
-use Composer\Config;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Util\RemoteFilesystem;
-use Composer\Json\JsonFile;
+use Tangram\Factory;
+use Tangram\IO\IOInterface;
+use Tangram\Config;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\Json\JsonFile;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>
@@ -114,18 +114,18 @@ class RepositoryFactory
     public static function manager(IOInterface $io, Config $config, EventDispatcher $eventDispatcher = null, RemoteFilesystem $rfs = null)
     {
         $rm = new RepositoryManager($io, $config, $eventDispatcher, $rfs);
-        $rm->setRepositoryClass('composer', 'Composer\Repository\ComposerRepository');
-        $rm->setRepositoryClass('vcs', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('package', 'Composer\Repository\PackageRepository');
-        $rm->setRepositoryClass('pear', 'Composer\Repository\PearRepository');
-        $rm->setRepositoryClass('git', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('gitlab', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('svn', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('fossil', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('perforce', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('hg', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('artifact', 'Composer\Repository\ArtifactRepository');
-        $rm->setRepositoryClass('path', 'Composer\Repository\PathRepository');
+        $rm->setRepositoryClass('composer', 'Tangram\Repository\ComposerRepository');
+        $rm->setRepositoryClass('vcs', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('package', 'Tangram\Repository\PackageRepository');
+        $rm->setRepositoryClass('pear', 'Tangram\Repository\PearRepository');
+        $rm->setRepositoryClass('git', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('gitlab', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('svn', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('fossil', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('perforce', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('hg', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('artifact', 'Tangram\Repository\ArtifactRepository');
+        $rm->setRepositoryClass('path', 'Tangram\Repository\PathRepository');
 
         return $rm;
     }

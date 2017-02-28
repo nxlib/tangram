@@ -12,8 +12,8 @@
 
 namespace Tangram\Package;
 
-use Composer\Repository\RepositoryInterface;
-use Composer\Repository\PlatformRepository;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Repository\PlatformRepository;
 
 /**
  * Base class for packages providing name storage and default match implementation

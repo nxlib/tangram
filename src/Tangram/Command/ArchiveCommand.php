@@ -12,15 +12,15 @@
 
 namespace Tangram\Command;
 
-use Composer\Factory;
-use Composer\IO\IOInterface;
-use Composer\Config;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\RepositoryFactory;
-use Composer\Script\ScriptEvents;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
-use Composer\Util\Filesystem;
+use Tangram\Factory;
+use Tangram\IO\IOInterface;
+use Tangram\Config;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Repository\RepositoryFactory;
+use Tangram\Script\ScriptEvents;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Util\Filesystem;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

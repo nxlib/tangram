@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Package\Archiver;
 
-use Composer\Package\Archiver\ArchivableFilesFinder;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\Package\Archiver\ArchivableFilesFinder;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 use Symfony\Component\Process\Process;
 
 class ArchivableFilesFinderTest extends TestCase

@@ -12,16 +12,16 @@
 
 namespace Tangram\Repository;
 
-use Composer\Downloader\TransportException;
-use Composer\Repository\Vcs\VcsDriverInterface;
-use Composer\Package\Version\VersionParser;
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\Loader\ValidatingArrayLoader;
-use Composer\Package\Loader\InvalidPackageException;
-use Composer\Package\Loader\LoaderInterface;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\IO\IOInterface;
-use Composer\Config;
+use Tangram\Downloader\TransportException;
+use Tangram\Repository\Vcs\VcsDriverInterface;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\Loader\ValidatingArrayLoader;
+use Tangram\Package\Loader\InvalidPackageException;
+use Tangram\Package\Loader\LoaderInterface;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\IO\IOInterface;
+use Tangram\Config;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>
@@ -46,16 +46,16 @@ class VcsRepository extends ArrayRepository implements ConfigurableRepositoryInt
     {
         parent::__construct();
         $this->drivers = $drivers ?: array(
-            'github'        => 'Composer\Repository\Vcs\GitHubDriver',
-            'gitlab'        => 'Composer\Repository\Vcs\GitLabDriver',
-            'git-bitbucket' => 'Composer\Repository\Vcs\GitBitbucketDriver',
-            'git'           => 'Composer\Repository\Vcs\GitDriver',
-            'hg-bitbucket'  => 'Composer\Repository\Vcs\HgBitbucketDriver',
-            'hg'            => 'Composer\Repository\Vcs\HgDriver',
-            'perforce'      => 'Composer\Repository\Vcs\PerforceDriver',
-            'fossil'        => 'Composer\Repository\Vcs\FossilDriver',
+            'github'        => 'Tangram\Repository\Vcs\GitHubDriver',
+            'gitlab'        => 'Tangram\Repository\Vcs\GitLabDriver',
+            'git-bitbucket' => 'Tangram\Repository\Vcs\GitBitbucketDriver',
+            'git'           => 'Tangram\Repository\Vcs\GitDriver',
+            'hg-bitbucket'  => 'Tangram\Repository\Vcs\HgBitbucketDriver',
+            'hg'            => 'Tangram\Repository\Vcs\HgDriver',
+            'perforce'      => 'Tangram\Repository\Vcs\PerforceDriver',
+            'fossil'        => 'Tangram\Repository\Vcs\FossilDriver',
             // svn must be last because identifying a subversion server for sure is practically impossible
-            'svn'           => 'Composer\Repository\Vcs\SvnDriver',
+            'svn'           => 'Tangram\Repository\Vcs\SvnDriver',
         );
 
         $this->url = $repoConfig['url'];

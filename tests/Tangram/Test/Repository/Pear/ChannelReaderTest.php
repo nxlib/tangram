@@ -12,17 +12,17 @@
 
 namespace Tangram\Test\Repository\Pear;
 
-use Composer\Repository\Pear\ChannelInfo;
-use Composer\Repository\Pear\DependencyConstraint;
-use Composer\Repository\Pear\DependencyInfo;
-use Composer\Repository\Pear\PackageInfo;
-use Composer\Repository\Pear\ReleaseInfo;
-use Composer\TestCase;
-use Composer\Semver\VersionParser;
-use Composer\Semver\Constraint\Constraint;
-use Composer\Package\Link;
-use Composer\Package\CompletePackage;
-use Composer\Test\Mock\RemoteFilesystemMock;
+use Tangram\Repository\Pear\ChannelInfo;
+use Tangram\Repository\Pear\DependencyConstraint;
+use Tangram\Repository\Pear\DependencyInfo;
+use Tangram\Repository\Pear\PackageInfo;
+use Tangram\Repository\Pear\ReleaseInfo;
+use Tangram\TestCase;
+use Tangram\Semver\VersionParser;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\Package\Link;
+use Tangram\Package\CompletePackage;
+use Tangram\Test\Mock\RemoteFilesystemMock;
 
 class ChannelReaderTest extends TestCase
 {
@@ -34,7 +34,7 @@ class ChannelReaderTest extends TestCase
             'http://test.loc/rest11/c/Default/packagesinfo.xml' => file_get_contents(__DIR__ . '/Fixtures/Rest1.1/packagesinfo.xml'),
         ));
 
-        $reader = new \Composer\Repository\Pear\ChannelReader($rfs);
+        $reader = new \Tangram\Repository\Pear\ChannelReader($rfs);
 
         $channelInfo = $reader->read('http://pear.net/');
         $packages = $channelInfo->getPackages();
@@ -60,7 +60,7 @@ class ChannelReaderTest extends TestCase
             'http://test.loc/rest11/c/Default/packagesinfo.xml' => file_get_contents(__DIR__ . '/Fixtures/Rest1.1/packagesinfo.xml'),
         ));
 
-        $reader = new \Composer\Repository\Pear\ChannelReader($rfs);
+        $reader = new \Tangram\Repository\Pear\ChannelReader($rfs);
 
         $reader->read('http://pear.1.0.net/');
         $reader->read('http://pear.1.1.net/');
@@ -68,7 +68,7 @@ class ChannelReaderTest extends TestCase
 
     public function testShouldCreatePackages()
     {
-        $reader = $this->getMockBuilder('\Composer\Repository\PearRepository')
+        $reader = $this->getMockBuilder('\Tangram\Repository\PearRepository')
             ->disableOriginalConstructor()
             ->getMock();
 

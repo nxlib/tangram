@@ -12,11 +12,11 @@
 
 namespace Tangram\Command;
 
-use Composer\Json\JsonFile;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
-use Composer\Package\PackageInterface;
-use Composer\Repository\RepositoryInterface;
+use Tangram\Json\JsonFile;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Package\PackageInterface;
+use Tangram\Repository\RepositoryInterface;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

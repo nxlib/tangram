@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Util\TlsHelper;
+use Tangram\Util\TlsHelper;
 
 class TlsHelperTest extends \PHPUnit_Framework_TestCase
 {

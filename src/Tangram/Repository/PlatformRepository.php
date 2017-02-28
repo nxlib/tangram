@@ -12,12 +12,12 @@
 
 namespace Tangram\Repository;
 
-use Composer\XdebugHandler;
-use Composer\Package\CompletePackage;
-use Composer\Package\PackageInterface;
-use Composer\Package\Version\VersionParser;
-use Composer\Plugin\PluginInterface;
-use Composer\Util\Silencer;
+use Tangram\XdebugHandler;
+use Tangram\Package\CompletePackage;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Plugin\PluginInterface;
+use Tangram\Util\Silencer;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

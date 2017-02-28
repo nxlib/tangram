@@ -12,10 +12,10 @@
 
 namespace Tangram\Repository;
 
-use Composer\IO\IOInterface;
-use Composer\Json\JsonFile;
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\Loader\LoaderInterface;
+use Tangram\IO\IOInterface;
+use Tangram\Json\JsonFile;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\Loader\LoaderInterface;
 
 /**
  * @author Serge Smertin <serg.smertin@gmail.com>

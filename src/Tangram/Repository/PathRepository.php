@@ -12,14 +12,14 @@
 
 namespace Tangram\Repository;
 
-use Composer\Config;
-use Composer\IO\IOInterface;
-use Composer\Json\JsonFile;
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\Version\VersionGuesser;
-use Composer\Package\Version\VersionParser;
-use Composer\Util\Platform;
-use Composer\Util\ProcessExecutor;
+use Tangram\Config;
+use Tangram\IO\IOInterface;
+use Tangram\Json\JsonFile;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\Version\VersionGuesser;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Util\Platform;
+use Tangram\Util\ProcessExecutor;
 
 /**
  * This repository allows installing local packages that are not necessarily under their own VCS.

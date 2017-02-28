@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Package;
 
-use Composer\Package\Locker;
-use Composer\IO\NullIO;
+use Tangram\Package\Locker;
+use Tangram\IO\NullIO;
 
 class LockerTest extends \PHPUnit_Framework_TestCase
 {
@@ -259,27 +259,27 @@ class LockerTest extends \PHPUnit_Framework_TestCase
 
     private function createJsonFileMock()
     {
-        return $this->getMockBuilder('Composer\Json\JsonFile')
+        return $this->getMockBuilder('Tangram\Json\JsonFile')
             ->disableOriginalConstructor()
             ->getMock();
     }
 
     private function createRepositoryManagerMock()
     {
-        $mock = $this->getMockBuilder('Composer\Repository\RepositoryManager')
+        $mock = $this->getMockBuilder('Tangram\Repository\RepositoryManager')
             ->disableOriginalConstructor()
             ->getMock();
 
         $mock->expects($this->any())
             ->method('getLocalRepository')
-            ->will($this->returnValue($this->getMockBuilder('Composer\Repository\ArrayRepository')->getMock()));
+            ->will($this->returnValue($this->getMockBuilder('Tangram\Repository\ArrayRepository')->getMock()));
 
         return $mock;
     }
 
     private function createInstallationManagerMock()
     {
-        $mock = $this->getMockBuilder('Composer\Installer\InstallationManager')
+        $mock = $this->getMockBuilder('Tangram\Installer\InstallationManager')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -288,7 +288,7 @@ class LockerTest extends \PHPUnit_Framework_TestCase
 
     private function createPackageMock()
     {
-        return $this->getMockBuilder('Composer\Package\PackageInterface')
+        return $this->getMockBuilder('Tangram\Package\PackageInterface')
             ->getMock();
     }
 

@@ -12,12 +12,12 @@
 
 namespace Tangram\Command;
 
-use Composer\Config\JsonConfigSource;
-use Composer\Installer;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
-use Composer\Json\JsonFile;
-use Composer\Factory;
+use Tangram\Config\JsonConfigSource;
+use Tangram\Installer;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Json\JsonFile;
+use Tangram\Factory;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;

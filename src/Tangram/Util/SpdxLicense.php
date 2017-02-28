@@ -12,12 +12,12 @@
 
 namespace Tangram\Util;
 
-use Composer\Spdx\SpdxLicenses;
+use Tangram\Spdx\SpdxLicenses;
 
-trigger_error('The ' . __NAMESPACE__ . '\SpdxLicense class is deprecated, use Composer\Spdx\SpdxLicenses instead.', E_USER_DEPRECATED);
+trigger_error('The ' . __NAMESPACE__ . '\SpdxLicense class is deprecated, use Tangram\Spdx\SpdxLicenses instead.', E_USER_DEPRECATED);
 
 /**
- * @deprecated use Composer\Spdx\SpdxLicenses instead
+ * @deprecated use Tangram\Spdx\SpdxLicenses instead
  */
 class SpdxLicense extends SpdxLicenses
 {

@@ -12,20 +12,20 @@
 
 namespace Tangram\Test\Package\Archiver;
 
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Util\ProcessExecutor;
-use Composer\Package\Package;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Package\Package;
 
 abstract class ArchiverTest extends TestCase
 {
     /**
-     * @var \Composer\Util\Filesystem
+     * @var \Tangram\Util\Filesystem
      */
     protected $filesystem;
 
     /**
-     * @var \Composer\Util\ProcessExecutor
+     * @var \Tangram\Util\ProcessExecutor
      */
     protected $process;
 
@@ -49,7 +49,7 @@ abstract class ArchiverTest extends TestCase
     /**
      * Util method to quickly setup a package using the source path built.
      *
-     * @return \Composer\Package\Package
+     * @return \Tangram\Package\Package
      */
     protected function setupPackage()
     {

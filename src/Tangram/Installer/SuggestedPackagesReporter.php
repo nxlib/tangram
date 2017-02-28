@@ -12,9 +12,9 @@
 
 namespace Tangram\Installer;
 
-use Composer\IO\IOInterface;
-use Composer\Package\PackageInterface;
-use Composer\Repository\RepositoryInterface;
+use Tangram\IO\IOInterface;
+use Tangram\Package\PackageInterface;
+use Tangram\Repository\RepositoryInterface;
 
 /**
  * Add suggested packages from different places to output them in the end.

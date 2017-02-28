@@ -12,13 +12,13 @@
 
 namespace Tangram\Repository\Vcs;
 
-use Composer\Json\JsonFile;
-use Composer\Util\ProcessExecutor;
-use Composer\Util\Filesystem;
-use Composer\Util\Git as GitUtil;
-use Composer\IO\IOInterface;
-use Composer\Cache;
-use Composer\Config;
+use Tangram\Json\JsonFile;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Git as GitUtil;
+use Tangram\IO\IOInterface;
+use Tangram\Cache;
+use Tangram\Config;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

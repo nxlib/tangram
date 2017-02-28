@@ -12,20 +12,20 @@
 
 namespace Tangram\Command;
 
-use Composer\Composer;
-use Composer\Factory;
-use Composer\Config;
-use Composer\Downloader\TransportException;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
-use Composer\Util\ConfigValidator;
-use Composer\Util\IniHelper;
-use Composer\Util\ProcessExecutor;
-use Composer\Util\RemoteFilesystem;
-use Composer\Util\StreamContextFactory;
-use Composer\SelfUpdate\Keys;
-use Composer\SelfUpdate\Versions;
-use Composer\IO\NullIO;
+use Tangram\Composer;
+use Tangram\Factory;
+use Tangram\Config;
+use Tangram\Downloader\TransportException;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Util\ConfigValidator;
+use Tangram\Util\IniHelper;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\Util\StreamContextFactory;
+use Tangram\SelfUpdate\Keys;
+use Tangram\SelfUpdate\Versions;
+use Tangram\IO\NullIO;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

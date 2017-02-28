@@ -12,11 +12,11 @@
 
 namespace Tangram\Test\Repository\Vcs;
 
-use Composer\Repository\Vcs\PerforceDriver;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Config;
-use Composer\Util\Perforce;
+use Tangram\Repository\Vcs\PerforceDriver;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Config;
+use Tangram\Util\Perforce;
 
 /**
  * @author Matt Whittom <Matt.Whittom@veteransunited.com>
@@ -91,24 +91,24 @@ class PerforceDriverTest extends TestCase
 
     protected function getMockIOInterface()
     {
-        return $this->getMock('Composer\IO\IOInterface');
+        return $this->getMock('Tangram\IO\IOInterface');
     }
 
     protected function getMockProcessExecutor()
     {
-        return $this->getMock('Composer\Util\ProcessExecutor');
+        return $this->getMock('Tangram\Util\ProcessExecutor');
     }
 
     protected function getMockRemoteFilesystem()
     {
-        return $this->getMockBuilder('Composer\Util\RemoteFilesystem')->disableOriginalConstructor()->getMock();
+        return $this->getMockBuilder('Tangram\Util\RemoteFilesystem')->disableOriginalConstructor()->getMock();
     }
 
     protected function getMockPerforce()
     {
         $methods = array('p4login', 'checkStream', 'writeP4ClientSpec', 'connectClient', 'getComposerInformation', 'cleanupClientSpec');
 
-        return $this->getMockBuilder('Composer\Util\Perforce', $methods)->disableOriginalConstructor()->getMock();
+        return $this->getMockBuilder('Tangram\Util\Perforce', $methods)->disableOriginalConstructor()->getMock();
     }
 
     public function testInitializeCapturesVariablesFromRepoConfig()
@@ -160,7 +160,7 @@ class PerforceDriverTest extends TestCase
     /**
      * Test that supports() simply return false.
      *
-     * @covers \Composer\Repository\Vcs\PerforceDriver::supports
+     * @covers \Tangram\Repository\Vcs\PerforceDriver::supports
      *
      * @return void
      */

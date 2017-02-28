@@ -15,7 +15,7 @@ namespace Tangram\Script;
 /**
  * The Command Event.
  *
- * @deprecated use Composer\Script\Event instead
+ * @deprecated use Tangram\Script\Event instead
  */
 class CommandEvent extends Event
 {

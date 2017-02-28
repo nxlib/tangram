@@ -12,23 +12,23 @@
 
 namespace Tangram\Repository;
 
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\PackageInterface;
-use Composer\Package\AliasPackage;
-use Composer\Package\Version\VersionParser;
-use Composer\DependencyResolver\Pool;
-use Composer\Json\JsonFile;
-use Composer\Cache;
-use Composer\Config;
-use Composer\Factory;
-use Composer\IO\IOInterface;
-use Composer\Util\RemoteFilesystem;
-use Composer\Plugin\PluginEvents;
-use Composer\Plugin\PreFileDownloadEvent;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Downloader\TransportException;
-use Composer\Semver\Constraint\ConstraintInterface;
-use Composer\Semver\Constraint\Constraint;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\Version\VersionParser;
+use Tangram\DependencyResolver\Pool;
+use Tangram\Json\JsonFile;
+use Tangram\Cache;
+use Tangram\Config;
+use Tangram\Factory;
+use Tangram\IO\IOInterface;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Plugin\PreFileDownloadEvent;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Downloader\TransportException;
+use Tangram\Semver\Constraint\ConstraintInterface;
+use Tangram\Semver\Constraint\Constraint;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>
@@ -382,7 +382,7 @@ class ComposerRepository extends ArrayRepository implements ConfigurableReposito
                     }
 
                     // load acceptable packages in the providers
-                    $package = $this->createPackage($version, 'Composer\Package\CompletePackage');
+                    $package = $this->createPackage($version, 'Tangram\Package\CompletePackage');
                     $package->setRepository($this);
 
                     if ($package instanceof AliasPackage) {
@@ -443,7 +443,7 @@ class ComposerRepository extends ArrayRepository implements ConfigurableReposito
         $repoData = $this->loadDataFromServer();
 
         foreach ($repoData as $package) {
-            $this->addPackage($this->createPackage($package, 'Composer\Package\CompletePackage'));
+            $this->addPackage($this->createPackage($package, 'Tangram\Package\CompletePackage'));
         }
     }
 
@@ -619,7 +619,7 @@ class ComposerRepository extends ArrayRepository implements ConfigurableReposito
         return $packages;
     }
 
-    protected function createPackage(array $data, $class = 'Composer\Package\CompletePackage')
+    protected function createPackage(array $data, $class = 'Tangram\Package\CompletePackage')
     {
         try {
             if (!isset($data['notification-url'])) {

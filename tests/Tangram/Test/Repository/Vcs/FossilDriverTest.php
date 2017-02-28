@@ -12,11 +12,11 @@
 
 namespace Tangram\Test\Repository\Vcs;
 
-use Composer\Repository\Vcs\FossilDriver;
-use Composer\Config;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Util\Platform;
+use Tangram\Repository\Vcs\FossilDriver;
+use Tangram\Config;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Platform;
 
 class FossilDriverTest extends TestCase
 {
@@ -64,7 +64,7 @@ class FossilDriverTest extends TestCase
     public function testSupport($url, $assertion)
     {
         $config = new Config();
-        $result = FossilDriver::supports($this->getMock('Composer\IO\IOInterface'), $config, $url);
+        $result = FossilDriver::supports($this->getMock('Tangram\IO\IOInterface'), $config, $url);
         $this->assertEquals($assertion, $result);
     }
 }

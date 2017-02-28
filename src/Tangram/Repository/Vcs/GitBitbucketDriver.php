@@ -12,9 +12,9 @@
 
 namespace Tangram\Repository\Vcs;
 
-use Composer\Config;
-use Composer\Json\JsonFile;
-use Composer\IO\IOInterface;
+use Tangram\Config;
+use Tangram\Json\JsonFile;
+use Tangram\IO\IOInterface;
 
 /**
  * @author Per Bernhardt <plb@webfactory.de>

@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Package\Version;
 
-use Composer\Config;
-use Composer\Package\Version\VersionGuesser;
-use Composer\Semver\VersionParser;
+use Tangram\Config;
+use Tangram\Package\Version\VersionGuesser;
+use Tangram\Semver\VersionParser;
 
 class VersionGuesserTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,7 +30,7 @@ class VersionGuesserTest extends \PHPUnit_Framework_TestCase
         $commitHash = '03a15d220da53c52eddd5f32ffca64a7b3801bea';
         $anotherCommitHash = '03a15d220da53c52eddd5f32ffca64a7b3801bea';
 
-        $executor = $this->getMockBuilder('\\Composer\\Util\\ProcessExecutor')
+        $executor = $this->getMockBuilder('\\Tangram\\Util\\ProcessExecutor')
             ->setMethods(array('execute'))
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
@@ -63,7 +63,7 @@ class VersionGuesserTest extends \PHPUnit_Framework_TestCase
     {
         $commitHash = '03a15d220da53c52eddd5f32ffca64a7b3801bea';
 
-        $executor = $this->getMockBuilder('\\Composer\\Util\\ProcessExecutor')
+        $executor = $this->getMockBuilder('\\Tangram\\Util\\ProcessExecutor')
             ->setMethods(array('execute'))
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
@@ -95,7 +95,7 @@ class VersionGuesserTest extends \PHPUnit_Framework_TestCase
     {
         $commitHash = '03a15d220da53c52eddd5f32ffca64a7b3801bea';
 
-        $executor = $this->getMockBuilder('\\Composer\\Util\\ProcessExecutor')
+        $executor = $this->getMockBuilder('\\Tangram\\Util\\ProcessExecutor')
             ->setMethods(array('execute'))
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
@@ -125,7 +125,7 @@ class VersionGuesserTest extends \PHPUnit_Framework_TestCase
 
     public function testTagBecomesVersion()
     {
-        $executor = $this->getMockBuilder('\\Composer\\Util\\ProcessExecutor')
+        $executor = $this->getMockBuilder('\\Tangram\\Util\\ProcessExecutor')
             ->setMethods(array('execute'))
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
@@ -166,7 +166,7 @@ class VersionGuesserTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidTagBecomesVersion()
     {
-        $executor = $this->getMockBuilder('\\Composer\\Util\\ProcessExecutor')
+        $executor = $this->getMockBuilder('\\Tangram\\Util\\ProcessExecutor')
             ->setMethods(array('execute'))
             ->disableArgumentCloning()
             ->disableOriginalConstructor()

@@ -12,7 +12,7 @@
 
 namespace Tangram\Json;
 
-use Composer\Repository\PlatformRepository;
+use Tangram\Repository\PlatformRepository;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

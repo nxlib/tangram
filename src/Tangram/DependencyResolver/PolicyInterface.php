@@ -12,7 +12,7 @@
 
 namespace Tangram\DependencyResolver;
 
-use Composer\Package\PackageInterface;
+use Tangram\Package\PackageInterface;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

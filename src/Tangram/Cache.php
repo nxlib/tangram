@@ -12,9 +12,9 @@
 
 namespace Tangram;
 
-use Composer\IO\IOInterface;
-use Composer\Util\Filesystem;
-use Composer\Util\Silencer;
+use Tangram\IO\IOInterface;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Silencer;
 use Symfony\Component\Finder\Finder;
 
 /**

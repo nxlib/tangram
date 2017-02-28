@@ -12,12 +12,12 @@
 
 namespace Tangram\Package\LinkConstraint;
 
-use Composer\Semver\Constraint\ConstraintInterface;
+use Tangram\Semver\Constraint\ConstraintInterface;
 
-trigger_error('The ' . __NAMESPACE__ . '\LinkConstraintInterface interface is deprecated, use Composer\Semver\Constraint\ConstraintInterface instead.', E_USER_DEPRECATED);
+trigger_error('The ' . __NAMESPACE__ . '\LinkConstraintInterface interface is deprecated, use Tangram\Semver\Constraint\ConstraintInterface instead.', E_USER_DEPRECATED);
 
 /**
- * @deprecated use Composer\Semver\Constraint\ConstraintInterface instead
+ * @deprecated use Tangram\Semver\Constraint\ConstraintInterface instead
  */
 interface LinkConstraintInterface extends ConstraintInterface
 {

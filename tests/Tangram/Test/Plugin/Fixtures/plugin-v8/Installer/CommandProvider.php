@@ -2,19 +2,19 @@
 
 namespace Installer;
 
-use Composer\Plugin\Capability\CommandProvider as CommandProviderCapability;
+use Tangram\Plugin\Capability\CommandProvider as CommandProviderCapability;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Composer\Command\BaseCommand;
+use Tangram\Command\BaseCommand;
 
 class CommandProvider implements CommandProviderCapability
 {
     public function __construct(array $args)
     {
-        if (!$args['composer'] instanceof \Composer\Composer) {
+        if (!$args['composer'] instanceof \Tangram\Composer) {
             throw new \RuntimeException('Expected a "composer" key');
         }
-        if (!$args['io'] instanceof \Composer\IO\IOInterface) {
+        if (!$args['io'] instanceof \Tangram\IO\IOInterface) {
             throw new \RuntimeException('Expected an "io" key');
         }
         if (!$args['plugin'] instanceof Plugin8) {

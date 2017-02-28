@@ -12,7 +12,7 @@
 
 namespace Tangram\Package\Archiver;
 
-use Composer\Util\Filesystem;
+use Tangram\Util\Filesystem;
 use FilesystemIterator;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;

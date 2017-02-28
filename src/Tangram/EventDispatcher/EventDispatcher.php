@@ -12,19 +12,19 @@
 
 namespace Tangram\EventDispatcher;
 
-use Composer\DependencyResolver\PolicyInterface;
-use Composer\DependencyResolver\Pool;
-use Composer\DependencyResolver\Request;
-use Composer\Installer\InstallerEvent;
-use Composer\IO\IOInterface;
-use Composer\Composer;
-use Composer\DependencyResolver\Operation\OperationInterface;
-use Composer\Repository\CompositeRepository;
-use Composer\Script;
-use Composer\Installer\PackageEvent;
-use Composer\Installer\BinaryInstaller;
-use Composer\Util\ProcessExecutor;
-use Composer\Script\Event as ScriptEvent;
+use Tangram\DependencyResolver\PolicyInterface;
+use Tangram\DependencyResolver\Pool;
+use Tangram\DependencyResolver\Request;
+use Tangram\Installer\InstallerEvent;
+use Tangram\IO\IOInterface;
+use Tangram\Composer;
+use Tangram\DependencyResolver\Operation\OperationInterface;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Script;
+use Tangram\Installer\PackageEvent;
+use Tangram\Installer\BinaryInstaller;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Script\Event as ScriptEvent;
 use Symfony\Component\Process\PhpExecutableFinder;
 
 /**
@@ -209,7 +209,7 @@ class EventDispatcher
                     throw $e;
                 }
             } else {
-                $args = implode(' ', array_map(array('Composer\Util\ProcessExecutor', 'escape'), $event->getArguments()));
+                $args = implode(' ', array_map(array('Tangram\Util\ProcessExecutor', 'escape'), $event->getArguments()));
                 $exec = $callable . ($args === '' ? '' : ' '.$args);
                 if ($this->io->isVerbose()) {
                     $this->io->writeError(sprintf('> %s: %s', $event->getName(), $exec));
@@ -310,23 +310,23 @@ class EventDispatcher
         $expected = $typehint->getName();
 
         // BC support
-        if (!$event instanceof $expected && $expected === 'Composer\Script\CommandEvent') {
+        if (!$event instanceof $expected && $expected === 'Tangram\Script\CommandEvent') {
             trigger_error('The callback '.$this->serializeCallback($target).' declared at '.$reflected->getDeclaringFunction()->getFileName().' accepts a '.$expected.' but '.$event->getName().' events use a '.get_class($event).' instance. Please adjust your type hint accordingly, see https://getcomposer.org/doc/articles/scripts.md#event-classes', E_USER_DEPRECATED);
-            $event = new \Composer\Script\CommandEvent(
+            $event = new \Tangram\Script\CommandEvent(
                 $event->getName(), $event->getComposer(), $event->getIO(), $event->isDevMode(), $event->getArguments()
             );
         }
-        if (!$event instanceof $expected && $expected === 'Composer\Script\PackageEvent') {
+        if (!$event instanceof $expected && $expected === 'Tangram\Script\PackageEvent') {
             trigger_error('The callback '.$this->serializeCallback($target).' declared at '.$reflected->getDeclaringFunction()->getFileName().' accepts a '.$expected.' but '.$event->getName().' events use a '.get_class($event).' instance. Please adjust your type hint accordingly, see https://getcomposer.org/doc/articles/scripts.md#event-classes', E_USER_DEPRECATED);
-            $event = new \Composer\Script\PackageEvent(
+            $event = new \Tangram\Script\PackageEvent(
                 $event->getName(), $event->getComposer(), $event->getIO(), $event->isDevMode(),
                 $event->getPolicy(), $event->getPool(), $event->getInstalledRepo(), $event->getRequest(),
                 $event->getOperations(), $event->getOperation()
             );
         }
-        if (!$event instanceof $expected && $expected === 'Composer\Script\Event') {
+        if (!$event instanceof $expected && $expected === 'Tangram\Script\Event') {
             trigger_error('The callback '.$this->serializeCallback($target).' declared at '.$reflected->getDeclaringFunction()->getFileName().' accepts a '.$expected.' but '.$event->getName().' events use a '.get_class($event).' instance. Please adjust your type hint accordingly, see https://getcomposer.org/doc/articles/scripts.md#event-classes', E_USER_DEPRECATED);
-            $event = new \Composer\Script\Event(
+            $event = new \Tangram\Script\Event(
                 $event->getName(), $event->getComposer(), $event->getIO(), $event->isDevMode(),
                 $event->getArguments(), $event->getFlags()
             );

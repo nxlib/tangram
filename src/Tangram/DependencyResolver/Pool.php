@@ -12,18 +12,18 @@
 
 namespace Tangram\DependencyResolver;
 
-use Composer\Package\BasePackage;
-use Composer\Package\AliasPackage;
-use Composer\Package\Version\VersionParser;
-use Composer\Semver\Constraint\ConstraintInterface;
-use Composer\Semver\Constraint\Constraint;
-use Composer\Semver\Constraint\EmptyConstraint;
-use Composer\Repository\RepositoryInterface;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\ComposerRepository;
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Repository\PlatformRepository;
-use Composer\Package\PackageInterface;
+use Tangram\Package\BasePackage;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Semver\Constraint\ConstraintInterface;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\Semver\Constraint\EmptyConstraint;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Repository\ComposerRepository;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\Repository\PlatformRepository;
+use Tangram\Package\PackageInterface;
 
 /**
  * A package pool contains repositories that provide packages.

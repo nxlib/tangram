@@ -12,18 +12,18 @@
 
 namespace Tangram\Repository;
 
-use Composer\IO\IOInterface;
-use Composer\Semver\VersionParser as SemverVersionParser;
-use Composer\Package\Version\VersionParser;
-use Composer\Repository\Pear\ChannelReader;
-use Composer\Package\CompletePackage;
-use Composer\Repository\Pear\ChannelInfo;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Package\Link;
-use Composer\Semver\Constraint\Constraint;
-use Composer\Util\RemoteFilesystem;
-use Composer\Config;
-use Composer\Factory;
+use Tangram\IO\IOInterface;
+use Tangram\Semver\VersionParser as SemverVersionParser;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Repository\Pear\ChannelReader;
+use Tangram\Package\CompletePackage;
+use Tangram\Repository\Pear\ChannelInfo;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Package\Link;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\Config;
+use Tangram\Factory;
 
 /**
  * Builds list of package from PEAR channel.

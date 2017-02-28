@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Package\Archiver;
 
-use Composer\Package\Archiver\ZipArchiver;
+use Tangram\Package\Archiver\ZipArchiver;
 
 class ZipArchiverTest extends ArchiverTest
 {

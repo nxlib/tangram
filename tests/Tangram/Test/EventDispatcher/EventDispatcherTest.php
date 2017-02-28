@@ -12,16 +12,16 @@
 
 namespace Tangram\Test\EventDispatcher;
 
-use Composer\EventDispatcher\Event;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Installer\InstallerEvents;
-use Composer\Config;
-use Composer\Composer;
-use Composer\TestCase;
-use Composer\IO\BufferIO;
-use Composer\Script\ScriptEvents;
-use Composer\Script\CommandEvent;
-use Composer\Util\ProcessExecutor;
+use Tangram\EventDispatcher\Event;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Installer\InstallerEvents;
+use Tangram\Config;
+use Tangram\Composer;
+use Tangram\TestCase;
+use Tangram\IO\BufferIO;
+use Tangram\Script\ScriptEvents;
+use Tangram\Script\CommandEvent;
+use Tangram\Util\ProcessExecutor;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class EventDispatcherTest extends TestCase
@@ -31,9 +31,9 @@ class EventDispatcherTest extends TestCase
      */
     public function testListenerExceptionsAreCaught()
     {
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
         $dispatcher = $this->getDispatcherStubForListenersTest(array(
-            'Composer\Test\EventDispatcher\EventDispatcherTest::call',
+            'Tangram\Test\EventDispatcher\EventDispatcherTest::call',
         ), $io);
 
         $io->expects($this->at(0))
@@ -42,11 +42,11 @@ class EventDispatcherTest extends TestCase
 
         $io->expects($this->at(1))
             ->method('writeError')
-            ->with('> Composer\Test\EventDispatcher\EventDispatcherTest::call');
+            ->with('> Tangram\Test\EventDispatcher\EventDispatcherTest::call');
 
         $io->expects($this->at(2))
             ->method('writeError')
-            ->with('<error>Script Composer\Test\EventDispatcher\EventDispatcherTest::call handling the post-install-cmd event terminated with an exception</error>');
+            ->with('<error>Script Tangram\Test\EventDispatcher\EventDispatcherTest::call handling the post-install-cmd event terminated with an exception</error>');
 
         $dispatcher->dispatchScript(ScriptEvents::POST_INSTALL_CMD, false);
     }
@@ -56,9 +56,9 @@ class EventDispatcherTest extends TestCase
      */
     public function testDispatcherCanConvertScriptEventToCommandEventForListener()
     {
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
         $dispatcher = $this->getDispatcherStubForListenersTest(array(
-            'Composer\Test\EventDispatcher\EventDispatcherTest::expectsCommandEvent',
+            'Tangram\Test\EventDispatcher\EventDispatcherTest::expectsCommandEvent',
         ), $io);
 
         $this->assertEquals(1, $dispatcher->dispatchScript(ScriptEvents::POST_INSTALL_CMD, false));
@@ -66,9 +66,9 @@ class EventDispatcherTest extends TestCase
 
     public function testDispatcherDoesNotAttemptConversionForListenerWithoutTypehint()
     {
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
         $dispatcher = $this->getDispatcherStubForListenersTest(array(
-            'Composer\Test\EventDispatcher\EventDispatcherTest::expectsVariableEvent',
+            'Tangram\Test\EventDispatcher\EventDispatcherTest::expectsVariableEvent',
         ), $io);
 
         $this->assertEquals(1, $dispatcher->dispatchScript(ScriptEvents::POST_INSTALL_CMD, false));
@@ -80,11 +80,11 @@ class EventDispatcherTest extends TestCase
      */
     public function testDispatcherCanExecuteSingleCommandLineScript($command)
     {
-        $process = $this->getMock('Composer\Util\ProcessExecutor');
-        $dispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $process = $this->getMock('Tangram\Util\ProcessExecutor');
+        $dispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
             ->setConstructorArgs(array(
                 $this->createComposerInstance(),
-                $this->getMock('Composer\IO\IOInterface'),
+                $this->getMock('Tangram\IO\IOInterface'),
                 $process,
             ))
             ->setMethods(array('getListeners'))
@@ -118,20 +118,20 @@ class EventDispatcherTest extends TestCase
 
         $composer->setAutoloadGenerator($generator);
 
-        $package = $this->getMock('Composer\Package\RootPackageInterface');
+        $package = $this->getMock('Tangram\Package\RootPackageInterface');
         $package->method('getScripts')->will($this->returnValue(array('scriptName' => array('scriptName'))));
         $composer->setPackage($package);
 
         $composer->setRepositoryManager($this->getRepositoryManagerMockForDevModePassingTest());
-        $composer->setInstallationManager($this->getMock('Composer\Installer\InstallationManager'));
+        $composer->setInstallationManager($this->getMock('Tangram\Installer\InstallationManager'));
 
         $dispatcher = new EventDispatcher(
             $composer,
-            $this->getMock('Composer\IO\IOInterface'),
-            $this->getMock('Composer\Util\ProcessExecutor')
+            $this->getMock('Tangram\IO\IOInterface'),
+            $this->getMock('Tangram\Util\ProcessExecutor')
         );
 
-        $event = $this->getMockBuilder('Composer\Script\Event')
+        $event = $this->getMockBuilder('Tangram\Script\Event')
             ->disableOriginalConstructor()
             ->getMock();
         $event->method('getName')->will($this->returnValue('scriptName'));
@@ -152,7 +152,7 @@ class EventDispatcherTest extends TestCase
 
     private function getGeneratorMockForDevModePassingTest()
     {
-        $generator = $this->getMockBuilder('Composer\Autoload\AutoloadGenerator')
+        $generator = $this->getMockBuilder('Tangram\Autoload\AutoloadGenerator')
             ->disableOriginalConstructor()
             ->setMethods(array(
                 'buildPackageMap',
@@ -169,19 +169,19 @@ class EventDispatcherTest extends TestCase
             ->will($this->returnValue(array()));
         $generator
             ->method('createLoader')
-            ->will($this->returnValue($this->getMock('Composer\Autoload\ClassLoader')));
+            ->will($this->returnValue($this->getMock('Tangram\Autoload\ClassLoader')));
 
         return $generator;
     }
 
     private function getRepositoryManagerMockForDevModePassingTest()
     {
-        $rm = $this->getMockBuilder('Composer\Repository\RepositoryManager')
+        $rm = $this->getMockBuilder('Tangram\Repository\RepositoryManager')
             ->disableOriginalConstructor()
             ->setMethods(array('getLocalRepository'))
             ->getMock();
 
-        $repo = $this->getMock('Composer\Repository\InstalledRepositoryInterface');
+        $repo = $this->getMock('Tangram\Repository\InstalledRepositoryInterface');
         $repo
             ->method('getCanonicalPackages')
             ->will($this->returnValue(array()));
@@ -195,8 +195,8 @@ class EventDispatcherTest extends TestCase
 
     public function testDispatcherCanExecuteCliAndPhpInSameEventScriptStack()
     {
-        $process = $this->getMock('Composer\Util\ProcessExecutor');
-        $dispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $process = $this->getMock('Tangram\Util\ProcessExecutor');
+        $dispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
             ->setConstructorArgs(array(
                 $this->createComposerInstance(),
                 $io = new BufferIO('', OutputInterface::VERBOSITY_VERBOSE),
@@ -213,7 +213,7 @@ class EventDispatcherTest extends TestCase
 
         $listeners = array(
             'echo -n foo',
-            'Composer\\Test\\EventDispatcher\\EventDispatcherTest::someMethod',
+            'Tangram\\Test\\EventDispatcher\\EventDispatcherTest::someMethod',
             'echo -n bar',
         );
 
@@ -224,15 +224,15 @@ class EventDispatcherTest extends TestCase
         $dispatcher->dispatchScript(ScriptEvents::POST_INSTALL_CMD, false);
 
         $expected = '> post-install-cmd: echo -n foo'.PHP_EOL.
-            '> post-install-cmd: Composer\Test\EventDispatcher\EventDispatcherTest::someMethod'.PHP_EOL.
+            '> post-install-cmd: Tangram\Test\EventDispatcher\EventDispatcherTest::someMethod'.PHP_EOL.
             '> post-install-cmd: echo -n bar'.PHP_EOL;
         $this->assertEquals($expected, $io->getOutput());
     }
 
     public function testDispatcherCanExecuteComposerScriptGroups()
     {
-        $process = $this->getMock('Composer\Util\ProcessExecutor');
-        $dispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $process = $this->getMock('Tangram\Util\ProcessExecutor');
+        $dispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
             ->setConstructorArgs(array(
                 $composer = $this->createComposerInstance(),
                 $io = new BufferIO('', OutputInterface::VERBOSITY_VERBOSE),
@@ -279,11 +279,11 @@ class EventDispatcherTest extends TestCase
      */
     public function testDispatcherDetectInfiniteRecursion()
     {
-        $process = $this->getMock('Composer\Util\ProcessExecutor');
-        $dispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $process = $this->getMock('Tangram\Util\ProcessExecutor');
+        $dispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
         ->setConstructorArgs(array(
             $composer = $this->createComposerInstance(),
-            $io = $this->getMock('Composer\IO\IOInterface'),
+            $io = $this->getMock('Tangram\IO\IOInterface'),
             $process,
         ))
         ->setMethods(array(
@@ -310,7 +310,7 @@ class EventDispatcherTest extends TestCase
 
     private function getDispatcherStubForListenersTest($listeners, $io)
     {
-        $dispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $dispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
             ->setConstructorArgs(array(
                 $this->createComposerInstance(),
                 $io,
@@ -336,10 +336,10 @@ class EventDispatcherTest extends TestCase
 
     public function testDispatcherOutputsCommand()
     {
-        $dispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $dispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
             ->setConstructorArgs(array(
                 $this->createComposerInstance(),
-                $io = $this->getMock('Composer\IO\IOInterface'),
+                $io = $this->getMock('Tangram\IO\IOInterface'),
                 new ProcessExecutor($io),
             ))
             ->setMethods(array('getListeners'))
@@ -363,10 +363,10 @@ class EventDispatcherTest extends TestCase
 
     public function testDispatcherOutputsErrorOnFailedCommand()
     {
-        $dispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $dispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
             ->setConstructorArgs(array(
                 $this->createComposerInstance(),
-                $io = $this->getMock('Composer\IO\IOInterface'),
+                $io = $this->getMock('Tangram\IO\IOInterface'),
                 new ProcessExecutor,
             ))
             ->setMethods(array('getListeners'))
@@ -396,11 +396,11 @@ class EventDispatcherTest extends TestCase
 
     public function testDispatcherInstallerEvents()
     {
-        $process = $this->getMock('Composer\Util\ProcessExecutor');
-        $dispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $process = $this->getMock('Tangram\Util\ProcessExecutor');
+        $dispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
             ->setConstructorArgs(array(
                     $this->createComposerInstance(),
-                    $this->getMock('Composer\IO\IOInterface'),
+                    $this->getMock('Tangram\IO\IOInterface'),
                     $process,
                 ))
             ->setMethods(array('getListeners'))
@@ -410,10 +410,10 @@ class EventDispatcherTest extends TestCase
             ->method('getListeners')
             ->will($this->returnValue(array()));
 
-        $policy = $this->getMock('Composer\DependencyResolver\PolicyInterface');
-        $pool = $this->getMockBuilder('Composer\DependencyResolver\Pool')->disableOriginalConstructor()->getMock();
-        $installedRepo = $this->getMockBuilder('Composer\Repository\CompositeRepository')->disableOriginalConstructor()->getMock();
-        $request = $this->getMockBuilder('Composer\DependencyResolver\Request')->disableOriginalConstructor()->getMock();
+        $policy = $this->getMock('Tangram\DependencyResolver\PolicyInterface');
+        $pool = $this->getMockBuilder('Tangram\DependencyResolver\Pool')->disableOriginalConstructor()->getMock();
+        $installedRepo = $this->getMockBuilder('Tangram\Repository\CompositeRepository')->disableOriginalConstructor()->getMock();
+        $request = $this->getMockBuilder('Tangram\DependencyResolver\Request')->disableOriginalConstructor()->getMock();
 
         $dispatcher->dispatchInstallerEvent(InstallerEvents::PRE_DEPENDENCIES_SOLVING, true, $policy, $pool, $installedRepo, $request);
         $dispatcher->dispatchInstallerEvent(InstallerEvents::POST_DEPENDENCIES_SOLVING, true, $policy, $pool, $installedRepo, $request, array());
@@ -444,7 +444,7 @@ class EventDispatcherTest extends TestCase
         $composer = new Composer;
         $config = new Config;
         $composer->setConfig($config);
-        $package = $this->getMock('Composer\Package\RootPackageInterface');
+        $package = $this->getMock('Tangram\Package\RootPackageInterface');
         $composer->setPackage($package);
 
         return $composer;

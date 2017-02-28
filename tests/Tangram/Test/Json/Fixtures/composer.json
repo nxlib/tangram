@@ -45,7 +45,7 @@
         "psr-0": { "Composer": "src/" }
     },
     "autoload-dev": {
-        "psr-0": { "Composer\\Test": "tests/" }
+        "psr-0": { "Tangram\\Test": "tests/" }
     },
     "bin": ["bin/composer"],
     "extra": {

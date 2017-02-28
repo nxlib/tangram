@@ -12,16 +12,16 @@
 
 namespace Tangram\Test\Installer;
 
-use Composer\Installer\InstallationManager;
-use Composer\DependencyResolver\Operation\InstallOperation;
-use Composer\DependencyResolver\Operation\UpdateOperation;
-use Composer\DependencyResolver\Operation\UninstallOperation;
+use Tangram\Installer\InstallationManager;
+use Tangram\DependencyResolver\Operation\InstallOperation;
+use Tangram\DependencyResolver\Operation\UpdateOperation;
+use Tangram\DependencyResolver\Operation\UninstallOperation;
 
 class InstallationManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->repository = $this->getMock('Composer\Repository\InstalledRepositoryInterface');
+        $this->repository = $this->getMock('Tangram\Repository\InstalledRepositoryInterface');
     }
 
     public function testAddGetInstaller()
@@ -76,7 +76,7 @@ class InstallationManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testExecute()
     {
-        $manager = $this->getMockBuilder('Composer\Installer\InstallationManager')
+        $manager = $this->getMockBuilder('Tangram\Installer\InstallationManager')
             ->setMethods(array('install', 'update', 'uninstall'))
             ->getMock();
 
@@ -242,7 +242,7 @@ class InstallationManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testInstallBinary()
     {
-        $installer = $this->getMockBuilder('Composer\Installer\LibraryInstaller')
+        $installer = $this->getMockBuilder('Tangram\Installer\LibraryInstaller')
             ->disableOriginalConstructor()
             ->getMock();
         $manager   = new InstallationManager();
@@ -271,13 +271,13 @@ class InstallationManagerTest extends \PHPUnit_Framework_TestCase
 
     private function createInstallerMock()
     {
-        return $this->getMockBuilder('Composer\Installer\InstallerInterface')
+        return $this->getMockBuilder('Tangram\Installer\InstallerInterface')
             ->getMock();
     }
 
     private function createPackageMock()
     {
-        return $this->getMockBuilder('Composer\Package\PackageInterface')
+        return $this->getMockBuilder('Tangram\Package\PackageInterface')
             ->getMock();
     }
 }

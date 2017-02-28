@@ -12,8 +12,8 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Package\PackageInterface;
-use Composer\Util\ProcessExecutor;
+use Tangram\Package\PackageInterface;
+use Tangram\Util\ProcessExecutor;
 
 /**
  * @author Per Bernhardt <plb@webfactory.de>

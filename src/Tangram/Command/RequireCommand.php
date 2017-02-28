@@ -16,15 +16,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Composer\Factory;
-use Composer\Installer;
-use Composer\Json\JsonFile;
-use Composer\Json\JsonManipulator;
-use Composer\Package\Version\VersionParser;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\PlatformRepository;
+use Tangram\Factory;
+use Tangram\Installer;
+use Tangram\Json\JsonFile;
+use Tangram\Json\JsonManipulator;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Repository\PlatformRepository;
 
 /**
  * @author Jérémy Romey <jeremy@free-agent.fr>

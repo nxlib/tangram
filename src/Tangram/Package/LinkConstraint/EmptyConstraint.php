@@ -12,12 +12,12 @@
 
 namespace Tangram\Package\LinkConstraint;
 
-use Composer\Semver\Constraint\EmptyConstraint as SemverEmptyConstraint;
+use Tangram\Semver\Constraint\EmptyConstraint as SemverEmptyConstraint;
 
-trigger_error('The ' . __NAMESPACE__ . '\EmptyConstraint class is deprecated, use Composer\Semver\Constraint\EmptyConstraint instead.', E_USER_DEPRECATED);
+trigger_error('The ' . __NAMESPACE__ . '\EmptyConstraint class is deprecated, use Tangram\Semver\Constraint\EmptyConstraint instead.', E_USER_DEPRECATED);
 
 /**
- * @deprecated use Composer\Semver\Constraint\EmptyConstraint instead
+ * @deprecated use Tangram\Semver\Constraint\EmptyConstraint instead
  */
 class EmptyConstraint extends SemverEmptyConstraint implements LinkConstraintInterface
 {

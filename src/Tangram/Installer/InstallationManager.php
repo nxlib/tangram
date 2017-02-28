@@ -12,18 +12,18 @@
 
 namespace Tangram\Installer;
 
-use Composer\IO\IOInterface;
-use Composer\Package\PackageInterface;
-use Composer\Package\AliasPackage;
-use Composer\Repository\RepositoryInterface;
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\DependencyResolver\Operation\OperationInterface;
-use Composer\DependencyResolver\Operation\InstallOperation;
-use Composer\DependencyResolver\Operation\UpdateOperation;
-use Composer\DependencyResolver\Operation\UninstallOperation;
-use Composer\DependencyResolver\Operation\MarkAliasInstalledOperation;
-use Composer\DependencyResolver\Operation\MarkAliasUninstalledOperation;
-use Composer\Util\StreamContextFactory;
+use Tangram\IO\IOInterface;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\AliasPackage;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\DependencyResolver\Operation\OperationInterface;
+use Tangram\DependencyResolver\Operation\InstallOperation;
+use Tangram\DependencyResolver\Operation\UpdateOperation;
+use Tangram\DependencyResolver\Operation\UninstallOperation;
+use Tangram\DependencyResolver\Operation\MarkAliasInstalledOperation;
+use Tangram\DependencyResolver\Operation\MarkAliasUninstalledOperation;
+use Tangram\Util\StreamContextFactory;
 
 /**
  * Package operation manager.

@@ -11,7 +11,7 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Util\Silencer;
+use Tangram\Util\Silencer;
 
 /**
  * SilencerTest

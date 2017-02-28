@@ -12,8 +12,8 @@
 
 namespace Tangram\Plugin;
 
-use Composer\EventDispatcher\Event;
-use Composer\Util\RemoteFilesystem;
+use Tangram\EventDispatcher\Event;
+use Tangram\Util\RemoteFilesystem;
 
 /**
  * The pre file download event.

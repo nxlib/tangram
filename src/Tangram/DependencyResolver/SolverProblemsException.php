@@ -12,7 +12,7 @@
 
 namespace Tangram\DependencyResolver;
 
-use Composer\Util\IniHelper;
+use Tangram\Util\IniHelper;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

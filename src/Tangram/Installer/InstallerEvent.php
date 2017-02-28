@@ -12,14 +12,14 @@
 
 namespace Tangram\Installer;
 
-use Composer\Composer;
-use Composer\DependencyResolver\PolicyInterface;
-use Composer\DependencyResolver\Operation\OperationInterface;
-use Composer\DependencyResolver\Pool;
-use Composer\DependencyResolver\Request;
-use Composer\EventDispatcher\Event;
-use Composer\IO\IOInterface;
-use Composer\Repository\CompositeRepository;
+use Tangram\Composer;
+use Tangram\DependencyResolver\PolicyInterface;
+use Tangram\DependencyResolver\Operation\OperationInterface;
+use Tangram\DependencyResolver\Pool;
+use Tangram\DependencyResolver\Request;
+use Tangram\EventDispatcher\Event;
+use Tangram\IO\IOInterface;
+use Tangram\Repository\CompositeRepository;
 
 /**
  * An event for all installer.

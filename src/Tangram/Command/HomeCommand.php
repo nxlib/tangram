@@ -12,12 +12,12 @@
 
 namespace Tangram\Command;
 
-use Composer\Package\CompletePackageInterface;
-use Composer\Repository\RepositoryInterface;
-use Composer\Repository\ArrayRepository;
-use Composer\Repository\RepositoryFactory;
-use Composer\Util\Platform;
-use Composer\Util\ProcessExecutor;
+use Tangram\Package\CompletePackageInterface;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Repository\ArrayRepository;
+use Tangram\Repository\RepositoryFactory;
+use Tangram\Util\Platform;
+use Tangram\Util\ProcessExecutor;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;

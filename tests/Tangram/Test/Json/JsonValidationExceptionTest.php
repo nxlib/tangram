@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Json;
 
-use Composer\Json\JsonValidationException;
+use Tangram\Json\JsonValidationException;
 
 class JsonValidationExceptionTest extends \PHPUnit_Framework_TestCase
 {

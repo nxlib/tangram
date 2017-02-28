@@ -13,7 +13,7 @@
 namespace Tangram\Package\Archiver;
 
 use ZipArchive;
-use Composer\Util\Filesystem;
+use Tangram\Util\Filesystem;
 
 /**
  * @author Jan Prieser <jan@prieser.net>

@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Package;
 
-use Composer\Package\Package;
-use Composer\Semver\VersionParser;
-use Composer\TestCase;
+use Tangram\Package\Package;
+use Tangram\Semver\VersionParser;
+use Tangram\TestCase;
 
 class CompletePackageTest extends TestCase
 {

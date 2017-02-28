@@ -17,7 +17,7 @@ chdir($cwd);
 
 require __DIR__.'/../src/bootstrap.php';
 
-use Composer\Compiler;
+use Tangram\Compiler;
 
 error_reporting(-1);
 ini_set('display_errors', 1);

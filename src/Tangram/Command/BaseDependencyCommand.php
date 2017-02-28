@@ -12,17 +12,17 @@
 
 namespace Tangram\Command;
 
-use Composer\DependencyResolver\Pool;
-use Composer\Package\Link;
-use Composer\Package\PackageInterface;
-use Composer\Repository\ArrayRepository;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\PlatformRepository;
-use Composer\Repository\RepositoryFactory;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
+use Tangram\DependencyResolver\Pool;
+use Tangram\Package\Link;
+use Tangram\Package\PackageInterface;
+use Tangram\Repository\ArrayRepository;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Repository\PlatformRepository;
+use Tangram\Repository\RepositoryFactory;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use Composer\Package\Version\VersionParser;
+use Tangram\Package\Version\VersionParser;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

@@ -12,7 +12,7 @@
 
 namespace Tangram\Package;
 
-use Composer\Semver\Constraint\ConstraintInterface;
+use Tangram\Semver\Constraint\ConstraintInterface;
 
 /**
  * Represents a link between two packages, represented by their names

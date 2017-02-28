@@ -7,9 +7,9 @@ if (PHP_SAPI !== 'cli') {
 
 require __DIR__.'/../src/bootstrap.php';
 
-use Composer\Factory;
-use Composer\XdebugHandler;
-use Composer\Console\Application;
+use Tangram\Factory;
+use Tangram\XdebugHandler;
+use Tangram\Console\Application;
 
 error_reporting(-1);
 

@@ -12,10 +12,10 @@
 
 namespace Tangram\DependencyResolver;
 
-use Composer\Package\PackageInterface;
-use Composer\Package\AliasPackage;
-use Composer\Package\BasePackage;
-use Composer\Semver\Constraint\Constraint;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\BasePackage;
+use Tangram\Semver\Constraint\Constraint;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

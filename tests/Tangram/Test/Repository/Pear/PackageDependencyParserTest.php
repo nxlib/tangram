@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Repository\Pear;
 
-use Composer\Repository\Pear\DependencyConstraint;
-use Composer\Repository\Pear\PackageDependencyParser;
-use Composer\TestCase;
+use Tangram\Repository\Pear\DependencyConstraint;
+use Tangram\Repository\Pear\PackageDependencyParser;
+use Tangram\TestCase;
 
 class PackageDependencyParserTest extends TestCase
 {

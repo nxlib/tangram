@@ -12,8 +12,8 @@
 
 namespace Tangram\Installer;
 
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Package\PackageInterface;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\Package\PackageInterface;
 
 /**
  * Does not install anything but marks packages installed in the repo

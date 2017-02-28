@@ -12,9 +12,9 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Package\PackageInterface;
+use Tangram\Package\PackageInterface;
 use Symfony\Component\Finder\Finder;
-use Composer\IO\IOInterface;
+use Tangram\IO\IOInterface;
 
 /**
  * Base downloader for archives

@@ -12,12 +12,12 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Package\Dumper\ArrayDumper;
-use Composer\Package\PackageInterface;
-use Composer\Package\Version\VersionGuesser;
-use Composer\Package\Version\VersionParser;
-use Composer\Util\Platform;
-use Composer\Util\ProcessExecutor;
+use Tangram\Package\Dumper\ArrayDumper;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\Version\VersionGuesser;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Util\Platform;
+use Tangram\Util\ProcessExecutor;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 

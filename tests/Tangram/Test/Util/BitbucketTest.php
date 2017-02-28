@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Util\Bitbucket;
+use Tangram\Util\Bitbucket;
 
 /**
  * @author Paul Wenke <wenke.paul@gmail.com>
@@ -27,11 +27,11 @@ class BitbucketTest extends \PHPUnit_Framework_TestCase
     private $origin = 'bitbucket.org';
     private $token = 'bitbuckettoken';
 
-    /** @type \Composer\IO\ConsoleIO|\PHPUnit_Framework_MockObject_MockObject */
+    /** @type \Tangram\IO\ConsoleIO|\PHPUnit_Framework_MockObject_MockObject */
     private $io;
-    /** @type \Composer\Util\RemoteFilesystem|\PHPUnit_Framework_MockObject_MockObject */
+    /** @type \Tangram\Util\RemoteFilesystem|\PHPUnit_Framework_MockObject_MockObject */
     private $rfs;
-    /** @type \Composer\Config|\PHPUnit_Framework_MockObject_MockObject */
+    /** @type \Tangram\Config|\PHPUnit_Framework_MockObject_MockObject */
     private $config;
     /** @type Bitbucket */
     private $bitbucket;
@@ -39,18 +39,18 @@ class BitbucketTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->io = $this
-            ->getMockBuilder('Composer\IO\ConsoleIO')
+            ->getMockBuilder('Tangram\IO\ConsoleIO')
             ->disableOriginalConstructor()
             ->getMock()
         ;
 
         $this->rfs = $this
-            ->getMockBuilder('Composer\Util\RemoteFilesystem')
+            ->getMockBuilder('Tangram\Util\RemoteFilesystem')
             ->disableOriginalConstructor()
             ->getMock()
         ;
 
-        $this->config = $this->getMock('Composer\Config');
+        $this->config = $this->getMock('Tangram\Config');
 
         $this->bitbucket = new Bitbucket($this->io, $this->config, null, $this->rfs);
     }
@@ -124,7 +124,7 @@ class BitbucketTest extends \PHPUnit_Framework_TestCase
                 )
             )
             ->willThrowException(
-                new \Composer\Downloader\TransportException(
+                new \Tangram\Downloader\TransportException(
                     sprintf(
                         'The \'%s\' URL could not be accessed: HTTP/1.1 400 BAD REQUEST',
                         Bitbucket::OAUTH2_ACCESS_TOKEN_URL
@@ -196,7 +196,7 @@ class BitbucketTest extends \PHPUnit_Framework_TestCase
     private function getAuthJsonMock()
     {
         $authjson = $this
-            ->getMockBuilder('Composer\Config\JsonConfigSource')
+            ->getMockBuilder('Tangram\Config\JsonConfigSource')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -212,7 +212,7 @@ class BitbucketTest extends \PHPUnit_Framework_TestCase
     private function getConfJsonMock()
     {
         $confjson = $this
-            ->getMockBuilder('Composer\Config\JsonConfigSource')
+            ->getMockBuilder('Tangram\Config\JsonConfigSource')
             ->disableOriginalConstructor()
             ->getMock()
         ;

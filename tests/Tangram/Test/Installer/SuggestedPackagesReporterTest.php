@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\Installer;
 
-use Composer\Installer\SuggestedPackagesReporter;
+use Tangram\Installer\SuggestedPackagesReporter;
 
 /**
- * @coversDefaultClass Composer\Installer\SuggestedPackagesReporter
+ * @coversDefaultClass Tangram\Installer\SuggestedPackagesReporter
  */
 class SuggestedPackagesReporterTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,7 +24,7 @@ class SuggestedPackagesReporterTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->io = $this->getMock('Composer\IO\IOInterface');
+        $this->io = $this->getMock('Tangram\IO\IOInterface');
 
         $this->suggestedPackagesReporter = new SuggestedPackagesReporter($this->io);
     }
@@ -168,9 +168,9 @@ class SuggestedPackagesReporterTest extends \PHPUnit_Framework_TestCase
      */
     public function testOutputSkipInstalledPackages()
     {
-        $repository = $this->getMock('Composer\Repository\RepositoryInterface');
-        $package1 = $this->getMock('Composer\Package\PackageInterface');
-        $package2 = $this->getMock('Composer\Package\PackageInterface');
+        $repository = $this->getMock('Tangram\Repository\RepositoryInterface');
+        $package1 = $this->getMock('Tangram\Package\PackageInterface');
+        $package2 = $this->getMock('Tangram\Package\PackageInterface');
 
         $package1->expects($this->once())
             ->method('getNames')
@@ -202,7 +202,7 @@ class SuggestedPackagesReporterTest extends \PHPUnit_Framework_TestCase
      */
     public function testOutputNotGettingInstalledPackagesWhenNoSuggestions()
     {
-        $repository = $this->getMock('Composer\Repository\RepositoryInterface');
+        $repository = $this->getMock('Tangram\Repository\RepositoryInterface');
         $repository->expects($this->exactly(0))
             ->method('getPackages');
 
@@ -220,7 +220,7 @@ class SuggestedPackagesReporterTest extends \PHPUnit_Framework_TestCase
 
     private function createPackageMock()
     {
-        return $this->getMockBuilder('Composer\Package\Package')
+        return $this->getMockBuilder('Tangram\Package\Package')
             ->setConstructorArgs(array(md5(mt_rand()), '1.0.0.0', '1.0.0'))
             ->getMock();
     }

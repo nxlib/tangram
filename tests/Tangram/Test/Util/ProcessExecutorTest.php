@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Util\ProcessExecutor;
-use Composer\TestCase;
-use Composer\IO\BufferIO;
+use Tangram\Util\ProcessExecutor;
+use Tangram\TestCase;
+use Tangram\IO\BufferIO;
 use Symfony\Component\Console\Output\StreamOutput;
 
 class ProcessExecutorTest extends TestCase
@@ -37,7 +37,7 @@ class ProcessExecutorTest extends TestCase
 
     public function testUseIOIsNotNullAndIfNotCaptured()
     {
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
         $io->expects($this->once())
             ->method('write')
             ->with($this->equalTo('foo'.PHP_EOL), false);

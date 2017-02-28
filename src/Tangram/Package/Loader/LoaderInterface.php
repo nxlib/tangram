@@ -24,7 +24,7 @@ interface LoaderInterface
      *
      * @param  array                              $package Package config
      * @param  string                             $class   Package class to use
-     * @return \Composer\Package\PackageInterface
+     * @return \Tangram\Package\PackageInterface
      */
-    public function load(array $package, $class = 'Composer\Package\CompletePackage');
+    public function load(array $package, $class = 'Tangram\Package\CompletePackage');
 }

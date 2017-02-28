@@ -23,7 +23,7 @@ class PluginEvents
      * The INIT event occurs after a Composer instance is done being initialized
      *
      * The event listener method receives a
-     * Composer\EventDispatcher\Event instance.
+     * Tangram\EventDispatcher\Event instance.
      *
      * @var string
      */
@@ -33,7 +33,7 @@ class PluginEvents
      * The COMMAND event occurs as a command begins
      *
      * The event listener method receives a
-     * Composer\Plugin\CommandEvent instance.
+     * Tangram\Plugin\CommandEvent instance.
      *
      * @var string
      */
@@ -43,7 +43,7 @@ class PluginEvents
      * The PRE_FILE_DOWNLOAD event occurs before downloading a file
      *
      * The event listener method receives a
-     * Composer\Plugin\PreFileDownloadEvent instance.
+     * Tangram\Plugin\PreFileDownloadEvent instance.
      *
      * @var string
      */

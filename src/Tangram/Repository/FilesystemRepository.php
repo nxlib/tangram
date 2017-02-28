@@ -12,9 +12,9 @@
 
 namespace Tangram\Repository;
 
-use Composer\Json\JsonFile;
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\Dumper\ArrayDumper;
+use Tangram\Json\JsonFile;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\Dumper\ArrayDumper;
 
 /**
  * Filesystem repository.

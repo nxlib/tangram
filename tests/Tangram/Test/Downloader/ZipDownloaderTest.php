@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Downloader;
 
-use Composer\Downloader\ZipDownloader;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\Downloader\ZipDownloader;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 
 class ZipDownloaderTest extends TestCase
 {
@@ -40,7 +40,7 @@ class ZipDownloaderTest extends TestCase
 
     public function testErrorMessages()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getDistUrl')
             ->will($this->returnValue($distUrl = 'file://'.__FILE__))
@@ -54,8 +54,8 @@ class ZipDownloaderTest extends TestCase
             ->will($this->returnValue(array()))
         ;
 
-        $io = $this->getMock('Composer\IO\IOInterface');
-        $config = $this->getMock('Composer\Config');
+        $io = $this->getMock('Tangram\IO\IOInterface');
+        $config = $this->getMock('Tangram\Config');
         $config->expects($this->at(0))
             ->method('get')
             ->with('disable-tls')

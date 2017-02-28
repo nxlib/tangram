@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Repository;
 
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\ArrayRepository;
-use Composer\TestCase;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Repository\ArrayRepository;
+use Tangram\TestCase;
 
 class CompositeRepositoryTest extends TestCase
 {

@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\Downloader;
 
-use Composer\Downloader\FossilDownloader;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Util\Platform;
+use Tangram\Downloader\FossilDownloader;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Platform;
 
 class FossilDownloaderTest extends TestCase
 {
@@ -37,10 +37,10 @@ class FossilDownloaderTest extends TestCase
 
     protected function getDownloaderMock($io = null, $config = null, $executor = null, $filesystem = null)
     {
-        $io = $io ?: $this->getMock('Composer\IO\IOInterface');
-        $config = $config ?: $this->getMock('Composer\Config');
-        $executor = $executor ?: $this->getMock('Composer\Util\ProcessExecutor');
-        $filesystem = $filesystem ?: $this->getMock('Composer\Util\Filesystem');
+        $io = $io ?: $this->getMock('Tangram\IO\IOInterface');
+        $config = $config ?: $this->getMock('Tangram\Config');
+        $executor = $executor ?: $this->getMock('Tangram\Util\ProcessExecutor');
+        $filesystem = $filesystem ?: $this->getMock('Tangram\Util\Filesystem');
 
         return new FossilDownloader($io, $config, $executor, $filesystem);
     }
@@ -50,7 +50,7 @@ class FossilDownloaderTest extends TestCase
      */
     public function testDownloadForPackageWithoutSourceReference()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->once())
             ->method('getSourceReference')
             ->will($this->returnValue(null));
@@ -61,14 +61,14 @@ class FossilDownloaderTest extends TestCase
 
     public function testDownload()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('trunk'));
         $packageMock->expects($this->once())
             ->method('getSourceUrls')
             ->will($this->returnValue(array('http://fossil.kd2.org/kd2fw/')));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
 
         $expectedFossilCommand = $this->getCmd('fossil clone \'http://fossil.kd2.org/kd2fw/\' \'repo.fossil\'');
         $processExecutor->expects($this->at(0))
@@ -97,8 +97,8 @@ class FossilDownloaderTest extends TestCase
      */
     public function testUpdateforPackageWithoutSourceReference()
     {
-        $initialPackageMock = $this->getMock('Composer\Package\PackageInterface');
-        $sourcePackageMock = $this->getMock('Composer\Package\PackageInterface');
+        $initialPackageMock = $this->getMock('Tangram\Package\PackageInterface');
+        $sourcePackageMock = $this->getMock('Tangram\Package\PackageInterface');
         $sourcePackageMock->expects($this->once())
             ->method('getSourceReference')
             ->will($this->returnValue(null));
@@ -116,14 +116,14 @@ class FossilDownloaderTest extends TestCase
             touch($file);
         }
 
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('trunk'));
         $packageMock->expects($this->any())
             ->method('getSourceUrls')
             ->will($this->returnValue(array('http://fossil.kd2.org/kd2fw/')));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
 
         $expectedFossilCommand = $this->getCmd("fossil changes");
         $processExecutor->expects($this->at(0))
@@ -144,12 +144,12 @@ class FossilDownloaderTest extends TestCase
     {
         $expectedResetCommand = $this->getCmd('cd \'composerPath\' && fossil status');
 
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
         $processExecutor->expects($this->any())
             ->method('execute')
             ->with($this->equalTo($expectedResetCommand));
-        $filesystem = $this->getMock('Composer\Util\Filesystem');
+        $filesystem = $this->getMock('Tangram\Util\Filesystem');
         $filesystem->expects($this->any())
             ->method('removeDirectory')
             ->with($this->equalTo('composerPath'))

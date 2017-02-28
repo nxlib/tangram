@@ -12,8 +12,8 @@
 
 namespace Tangram\Repository\Vcs;
 
-use Composer\Config;
-use Composer\IO\IOInterface;
+use Tangram\Config;
+use Tangram\IO\IOInterface;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

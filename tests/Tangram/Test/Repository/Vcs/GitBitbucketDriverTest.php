@@ -12,21 +12,21 @@
 
 namespace Tangram\Test\Repository\Vcs;
 
-use Composer\Config;
-use Composer\Repository\Vcs\GitBitbucketDriver;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\Config;
+use Tangram\Repository\Vcs\GitBitbucketDriver;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 
 /**
  * @group bitbucket
  */
 class GitBitbucketDriverTest extends TestCase
 {
-    /** @type \Composer\IO\IOInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @type \Tangram\IO\IOInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $io;
-    /** @type \Composer\Config */
+    /** @type \Tangram\Config */
     private $config;
-    /** @type \Composer\Util\RemoteFilesystem|\PHPUnit_Framework_MockObject_MockObject */
+    /** @type \Tangram\Util\RemoteFilesystem|\PHPUnit_Framework_MockObject_MockObject */
     private $rfs;
     /** @type string */
     private $home;
@@ -35,7 +35,7 @@ class GitBitbucketDriverTest extends TestCase
 
     protected function setUp()
     {
-        $this->io = $this->getMock('Composer\IO\IOInterface');
+        $this->io = $this->getMock('Tangram\IO\IOInterface');
 
         $this->home = $this->getUniqueTmpDirectory();
 
@@ -46,7 +46,7 @@ class GitBitbucketDriverTest extends TestCase
             ),
         ));
 
-        $this->rfs = $this->getMockBuilder('Composer\Util\RemoteFilesystem')
+        $this->rfs = $this->getMockBuilder('Tangram\Util\RemoteFilesystem')
             ->disableOriginalConstructor()
             ->getMock();
     }

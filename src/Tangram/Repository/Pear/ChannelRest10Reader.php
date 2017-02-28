@@ -12,7 +12,7 @@
 
 namespace Tangram\Repository\Pear;
 
-use Composer\Downloader\TransportException;
+use Tangram\Downloader\TransportException;
 
 /**
  * Read PEAR packages using REST 1.0 interface
@@ -107,7 +107,7 @@ class ChannelRest10Reader extends BaseChannelReader
      *
      * @param $baseUrl      string
      * @param $packageName  string
-     * @throws \Composer\Downloader\TransportException|\Exception
+     * @throws \Tangram\Downloader\TransportException|\Exception
      * @return ReleaseInfo[]                                      hash array with keys as version numbers
      */
     private function readPackageReleases($baseUrl, $packageName)

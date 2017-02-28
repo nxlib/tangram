@@ -12,9 +12,9 @@
 
 namespace Tangram\Command;
 
-use Composer\Script\Event as ScriptEvent;
-use Composer\Script\ScriptEvents;
-use Composer\Util\ProcessExecutor;
+use Tangram\Script\Event as ScriptEvent;
+use Tangram\Script\ScriptEvents;
+use Tangram\Util\ProcessExecutor;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -75,7 +75,7 @@ EOT
 
         $script = $input->getArgument('script');
         if (!in_array($script, $this->scriptEvents)) {
-            if (defined('Composer\Script\ScriptEvents::'.str_replace('-', '_', strtoupper($script)))) {
+            if (defined('Tangram\Script\ScriptEvents::'.str_replace('-', '_', strtoupper($script)))) {
                 throw new \InvalidArgumentException(sprintf('Script "%s" cannot be run with this command', $script));
             }
         }

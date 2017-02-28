@@ -195,7 +195,7 @@
                 },
                 "cache-dir": {
                     "type": "string",
-                    "description": "The location where all caches are located, defaults to \"~/.composer/cache\" on *nix and \"%LOCALAPPDATA%\\Composer\" on windows."
+                    "description": "The location where all caches are located, defaults to \"~/.composer/cache\" on *nix and \"%LOCALAPPDATA%\\Tangram\" on windows."
                 },
                 "cache-files-dir": {
                     "type": "string",

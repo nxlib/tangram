@@ -12,19 +12,19 @@
 
 namespace Tangram\Test\Repository;
 
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Repository\PathRepository;
-use Composer\Semver\VersionParser;
-use Composer\TestCase;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Repository\PathRepository;
+use Tangram\Semver\VersionParser;
+use Tangram\TestCase;
 
 class PathRepositoryTest extends TestCase
 {
     public function testLoadPackageFromFileSystemWithVersion()
     {
-        $ioInterface = $this->getMockBuilder('Composer\IO\IOInterface')
+        $ioInterface = $this->getMockBuilder('Tangram\IO\IOInterface')
             ->getMock();
 
-        $config = new \Composer\Config();
+        $config = new \Tangram\Config();
         $loader = new ArrayLoader(new VersionParser());
         $versionGuesser = null;
 
@@ -38,10 +38,10 @@ class PathRepositoryTest extends TestCase
 
     public function testLoadPackageFromFileSystemWithoutVersion()
     {
-        $ioInterface = $this->getMockBuilder('Composer\IO\IOInterface')
+        $ioInterface = $this->getMockBuilder('Tangram\IO\IOInterface')
             ->getMock();
 
-        $config = new \Composer\Config();
+        $config = new \Tangram\Config();
         $loader = new ArrayLoader(new VersionParser());
         $versionGuesser = null;
 
@@ -60,10 +60,10 @@ class PathRepositoryTest extends TestCase
 
     public function testLoadPackageFromFileSystemWithWildcard()
     {
-        $ioInterface = $this->getMockBuilder('Composer\IO\IOInterface')
+        $ioInterface = $this->getMockBuilder('Tangram\IO\IOInterface')
             ->getMock();
 
-        $config = new \Composer\Config();
+        $config = new \Tangram\Config();
         $loader = new ArrayLoader(new VersionParser());
         $versionGuesser = null;
 
@@ -89,10 +89,10 @@ class PathRepositoryTest extends TestCase
      */
     public function testUrlRemainsRelative()
     {
-        $ioInterface = $this->getMockBuilder('Composer\IO\IOInterface')
+        $ioInterface = $this->getMockBuilder('Tangram\IO\IOInterface')
             ->getMock();
 
-        $config = new \Composer\Config();
+        $config = new \Tangram\Config();
         $loader = new ArrayLoader(new VersionParser());
         $versionGuesser = null;
 

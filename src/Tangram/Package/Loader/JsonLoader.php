@@ -12,7 +12,7 @@
 
 namespace Tangram\Package\Loader;
 
-use Composer\Json\JsonFile;
+use Tangram\Json\JsonFile;
 
 /**
  * @author Konstantin Kudryashiv <ever.zet@gmail.com>
@@ -28,7 +28,7 @@ class JsonLoader
 
     /**
      * @param  string|JsonFile                    $json A filename, json string or JsonFile instance to load the package from
-     * @return \Composer\Package\PackageInterface
+     * @return \Tangram\Package\PackageInterface
      */
     public function load($json)
     {

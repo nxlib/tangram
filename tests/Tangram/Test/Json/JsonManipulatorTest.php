@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Json;
 
-use Composer\Json\JsonManipulator;
+use Tangram\Json\JsonManipulator;
 
 class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -1785,7 +1785,7 @@ class JsonManipulatorTest extends \PHPUnit_Framework_TestCase
 \t\"a\": \"b\",
 \t\"repositories\": {
 \t\t\"bar2\": {
-\t\t\t\"type\": \"composer\"
+\t\t\t\"type\": \"Tangram\"
 \t\t}
 \t}
 }

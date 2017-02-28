@@ -12,11 +12,11 @@
 
 namespace Tangram;
 
-use Composer\Semver\VersionParser;
-use Composer\Package\AliasPackage;
-use Composer\Semver\Constraint\Constraint;
-use Composer\Util\Filesystem;
-use Composer\Util\Silencer;
+use Tangram\Semver\VersionParser;
+use Tangram\Package\AliasPackage;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Silencer;
 use Symfony\Component\Process\ExecutableFinder;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
@@ -61,7 +61,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         return $constraint;
     }
 
-    protected function getPackage($name, $version, $class = 'Composer\Package\Package')
+    protected function getPackage($name, $version, $class = 'Tangram\Package\Package')
     {
         $normVersion = self::getVersionParser()->normalize($version);
 

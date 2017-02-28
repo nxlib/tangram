@@ -11,15 +11,15 @@
 
 namespace Tangram\Test\Mock;
 
-use Composer\Installer\InstallationManager;
-use Composer\Repository\RepositoryInterface;
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Package\PackageInterface;
-use Composer\DependencyResolver\Operation\InstallOperation;
-use Composer\DependencyResolver\Operation\UpdateOperation;
-use Composer\DependencyResolver\Operation\UninstallOperation;
-use Composer\DependencyResolver\Operation\MarkAliasInstalledOperation;
-use Composer\DependencyResolver\Operation\MarkAliasUninstalledOperation;
+use Tangram\Installer\InstallationManager;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\Package\PackageInterface;
+use Tangram\DependencyResolver\Operation\InstallOperation;
+use Tangram\DependencyResolver\Operation\UpdateOperation;
+use Tangram\DependencyResolver\Operation\UninstallOperation;
+use Tangram\DependencyResolver\Operation\MarkAliasInstalledOperation;
+use Tangram\DependencyResolver\Operation\MarkAliasUninstalledOperation;
 
 class InstallationManagerMock extends InstallationManager
 {

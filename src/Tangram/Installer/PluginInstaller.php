@@ -12,10 +12,10 @@
 
 namespace Tangram\Installer;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Package\PackageInterface;
+use Tangram\Composer;
+use Tangram\IO\IOInterface;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\Package\PackageInterface;
 
 /**
  * Installer for plugin packages

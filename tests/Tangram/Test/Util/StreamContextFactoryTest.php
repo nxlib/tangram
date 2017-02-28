@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Util\StreamContextFactory;
+use Tangram\Util\StreamContextFactory;
 
 class StreamContextFactoryTest extends \PHPUnit_Framework_TestCase
 {

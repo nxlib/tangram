@@ -12,12 +12,12 @@
 
 namespace Tangram\Script;
 
-use Composer\Installer\PackageEvent as BasePackageEvent;
+use Tangram\Installer\PackageEvent as BasePackageEvent;
 
 /**
  * The Package Event.
  *
- * @deprecated Use Composer\Installer\PackageEvent instead
+ * @deprecated Use Tangram\Installer\PackageEvent instead
  */
 class PackageEvent extends BasePackageEvent
 {

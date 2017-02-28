@@ -12,41 +12,41 @@
 
 namespace Tangram;
 
-use Composer\Autoload\AutoloadGenerator;
-use Composer\DependencyResolver\DefaultPolicy;
-use Composer\DependencyResolver\Operation\UpdateOperation;
-use Composer\DependencyResolver\Operation\InstallOperation;
-use Composer\DependencyResolver\Operation\UninstallOperation;
-use Composer\DependencyResolver\Operation\OperationInterface;
-use Composer\DependencyResolver\PolicyInterface;
-use Composer\DependencyResolver\Pool;
-use Composer\DependencyResolver\Request;
-use Composer\DependencyResolver\Rule;
-use Composer\DependencyResolver\Solver;
-use Composer\DependencyResolver\SolverProblemsException;
-use Composer\Downloader\DownloadManager;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Installer\InstallationManager;
-use Composer\Installer\InstallerEvents;
-use Composer\Installer\NoopInstaller;
-use Composer\Installer\SuggestedPackagesReporter;
-use Composer\IO\IOInterface;
-use Composer\Package\AliasPackage;
-use Composer\Package\CompletePackage;
-use Composer\Package\Link;
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\Dumper\ArrayDumper;
-use Composer\Semver\Constraint\Constraint;
-use Composer\Package\Locker;
-use Composer\Package\PackageInterface;
-use Composer\Package\RootPackageInterface;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\InstalledArrayRepository;
-use Composer\Repository\PlatformRepository;
-use Composer\Repository\RepositoryInterface;
-use Composer\Repository\RepositoryManager;
-use Composer\Repository\WritableRepositoryInterface;
-use Composer\Script\ScriptEvents;
+use Tangram\Autoload\AutoloadGenerator;
+use Tangram\DependencyResolver\DefaultPolicy;
+use Tangram\DependencyResolver\Operation\UpdateOperation;
+use Tangram\DependencyResolver\Operation\InstallOperation;
+use Tangram\DependencyResolver\Operation\UninstallOperation;
+use Tangram\DependencyResolver\Operation\OperationInterface;
+use Tangram\DependencyResolver\PolicyInterface;
+use Tangram\DependencyResolver\Pool;
+use Tangram\DependencyResolver\Request;
+use Tangram\DependencyResolver\Rule;
+use Tangram\DependencyResolver\Solver;
+use Tangram\DependencyResolver\SolverProblemsException;
+use Tangram\Downloader\DownloadManager;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Installer\InstallationManager;
+use Tangram\Installer\InstallerEvents;
+use Tangram\Installer\NoopInstaller;
+use Tangram\Installer\SuggestedPackagesReporter;
+use Tangram\IO\IOInterface;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\CompletePackage;
+use Tangram\Package\Link;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\Dumper\ArrayDumper;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\Package\Locker;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\RootPackageInterface;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Repository\InstalledArrayRepository;
+use Tangram\Repository\PlatformRepository;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Repository\RepositoryManager;
+use Tangram\Repository\WritableRepositoryInterface;
+use Tangram\Script\ScriptEvents;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>
@@ -569,7 +569,7 @@ class Installer
                 }
             }
 
-            $event = 'Composer\Installer\PackageEvents::PRE_PACKAGE_'.strtoupper($operation->getJobType());
+            $event = 'Tangram\Installer\PackageEvents::PRE_PACKAGE_'.strtoupper($operation->getJobType());
             if (defined($event) && $this->runScripts) {
                 $this->eventDispatcher->dispatchPackageEvent(constant($event), $this->devMode, $policy, $pool, $installedRepo, $request, $operations, $operation);
             }
@@ -600,7 +600,7 @@ class Installer
                 }
             }
 
-            $event = 'Composer\Installer\PackageEvents::POST_PACKAGE_'.strtoupper($operation->getJobType());
+            $event = 'Tangram\Installer\PackageEvents::POST_PACKAGE_'.strtoupper($operation->getJobType());
             if (defined($event) && $this->runScripts) {
                 $this->eventDispatcher->dispatchPackageEvent(constant($event), $this->devMode, $policy, $pool, $installedRepo, $request, $operations, $operation);
             }

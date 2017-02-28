@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\Command;
 
-use Composer\Composer;
-use Composer\Config;
-use Composer\Script\Event as ScriptEvent;
-use Composer\TestCase;
+use Tangram\Composer;
+use Tangram\Config;
+use Tangram\Script\Event as ScriptEvent;
+use Tangram\TestCase;
 
 class RunScriptCommandTest extends TestCase
 {
@@ -53,7 +53,7 @@ class RunScriptCommandTest extends TestCase
 
         $expectedDevMode = $dev || !$noDev;
 
-        $ed = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $ed = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -72,7 +72,7 @@ class RunScriptCommandTest extends TestCase
         $composer = $this->createComposerInstance();
         $composer->setEventDispatcher($ed);
 
-        $command = $this->getMockBuilder('Composer\Command\RunScriptCommand')
+        $command = $this->getMockBuilder('Tangram\Command\RunScriptCommand')
             ->setMethods(array(
                 'mergeApplicationDefinition',
                 'bind',

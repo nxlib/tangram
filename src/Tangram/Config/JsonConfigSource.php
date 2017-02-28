@@ -12,9 +12,9 @@
 
 namespace Tangram\Config;
 
-use Composer\Json\JsonFile;
-use Composer\Json\JsonManipulator;
-use Composer\Util\Silencer;
+use Tangram\Json\JsonFile;
+use Tangram\Json\JsonManipulator;
+use Tangram\Util\Silencer;
 
 /**
  * JSON Configuration Source

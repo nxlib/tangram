@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Command;
 
-use Composer\Command\InitCommand;
-use Composer\TestCase;
+use Tangram\Command\InitCommand;
+use Tangram\TestCase;
 
 class InitCommandTest extends TestCase
 {

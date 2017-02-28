@@ -12,8 +12,8 @@
 
 namespace Tangram\Command;
 
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;

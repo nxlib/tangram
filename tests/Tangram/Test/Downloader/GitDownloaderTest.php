@@ -12,11 +12,11 @@
 
 namespace Tangram\Test\Downloader;
 
-use Composer\Downloader\GitDownloader;
-use Composer\Config;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Util\Platform;
+use Tangram\Downloader\GitDownloader;
+use Tangram\Config;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Platform;
 
 class GitDownloaderTest extends TestCase
 {
@@ -40,7 +40,7 @@ class GitDownloaderTest extends TestCase
         }
 
         // reset the static version cache
-        $refl = new \ReflectionProperty('Composer\Util\Git', 'version');
+        $refl = new \ReflectionProperty('Tangram\Util\Git', 'version');
         $refl->setAccessible(true);
         $refl->setValue(null, null);
     }
@@ -58,9 +58,9 @@ class GitDownloaderTest extends TestCase
 
     protected function getDownloaderMock($io = null, $config = null, $executor = null, $filesystem = null)
     {
-        $io = $io ?: $this->getMock('Composer\IO\IOInterface');
-        $executor = $executor ?: $this->getMock('Composer\Util\ProcessExecutor');
-        $filesystem = $filesystem ?: $this->getMock('Composer\Util\Filesystem');
+        $io = $io ?: $this->getMock('Tangram\IO\IOInterface');
+        $executor = $executor ?: $this->getMock('Tangram\Util\ProcessExecutor');
+        $filesystem = $filesystem ?: $this->getMock('Tangram\Util\Filesystem');
         $config = $this->setupConfig($config);
 
         return new GitDownloader($io, $config, $executor, $filesystem);
@@ -71,7 +71,7 @@ class GitDownloaderTest extends TestCase
      */
     public function testDownloadForPackageWithoutSourceReference()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->once())
             ->method('getSourceReference')
             ->will($this->returnValue(null));
@@ -82,7 +82,7 @@ class GitDownloaderTest extends TestCase
 
     public function testDownload()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('1234567890123456789012345678901234567890'));
@@ -95,7 +95,7 @@ class GitDownloaderTest extends TestCase
         $packageMock->expects($this->any())
             ->method('getPrettyVersion')
             ->will($this->returnValue('dev-master'));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
 
         $processExecutor->expects($this->at(0))
             ->method('execute')
@@ -132,7 +132,7 @@ class GitDownloaderTest extends TestCase
 
     public function testDownloadWithCache()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('1234567890123456789012345678901234567890'));
@@ -145,7 +145,7 @@ class GitDownloaderTest extends TestCase
         $packageMock->expects($this->any())
             ->method('getPrettyVersion')
             ->will($this->returnValue('dev-master'));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
 
         $processExecutor->expects($this->at(0))
             ->method('execute')
@@ -197,7 +197,7 @@ class GitDownloaderTest extends TestCase
 
     public function testDownloadUsesVariousProtocolsAndSetsPushUrlForGithub()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('ref'));
@@ -210,7 +210,7 @@ class GitDownloaderTest extends TestCase
         $packageMock->expects($this->any())
             ->method('getPrettyVersion')
             ->will($this->returnValue('1.0.0'));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
 
         $processExecutor->expects($this->at(0))
             ->method('execute')
@@ -280,7 +280,7 @@ class GitDownloaderTest extends TestCase
      */
     public function testDownloadAndSetPushUrlUseCustomVariousProtocolsForGithub($protocols, $url, $pushUrl)
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('ref'));
@@ -293,7 +293,7 @@ class GitDownloaderTest extends TestCase
         $packageMock->expects($this->any())
             ->method('getPrettyVersion')
             ->will($this->returnValue('1.0.0'));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
 
         $processExecutor->expects($this->at(0))
             ->method('execute')
@@ -332,14 +332,14 @@ class GitDownloaderTest extends TestCase
     public function testDownloadThrowsRuntimeExceptionIfGitCommandFails()
     {
         $expectedGitCommand = $this->winCompat("git clone --no-checkout 'https://example.com/composer/composer' 'composerPath' && cd 'composerPath' && git remote add composer 'https://example.com/composer/composer' && git fetch composer");
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('ref'));
         $packageMock->expects($this->any())
             ->method('getSourceUrls')
             ->will($this->returnValue(array('https://example.com/composer/composer')));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
         $processExecutor->expects($this->at(0))
             ->method('execute')
             ->with($this->equalTo($this->winCompat('git --version')))
@@ -361,8 +361,8 @@ class GitDownloaderTest extends TestCase
      */
     public function testUpdateforPackageWithoutSourceReference()
     {
-        $initialPackageMock = $this->getMock('Composer\Package\PackageInterface');
-        $sourcePackageMock = $this->getMock('Composer\Package\PackageInterface');
+        $initialPackageMock = $this->getMock('Tangram\Package\PackageInterface');
+        $sourcePackageMock = $this->getMock('Tangram\Package\PackageInterface');
         $sourcePackageMock->expects($this->once())
             ->method('getSourceReference')
             ->will($this->returnValue(null));
@@ -375,7 +375,7 @@ class GitDownloaderTest extends TestCase
     {
         $expectedGitUpdateCommand = $this->winCompat("git remote set-url composer 'https://github.com/composer/composer' && git rev-parse --quiet --verify 'ref'^{commit} || (git fetch composer && git fetch --tags composer)");
 
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('ref'));
@@ -385,7 +385,7 @@ class GitDownloaderTest extends TestCase
         $packageMock->expects($this->any())
             ->method('getPrettyVersion')
             ->will($this->returnValue('1.0.0'));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
         $processExecutor->expects($this->at(0))
             ->method('execute')
             ->with($this->equalTo($this->winCompat("git show-ref --head -d")))
@@ -424,7 +424,7 @@ class GitDownloaderTest extends TestCase
     {
         $expectedGitUpdateCommand = $this->winCompat("git remote set-url composer 'https://github.com/composer/composer' && git rev-parse --quiet --verify 'ref'^{commit} || (git fetch composer && git fetch --tags composer)");
 
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('ref'));
@@ -437,7 +437,7 @@ class GitDownloaderTest extends TestCase
         $packageMock->expects($this->any())
             ->method('getPrettyVersion')
             ->will($this->returnValue('1.0.0'));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
         $processExecutor->expects($this->at(0))
             ->method('execute')
             ->with($this->equalTo($this->winCompat("git show-ref --head -d")))
@@ -495,14 +495,14 @@ composer https://github.com/old/url (push)
     {
         $expectedGitUpdateCommand = $this->winCompat("git remote set-url composer 'https://github.com/composer/composer' && git rev-parse --quiet --verify 'ref'^{commit} || (git fetch composer && git fetch --tags composer)");
 
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('ref'));
         $packageMock->expects($this->any())
             ->method('getSourceUrls')
             ->will($this->returnValue(array('https://github.com/composer/composer')));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
         $processExecutor->expects($this->at(0))
             ->method('execute')
             ->with($this->equalTo($this->winCompat("git show-ref --head -d")))
@@ -534,14 +534,14 @@ composer https://github.com/old/url (push)
         $expectedFirstGitUpdateCommand = $this->winCompat("git remote set-url composer '' && git rev-parse --quiet --verify 'ref'^{commit} || (git fetch composer && git fetch --tags composer)");
         $expectedSecondGitUpdateCommand = $this->winCompat("git remote set-url composer 'https://github.com/composer/composer' && git rev-parse --quiet --verify 'ref'^{commit} || (git fetch composer && git fetch --tags composer)");
 
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('ref'));
         $packageMock->expects($this->any())
             ->method('getSourceUrls')
             ->will($this->returnValue(array('/foo/bar', 'https://github.com/composer/composer')));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
         $processExecutor->expects($this->at(0))
             ->method('execute')
             ->with($this->equalTo($this->winCompat("git show-ref --head -d")))
@@ -592,13 +592,13 @@ composer https://github.com/old/url (push)
     {
         $expectedGitResetCommand = $this->winCompat("cd 'composerPath' && git status --porcelain --untracked-files=no");
 
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
         $processExecutor->expects($this->any())
             ->method('execute')
             ->with($this->equalTo($expectedGitResetCommand))
             ->will($this->returnValue(0));
-        $filesystem = $this->getMock('Composer\Util\Filesystem');
+        $filesystem = $this->getMock('Tangram\Util\Filesystem');
         $filesystem->expects($this->any())
             ->method('removeDirectory')
             ->with($this->equalTo('composerPath'))

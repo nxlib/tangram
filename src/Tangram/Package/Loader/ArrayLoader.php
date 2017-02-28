@@ -12,13 +12,13 @@
 
 namespace Tangram\Package\Loader;
 
-use Composer\Package;
-use Composer\Package\AliasPackage;
-use Composer\Package\Link;
-use Composer\Package\RootAliasPackage;
-use Composer\Package\RootPackageInterface;
-use Composer\Package\Version\VersionParser;
-use Composer\Semver\VersionParser as SemverVersionParser;
+use Tangram\Package;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\Link;
+use Tangram\Package\RootAliasPackage;
+use Tangram\Package\RootPackageInterface;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Semver\VersionParser as SemverVersionParser;
 
 /**
  * @author Konstantin Kudryashiv <ever.zet@gmail.com>
@@ -38,7 +38,7 @@ class ArrayLoader implements LoaderInterface
         $this->loadOptions = $loadOptions;
     }
 
-    public function load(array $config, $class = 'Composer\Package\CompletePackage')
+    public function load(array $config, $class = 'Tangram\Package\CompletePackage')
     {
         if (!isset($config['name'])) {
             throw new \UnexpectedValueException('Unknown package has no name defined ('.json_encode($config).').');

@@ -12,14 +12,14 @@
 
 namespace Tangram;
 
-use Composer\Package\RootPackageInterface;
-use Composer\Package\Locker;
-use Composer\Repository\RepositoryManager;
-use Composer\Installer\InstallationManager;
-use Composer\Plugin\PluginManager;
-use Composer\Downloader\DownloadManager;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Autoload\AutoloadGenerator;
+use Tangram\Package\RootPackageInterface;
+use Tangram\Package\Locker;
+use Tangram\Repository\RepositoryManager;
+use Tangram\Installer\InstallationManager;
+use Tangram\Plugin\PluginManager;
+use Tangram\Downloader\DownloadManager;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Autoload\AutoloadGenerator;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

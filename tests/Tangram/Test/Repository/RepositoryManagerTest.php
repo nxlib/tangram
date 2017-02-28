@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Repository;
 
-use Composer\Repository\RepositoryManager;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\Repository\RepositoryManager;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 
 class RepositoryManagerTest extends TestCase
 {
@@ -36,13 +36,13 @@ class RepositoryManagerTest extends TestCase
     public function testPrepend()
     {
         $rm = new RepositoryManager(
-            $this->getMock('Composer\IO\IOInterface'),
-            $this->getMock('Composer\Config'),
-            $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock()
+            $this->getMock('Tangram\IO\IOInterface'),
+            $this->getMock('Tangram\Config'),
+            $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock()
         );
 
-        $repository1 = $this->getMock('Composer\Repository\RepositoryInterface');
-        $repository2 = $this->getMock('Composer\Repository\RepositoryInterface');
+        $repository1 = $this->getMock('Tangram\Repository\RepositoryInterface');
+        $repository2 = $this->getMock('Tangram\Repository\RepositoryInterface');
         $rm->addRepository($repository1);
         $rm->prependRepository($repository2);
 
@@ -59,9 +59,9 @@ class RepositoryManagerTest extends TestCase
         }
 
         $rm = new RepositoryManager(
-            $this->getMock('Composer\IO\IOInterface'),
-            $config = $this->getMock('Composer\Config', array('get')),
-            $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock()
+            $this->getMock('Tangram\IO\IOInterface'),
+            $config = $this->getMock('Tangram\Config', array('get')),
+            $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock()
         );
 
         $tmpdir = $this->tmpdir;
@@ -73,15 +73,15 @@ class RepositoryManagerTest extends TestCase
             }))
         ;
 
-        $rm->setRepositoryClass('composer', 'Composer\Repository\ComposerRepository');
-        $rm->setRepositoryClass('vcs', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('package', 'Composer\Repository\PackageRepository');
-        $rm->setRepositoryClass('pear', 'Composer\Repository\PearRepository');
-        $rm->setRepositoryClass('git', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('svn', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('perforce', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('hg', 'Composer\Repository\VcsRepository');
-        $rm->setRepositoryClass('artifact', 'Composer\Repository\ArtifactRepository');
+        $rm->setRepositoryClass('composer', 'Tangram\Repository\ComposerRepository');
+        $rm->setRepositoryClass('vcs', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('package', 'Tangram\Repository\PackageRepository');
+        $rm->setRepositoryClass('pear', 'Tangram\Repository\PearRepository');
+        $rm->setRepositoryClass('git', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('svn', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('perforce', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('hg', 'Tangram\Repository\VcsRepository');
+        $rm->setRepositoryClass('artifact', 'Tangram\Repository\ArtifactRepository');
 
         $rm->createRepository('composer', array('url' => 'http://example.org'));
         $rm->createRepository($type, $options);

@@ -12,8 +12,8 @@
 
 namespace Tangram\Test;
 
-use Composer\Console\Application;
-use Composer\TestCase;
+use Tangram\Console\Application;
+use Tangram\TestCase;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ApplicationTest extends TestCase
@@ -73,7 +73,7 @@ class ApplicationTest extends TestCase
     {
         $application = new Application;
 
-        $application->add(new \Composer\Command\SelfUpdateCommand);
+        $application->add(new \Tangram\Command\SelfUpdateCommand);
 
         $inputMock = $this->getMock('Symfony\Component\Console\Input\InputInterface');
         $outputMock = $this->getMock('Symfony\Component\Console\Output\OutputInterface');

@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Json;
 
-use Composer\Json\JsonFormatter;
+use Tangram\Json\JsonFormatter;
 
 class JsonFormatterTest extends \PHPUnit_Framework_TestCase
 {

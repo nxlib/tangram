@@ -12,10 +12,10 @@
 
 namespace Tangram\Package\Dumper;
 
-use Composer\Package\BasePackage;
-use Composer\Package\PackageInterface;
-use Composer\Package\CompletePackageInterface;
-use Composer\Package\RootPackageInterface;
+use Tangram\Package\BasePackage;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\CompletePackageInterface;
+use Tangram\Package\RootPackageInterface;
 
 /**
  * @author Konstantin Kudryashiv <ever.zet@gmail.com>

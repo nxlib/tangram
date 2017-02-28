@@ -8,7 +8,7 @@ class ComposerAutoloaderInitFilesAutoload
 
     public static function loadClassLoader($class)
     {
-        if ('Composer\Autoload\ClassLoader' === $class) {
+        if ('Tangram\Autoload\ClassLoader' === $class) {
             require __DIR__ . '/ClassLoader.php';
         }
     }
@@ -20,7 +20,7 @@ class ComposerAutoloaderInitFilesAutoload
         }
 
         spl_autoload_register(array('ComposerAutoloaderInitFilesAutoload', 'loadClassLoader'), true, true);
-        self::$loader = $loader = new \Composer\Autoload\ClassLoader();
+        self::$loader = $loader = new \Tangram\Autoload\ClassLoader();
         spl_autoload_unregister(array('ComposerAutoloaderInitFilesAutoload', 'loadClassLoader'));
 
         $includePaths = require __DIR__ . '/include_paths.php';
@@ -31,7 +31,7 @@ class ComposerAutoloaderInitFilesAutoload
         if ($useStaticLoader) {
             require_once __DIR__ . '/autoload_static.php';
 
-            call_user_func(\Composer\Autoload\ComposerStaticInitFilesAutoload::getInitializer($loader));
+            call_user_func(\Tangram\Autoload\ComposerStaticInitFilesAutoload::getInitializer($loader));
         } else {
             $map = require __DIR__ . '/autoload_namespaces.php';
             foreach ($map as $namespace => $path) {
@@ -52,7 +52,7 @@ class ComposerAutoloaderInitFilesAutoload
         $loader->register(true);
 
         if ($useStaticLoader) {
-            $includeFiles = Composer\Autoload\ComposerStaticInitFilesAutoload::$files;
+            $includeFiles = Tangram\Autoload\ComposerStaticInitFilesAutoload::$files;
         } else {
             $includeFiles = require __DIR__ . '/autoload_files.php';
         }

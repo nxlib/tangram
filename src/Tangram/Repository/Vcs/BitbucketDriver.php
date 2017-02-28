@@ -2,10 +2,10 @@
 
 namespace Tangram\Repository\Vcs;
 
-use Composer\Cache;
-use Composer\Downloader\TransportException;
-use Composer\Json\JsonFile;
-use Composer\Util\Bitbucket;
+use Tangram\Cache;
+use Tangram\Downloader\TransportException;
+use Tangram\Json\JsonFile;
+use Tangram\Util\Bitbucket;
 
 abstract class BitbucketDriver extends VcsDriver
 {

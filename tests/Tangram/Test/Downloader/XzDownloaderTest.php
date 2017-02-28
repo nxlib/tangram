@@ -12,11 +12,11 @@
 
 namespace Tangram\Test\Downloader;
 
-use Composer\Downloader\XzDownloader;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Util\Platform;
-use Composer\Util\RemoteFilesystem;
+use Tangram\Downloader\XzDownloader;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Platform;
+use Tangram\Util\RemoteFilesystem;
 
 class XzDownloaderTest extends TestCase
 {
@@ -46,7 +46,7 @@ class XzDownloaderTest extends TestCase
 
     public function testErrorMessages()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getDistUrl')
             ->will($this->returnValue($distUrl = 'file://'.__FILE__))
@@ -60,8 +60,8 @@ class XzDownloaderTest extends TestCase
             ->will($this->returnValue(array()))
         ;
 
-        $io = $this->getMock('Composer\IO\IOInterface');
-        $config = $this->getMock('Composer\Config');
+        $io = $this->getMock('Tangram\IO\IOInterface');
+        $config = $this->getMock('Tangram\Config');
         $config->expects($this->any())
             ->method('get')
             ->with('vendor-dir')

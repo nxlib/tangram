@@ -12,15 +12,15 @@
 
 namespace Tangram\Test;
 
-use Composer\Composer;
-use Composer\TestCase;
+use Tangram\Composer;
+use Tangram\TestCase;
 
 class ComposerTest extends TestCase
 {
     public function testSetGetPackage()
     {
         $composer = new Composer();
-        $package = $this->getMock('Composer\Package\RootPackageInterface');
+        $package = $this->getMock('Tangram\Package\RootPackageInterface');
         $composer->setPackage($package);
 
         $this->assertSame($package, $composer->getPackage());
@@ -29,7 +29,7 @@ class ComposerTest extends TestCase
     public function testSetGetLocker()
     {
         $composer = new Composer();
-        $locker = $this->getMockBuilder('Composer\Package\Locker')->disableOriginalConstructor()->getMock();
+        $locker = $this->getMockBuilder('Tangram\Package\Locker')->disableOriginalConstructor()->getMock();
         $composer->setLocker($locker);
 
         $this->assertSame($locker, $composer->getLocker());
@@ -38,7 +38,7 @@ class ComposerTest extends TestCase
     public function testSetGetRepositoryManager()
     {
         $composer = new Composer();
-        $manager = $this->getMockBuilder('Composer\Repository\RepositoryManager')->disableOriginalConstructor()->getMock();
+        $manager = $this->getMockBuilder('Tangram\Repository\RepositoryManager')->disableOriginalConstructor()->getMock();
         $composer->setRepositoryManager($manager);
 
         $this->assertSame($manager, $composer->getRepositoryManager());
@@ -47,8 +47,8 @@ class ComposerTest extends TestCase
     public function testSetGetDownloadManager()
     {
         $composer = new Composer();
-        $io = $this->getMock('Composer\IO\IOInterface');
-        $manager = $this->getMock('Composer\Downloader\DownloadManager', array(), array($io));
+        $io = $this->getMock('Tangram\IO\IOInterface');
+        $manager = $this->getMock('Tangram\Downloader\DownloadManager', array(), array($io));
         $composer->setDownloadManager($manager);
 
         $this->assertSame($manager, $composer->getDownloadManager());
@@ -57,7 +57,7 @@ class ComposerTest extends TestCase
     public function testSetGetInstallationManager()
     {
         $composer = new Composer();
-        $manager = $this->getMock('Composer\Installer\InstallationManager');
+        $manager = $this->getMock('Tangram\Installer\InstallationManager');
         $composer->setInstallationManager($manager);
 
         $this->assertSame($manager, $composer->getInstallationManager());

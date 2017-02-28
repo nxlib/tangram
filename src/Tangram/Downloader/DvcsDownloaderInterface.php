@@ -12,7 +12,7 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Package\PackageInterface;
+use Tangram\Package\PackageInterface;
 
 /**
  * DVCS Downloader interface.

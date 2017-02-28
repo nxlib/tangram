@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Util\Platform;
+use Tangram\Util\Platform;
 
 /**
  * PlatformTest

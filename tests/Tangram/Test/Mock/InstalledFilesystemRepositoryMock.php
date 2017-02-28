@@ -11,7 +11,7 @@
 
 namespace Tangram\Test\Mock;
 
-use Composer\Repository\InstalledFilesystemRepository;
+use Tangram\Repository\InstalledFilesystemRepository;
 
 class InstalledFilesystemRepositoryMock extends InstalledFilesystemRepository
 {

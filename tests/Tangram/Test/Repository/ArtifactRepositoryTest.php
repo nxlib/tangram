@@ -12,11 +12,11 @@
 
 namespace Tangram\Test\Repository;
 
-use Composer\Repository\ArtifactRepository;
-use Composer\TestCase;
-use Composer\IO\NullIO;
-use Composer\Config;
-use Composer\Package\BasePackage;
+use Tangram\Repository\ArtifactRepository;
+use Tangram\TestCase;
+use Tangram\IO\NullIO;
+use Tangram\Config;
+use Tangram\Package\BasePackage;
 
 class ArtifactRepositoryTest extends TestCase
 {

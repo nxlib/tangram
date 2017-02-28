@@ -12,9 +12,9 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Package\PackageInterface;
-use Composer\IO\IOInterface;
-use Composer\Util\Filesystem;
+use Tangram\Package\PackageInterface;
+use Tangram\IO\IOInterface;
+use Tangram\Util\Filesystem;
 
 /**
  * Downloaders manager.

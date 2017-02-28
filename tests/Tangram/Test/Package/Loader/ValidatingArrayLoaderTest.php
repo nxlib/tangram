@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Package\Loader;
 
-use Composer\Package\Loader\ValidatingArrayLoader;
-use Composer\Package\Loader\InvalidPackageException;
+use Tangram\Package\Loader\ValidatingArrayLoader;
+use Tangram\Package\Loader\InvalidPackageException;
 
 class ValidatingArrayLoaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +22,7 @@ class ValidatingArrayLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadSuccess($config)
     {
-        $internalLoader = $this->getMock('Composer\Package\Loader\LoaderInterface');
+        $internalLoader = $this->getMock('Tangram\Package\Loader\LoaderInterface');
         $internalLoader
             ->expects($this->once())
             ->method('load')
@@ -164,7 +164,7 @@ class ValidatingArrayLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadFailureThrowsException($config, $expectedErrors)
     {
-        $internalLoader = $this->getMock('Composer\Package\Loader\LoaderInterface');
+        $internalLoader = $this->getMock('Tangram\Package\Loader\LoaderInterface');
         $loader = new ValidatingArrayLoader($internalLoader, true, null, ValidatingArrayLoader::CHECK_ALL);
         try {
             $loader->load($config);
@@ -182,7 +182,7 @@ class ValidatingArrayLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadWarnings($config, $expectedWarnings)
     {
-        $internalLoader = $this->getMock('Composer\Package\Loader\LoaderInterface');
+        $internalLoader = $this->getMock('Tangram\Package\Loader\LoaderInterface');
         $loader = new ValidatingArrayLoader($internalLoader, true, null, ValidatingArrayLoader::CHECK_ALL);
 
         $loader->load($config);
@@ -202,7 +202,7 @@ class ValidatingArrayLoaderTest extends \PHPUnit_Framework_TestCase
 
             return;
         }
-        $internalLoader = $this->getMock('Composer\Package\Loader\LoaderInterface');
+        $internalLoader = $this->getMock('Tangram\Package\Loader\LoaderInterface');
         $internalLoader
             ->expects($this->once())
             ->method('load')

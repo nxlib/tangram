@@ -12,12 +12,12 @@
 
 namespace Tangram\Installer;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Package\PackageInterface;
-use Composer\Util\Filesystem;
-use Composer\Util\Silencer;
+use Tangram\Composer;
+use Tangram\IO\IOInterface;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\Package\PackageInterface;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Silencer;
 
 /**
  * Package installation manager.

@@ -12,13 +12,13 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Package\PackageInterface;
-use Composer\Util\Git as GitUtil;
-use Composer\Util\Platform;
-use Composer\Util\ProcessExecutor;
-use Composer\IO\IOInterface;
-use Composer\Util\Filesystem;
-use Composer\Config;
+use Tangram\Package\PackageInterface;
+use Tangram\Util\Git as GitUtil;
+use Tangram\Util\Platform;
+use Tangram\Util\ProcessExecutor;
+use Tangram\IO\IOInterface;
+use Tangram\Util\Filesystem;
+use Tangram\Config;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>
@@ -97,7 +97,7 @@ class GitDownloader extends VcsDownloader implements DvcsDownloaderInterface
         if (
             0 === $this->process->execute('git remote -v', $output, $path)
             && preg_match('{^origin\s+(?P<url>\S+)}m', $output, $originMatch)
-            && preg_match('{^composer\s+(?P<url>\S+)}m', $output, $composerMatch)
+            && preg_match('{^Tangram\s+(?P<url>\S+)}m', $output, $composerMatch)
         ) {
             if ($originMatch['url'] === $composerMatch['url'] && $composerMatch['url'] !== $target->getSourceUrl()) {
                 $updateOriginUrl = true;

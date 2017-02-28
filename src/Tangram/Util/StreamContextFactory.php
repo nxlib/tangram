@@ -12,7 +12,7 @@
 
 namespace Tangram\Util;
 
-use Composer\Composer;
+use Tangram\Composer;
 
 /**
  * Allows the creation of a basic context supporting http proxy

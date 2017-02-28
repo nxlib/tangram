@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Plugin\Mock;
 
-use Composer\Plugin\Capable;
-use Composer\Plugin\PluginInterface;
+use Tangram\Plugin\Capable;
+use Tangram\Plugin\PluginInterface;
 
 interface CapablePluginInterface extends PluginInterface, Capable
 {

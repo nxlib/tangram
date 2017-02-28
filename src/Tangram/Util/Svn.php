@@ -12,8 +12,8 @@
 
 namespace Tangram\Util;
 
-use Composer\Config;
-use Composer\IO\IOInterface;
+use Tangram\Config;
+use Tangram\IO\IOInterface;
 
 /**
  * @author Till Klampaeckel <till@php.net>
@@ -34,7 +34,7 @@ class Svn
     protected $hasAuth;
 
     /**
-     * @var \Composer\IO\IOInterface
+     * @var \Tangram\IO\IOInterface
      */
     protected $io;
 
@@ -59,13 +59,13 @@ class Svn
     protected $qtyAuthTries = 0;
 
     /**
-     * @var \Composer\Config
+     * @var \Tangram\Config
      */
     protected $config;
 
     /**
      * @param string                   $url
-     * @param \Composer\IO\IOInterface $io
+     * @param \Tangram\IO\IOInterface $io
      * @param Config                   $config
      * @param ProcessExecutor          $process
      */
@@ -160,7 +160,7 @@ class Svn
      * Repositories requests credentials, let's put them in.
      *
      * @throws \RuntimeException
-     * @return \Composer\Util\Svn
+     * @return \Tangram\Util\Svn
      */
     protected function doAuthDance()
     {

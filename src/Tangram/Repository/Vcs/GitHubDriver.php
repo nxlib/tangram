@@ -12,12 +12,12 @@
 
 namespace Tangram\Repository\Vcs;
 
-use Composer\Config;
-use Composer\Downloader\TransportException;
-use Composer\Json\JsonFile;
-use Composer\Cache;
-use Composer\IO\IOInterface;
-use Composer\Util\GitHub;
+use Tangram\Config;
+use Tangram\Downloader\TransportException;
+use Tangram\Json\JsonFile;
+use Tangram\Cache;
+use Tangram\IO\IOInterface;
+use Tangram\Util\GitHub;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>
@@ -412,7 +412,7 @@ class GitHubDriver extends VcsDriver
     /**
      * Extract ratelimit from response.
      *
-     * @param array $headers Headers from Composer\Downloader\TransportException.
+     * @param array $headers Headers from Tangram\Downloader\TransportException.
      *
      * @return array Associative array with the keys limit and reset.
      */

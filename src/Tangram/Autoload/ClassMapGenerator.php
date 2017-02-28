@@ -19,8 +19,8 @@
 namespace Tangram\Autoload;
 
 use Symfony\Component\Finder\Finder;
-use Composer\IO\IOInterface;
-use Composer\Util\Filesystem;
+use Tangram\IO\IOInterface;
+use Tangram\Util\Filesystem;
 
 /**
  * ClassMapGenerator

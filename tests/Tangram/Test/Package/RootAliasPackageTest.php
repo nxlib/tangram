@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Package;
 
-use Composer\Package\Link;
-use Composer\Package\RootAliasPackage;
-use Composer\TestCase;
+use Tangram\Package\Link;
+use Tangram\Package\RootAliasPackage;
+use Tangram\TestCase;
 use Prophecy\Argument;
 
 class RootAliasPackageTest extends TestCase
@@ -81,7 +81,7 @@ class RootAliasPackageTest extends TestCase
 
     protected function getMockRootPackageInterface()
     {
-        $root = $this->prophesize('Composer\\Package\\RootPackageInterface');
+        $root = $this->prophesize('Tangram\\Package\\RootPackageInterface');
         $root->getName()->willReturn('something/something')->shouldBeCalled();
         $root->getRequires()->willReturn(array())->shouldBeCalled();
         $root->getDevRequires()->willReturn(array())->shouldBeCalled();

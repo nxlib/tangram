@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Util\IniHelper;
+use Tangram\Util\IniHelper;
 
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>

@@ -12,11 +12,11 @@
 
 namespace Tangram\Package\Loader;
 
-use Composer\Package;
-use Composer\Package\BasePackage;
-use Composer\Semver\Constraint\Constraint;
-use Composer\Package\Version\VersionParser;
-use Composer\Repository\PlatformRepository;
+use Tangram\Package;
+use Tangram\Package\BasePackage;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Repository\PlatformRepository;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>
@@ -43,7 +43,7 @@ class ValidatingArrayLoader implements LoaderInterface
         $this->flags = $flags;
     }
 
-    public function load(array $config, $class = 'Composer\Package\CompletePackage')
+    public function load(array $config, $class = 'Tangram\Package\CompletePackage')
     {
         $this->errors = array();
         $this->warnings = array();

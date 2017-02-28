@@ -12,16 +12,16 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Config;
-use Composer\Cache;
-use Composer\Factory;
-use Composer\IO\IOInterface;
-use Composer\Package\PackageInterface;
-use Composer\Plugin\PluginEvents;
-use Composer\Plugin\PreFileDownloadEvent;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Util\Filesystem;
-use Composer\Util\RemoteFilesystem;
+use Tangram\Config;
+use Tangram\Cache;
+use Tangram\Factory;
+use Tangram\IO\IOInterface;
+use Tangram\Package\PackageInterface;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Plugin\PreFileDownloadEvent;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Util\Filesystem;
+use Tangram\Util\RemoteFilesystem;
 
 /**
  * Base downloader for files

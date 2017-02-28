@@ -12,7 +12,7 @@
 
 namespace Tangram\Test;
 
-use Composer\Config;
+use Tangram\Config;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
@@ -238,7 +238,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function testProhibitedUrlsThrowException($url)
     {
         $this->setExpectedException(
-            'Composer\Downloader\TransportException',
+            'Tangram\Downloader\TransportException',
             'Your configuration does not allow connections to ' . $url
         );
         $config = new Config(false);

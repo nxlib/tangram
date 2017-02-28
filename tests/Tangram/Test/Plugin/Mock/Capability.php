@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Plugin\Mock;
 
-class Capability implements \Composer\Plugin\Capability\Capability
+class Capability implements \Tangram\Plugin\Capability\Capability
 {
     public $args;
 

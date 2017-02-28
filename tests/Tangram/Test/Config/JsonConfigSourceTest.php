@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\Json;
 
-use Composer\Config\JsonConfigSource;
-use Composer\Json\JsonFile;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\Config\JsonConfigSource;
+use Tangram\Json\JsonFile;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 
 class JsonConfigSourceTest extends TestCase
 {

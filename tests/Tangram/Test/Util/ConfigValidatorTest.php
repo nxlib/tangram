@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\IO\NullIO;
-use Composer\Util\ConfigValidator;
-use Composer\TestCase;
+use Tangram\IO\NullIO;
+use Tangram\Util\ConfigValidator;
+use Tangram\TestCase;
 
 /**
  * ConfigValidator test case

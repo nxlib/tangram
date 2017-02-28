@@ -12,9 +12,9 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Package\PackageInterface;
-use Composer\Repository\VcsRepository;
-use Composer\Util\Perforce;
+use Tangram\Package\PackageInterface;
+use Tangram\Repository\VcsRepository;
+use Tangram\Util\Perforce;
 
 /**
  * @author Matt Whittom <Matt.Whittom@veteransunited.com>

@@ -33,8 +33,8 @@ interface Capable
      * @tutorial
      *
      * return array(
-     *     'Composer\Plugin\Capability\CommandProvider' => 'My\CommandProvider',
-     *     'Composer\Plugin\Capability\Validator'       => 'My\Validator',
+     *     'Tangram\Plugin\Capability\CommandProvider' => 'My\CommandProvider',
+     *     'Tangram\Plugin\Capability\Validator'       => 'My\Validator',
      * );
      *
      * @return string[]

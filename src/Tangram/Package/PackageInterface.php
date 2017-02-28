@@ -12,7 +12,7 @@
 
 namespace Tangram\Package;
 
-use Composer\Repository\RepositoryInterface;
+use Tangram\Repository\RepositoryInterface;
 
 /**
  * Defines the essential information a package has that is used during solving/installation

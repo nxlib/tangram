@@ -12,7 +12,7 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Util\Filesystem;
+use Tangram\Util\Filesystem;
 
 /**
  * Extractor for pear packages.

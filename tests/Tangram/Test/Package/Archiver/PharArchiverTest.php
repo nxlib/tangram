@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Package\Archiver;
 
-use Composer\Package\Archiver\PharArchiver;
+use Tangram\Package\Archiver\PharArchiver;
 
 class PharArchiverTest extends ArchiverTest
 {

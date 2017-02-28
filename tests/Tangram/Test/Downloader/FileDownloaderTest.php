@@ -12,17 +12,17 @@
 
 namespace Tangram\Test\Downloader;
 
-use Composer\Downloader\FileDownloader;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\Downloader\FileDownloader;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 
 class FileDownloaderTest extends TestCase
 {
     protected function getDownloader($io = null, $config = null, $eventDispatcher = null, $cache = null, $rfs = null, $filesystem = null)
     {
-        $io = $io ?: $this->getMock('Composer\IO\IOInterface');
-        $config = $config ?: $this->getMock('Composer\Config');
-        $rfs = $rfs ?: $this->getMockBuilder('Composer\Util\RemoteFilesystem')->disableOriginalConstructor()->getMock();
+        $io = $io ?: $this->getMock('Tangram\IO\IOInterface');
+        $config = $config ?: $this->getMock('Tangram\Config');
+        $rfs = $rfs ?: $this->getMockBuilder('Tangram\Util\RemoteFilesystem')->disableOriginalConstructor()->getMock();
 
         return new FileDownloader($io, $config, $eventDispatcher, $cache, $rfs, $filesystem);
     }
@@ -32,7 +32,7 @@ class FileDownloaderTest extends TestCase
      */
     public function testDownloadForPackageWithoutDistReference()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->once())
             ->method('getDistUrl')
             ->will($this->returnValue(null))
@@ -44,7 +44,7 @@ class FileDownloaderTest extends TestCase
 
     public function testDownloadToExistingFile()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->once())
             ->method('getDistUrl')
             ->will($this->returnValue('url'))
@@ -74,7 +74,7 @@ class FileDownloaderTest extends TestCase
 
     public function testGetFileName()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->once())
             ->method('getDistUrl')
             ->will($this->returnValue('http://example.com/script.js'))
@@ -89,7 +89,7 @@ class FileDownloaderTest extends TestCase
 
     public function testDownloadButFileIsUnsaved()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getDistUrl')
             ->will($this->returnValue($distUrl = 'http://example.com/script.js'))
@@ -104,7 +104,7 @@ class FileDownloaderTest extends TestCase
         ;
 
         $path = $this->getUniqueTmpDirectory();
-        $ioMock = $this->getMock('Composer\IO\IOInterface');
+        $ioMock = $this->getMock('Tangram\IO\IOInterface');
         $ioMock->expects($this->any())
             ->method('write')
             ->will($this->returnCallback(function ($messages, $newline = true) use ($path) {
@@ -137,7 +137,7 @@ class FileDownloaderTest extends TestCase
     {
         $expectedTtl = '99999999';
 
-        $configMock = $this->getMock('Composer\Config');
+        $configMock = $this->getMock('Tangram\Config');
         $configMock
             ->expects($this->at(0))
             ->method('get')
@@ -149,7 +149,7 @@ class FileDownloaderTest extends TestCase
             ->with('cache-files-maxsize')
             ->will($this->returnValue('500M'));
 
-        $cacheMock = $this->getMockBuilder('Composer\Cache')
+        $cacheMock = $this->getMockBuilder('Tangram\Cache')
                      ->disableOriginalConstructor()
                      ->getMock();
         $cacheMock
@@ -166,7 +166,7 @@ class FileDownloaderTest extends TestCase
 
     public function testDownloadFileWithInvalidChecksum()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getDistUrl')
             ->will($this->returnValue($distUrl = 'http://example.com/script.js'))
@@ -183,7 +183,7 @@ class FileDownloaderTest extends TestCase
             ->method('getDistUrls')
             ->will($this->returnValue(array($distUrl)))
         ;
-        $filesystem = $this->getMock('Composer\Util\Filesystem');
+        $filesystem = $this->getMock('Tangram\Util\Filesystem');
 
         $path = $this->getUniqueTmpDirectory();
         $downloader = $this->getDownloader(null, null, null, null, null, $filesystem);

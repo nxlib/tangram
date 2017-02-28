@@ -12,13 +12,13 @@
 
 namespace Tangram\Installer;
 
-use Composer\IO\IOInterface;
-use Composer\Composer;
-use Composer\Downloader\PearPackageExtractor;
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Package\PackageInterface;
-use Composer\Util\Platform;
-use Composer\Util\Filesystem;
+use Tangram\IO\IOInterface;
+use Tangram\Composer;
+use Tangram\Downloader\PearPackageExtractor;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\Package\PackageInterface;
+use Tangram\Util\Platform;
+use Tangram\Util\Filesystem;
 
 /**
  * Package installation manager.

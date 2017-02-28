@@ -12,7 +12,7 @@
 
 namespace Tangram\DependencyResolver;
 
-use Composer\Package\AliasPackage;
+use Tangram\Package\AliasPackage;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

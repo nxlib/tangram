@@ -12,9 +12,9 @@
 
 namespace Tangram\DependencyResolver;
 
-use Composer\Package\PackageInterface;
-use Composer\Package\AliasPackage;
-use Composer\Repository\PlatformRepository;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\AliasPackage;
+use Tangram\Repository\PlatformRepository;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

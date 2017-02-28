@@ -13,7 +13,7 @@
 namespace Tangram\Test\Json;
 
 use Seld\JsonLint\ParsingException;
-use Composer\Json\JsonFile;
+use Tangram\Json\JsonFile;
 
 class JsonFileTest extends \PHPUnit_Framework_TestCase
 {

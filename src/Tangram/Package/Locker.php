@@ -12,15 +12,15 @@
 
 namespace Tangram\Package;
 
-use Composer\Json\JsonFile;
-use Composer\Installer\InstallationManager;
-use Composer\Repository\RepositoryManager;
-use Composer\Util\ProcessExecutor;
-use Composer\Repository\ArrayRepository;
-use Composer\Package\Dumper\ArrayDumper;
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Util\Git as GitUtil;
-use Composer\IO\IOInterface;
+use Tangram\Json\JsonFile;
+use Tangram\Installer\InstallationManager;
+use Tangram\Repository\RepositoryManager;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Repository\ArrayRepository;
+use Tangram\Package\Dumper\ArrayDumper;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Util\Git as GitUtil;
+use Tangram\IO\IOInterface;
 use Seld\JsonLint\ParsingException;
 
 /**
@@ -145,7 +145,7 @@ class Locker
      *
      * @param  bool                                     $withDevReqs true to retrieve the locked dev packages
      * @throws \RuntimeException
-     * @return \Composer\Repository\RepositoryInterface
+     * @return \Tangram\Repository\RepositoryInterface
      */
     public function getLockedRepository($withDevReqs = false)
     {
@@ -180,7 +180,7 @@ class Locker
      * Returns the platform requirements stored in the lock file
      *
      * @param  bool                     $withDevReqs if true, the platform requirements from the require-dev block are also returned
-     * @return \Composer\Package\Link[]
+     * @return \Tangram\Package\Link[]
      */
     public function getPlatformRequirements($withDevReqs = false)
     {

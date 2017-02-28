@@ -12,8 +12,8 @@
 
 namespace Tangram\Package;
 
-use Composer\Package\Version\VersionParser;
-use Composer\Util\ComposerMirror;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Util\ComposerMirror;
 
 /**
  * Core package definitions that are needed to resolve dependencies and install packages

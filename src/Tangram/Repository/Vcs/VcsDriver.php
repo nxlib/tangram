@@ -12,15 +12,15 @@
 
 namespace Tangram\Repository\Vcs;
 
-use Composer\Cache;
-use Composer\Downloader\TransportException;
-use Composer\Config;
-use Composer\Factory;
-use Composer\IO\IOInterface;
-use Composer\Json\JsonFile;
-use Composer\Util\ProcessExecutor;
-use Composer\Util\RemoteFilesystem;
-use Composer\Util\Filesystem;
+use Tangram\Cache;
+use Tangram\Downloader\TransportException;
+use Tangram\Config;
+use Tangram\Factory;
+use Tangram\IO\IOInterface;
+use Tangram\Json\JsonFile;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\Util\Filesystem;
 
 /**
  * A driver implementation for driver with authentication interaction.

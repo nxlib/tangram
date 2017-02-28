@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Downloader;
 
-use Composer\Downloader\PearPackageExtractor;
-use Composer\TestCase;
+use Tangram\Downloader\PearPackageExtractor;
+use Tangram\TestCase;
 
 class PearPackageExtractorTest extends TestCase
 {
@@ -21,7 +21,7 @@ class PearPackageExtractorTest extends TestCase
     {
         $state = libxml_disable_entity_loader(true);
 
-        $extractor = $this->getMockForAbstractClass('Composer\Downloader\PearPackageExtractor', array(), '', false);
+        $extractor = $this->getMockForAbstractClass('Tangram\Downloader\PearPackageExtractor', array(), '', false);
         $method = new \ReflectionMethod($extractor, 'buildCopyActions');
         $method->setAccessible(true);
 
@@ -56,7 +56,7 @@ class PearPackageExtractorTest extends TestCase
     {
         $state = libxml_disable_entity_loader(true);
 
-        $extractor = $this->getMockForAbstractClass('Composer\Downloader\PearPackageExtractor', array(), '', false);
+        $extractor = $this->getMockForAbstractClass('Tangram\Downloader\PearPackageExtractor', array(), '', false);
         $method = new \ReflectionMethod($extractor, 'buildCopyActions');
         $method->setAccessible(true);
 
@@ -79,7 +79,7 @@ class PearPackageExtractorTest extends TestCase
     {
         $state = libxml_disable_entity_loader(true);
 
-        $extractor = $this->getMockForAbstractClass('Composer\Downloader\PearPackageExtractor', array(), '', false);
+        $extractor = $this->getMockForAbstractClass('Tangram\Downloader\PearPackageExtractor', array(), '', false);
         $method = new \ReflectionMethod($extractor, 'buildCopyActions');
         $method->setAccessible(true);
 

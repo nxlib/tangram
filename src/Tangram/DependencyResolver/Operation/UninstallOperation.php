@@ -12,7 +12,7 @@
 
 namespace Tangram\DependencyResolver\Operation;
 
-use Composer\Package\PackageInterface;
+use Tangram\Package\PackageInterface;
 
 /**
  * Solver uninstall operation.

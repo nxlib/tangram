@@ -12,12 +12,12 @@
 
 namespace Tangram\Repository;
 
-use Composer\Package\AliasPackage;
-use Composer\Package\PackageInterface;
-use Composer\Package\CompletePackageInterface;
-use Composer\Package\Version\VersionParser;
-use Composer\Semver\Constraint\ConstraintInterface;
-use Composer\Semver\Constraint\Constraint;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\CompletePackageInterface;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Semver\Constraint\ConstraintInterface;
+use Tangram\Semver\Constraint\Constraint;
 
 /**
  * A repository implementation that simply stores packages in an array

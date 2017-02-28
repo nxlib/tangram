@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Repository;
 
-use Composer\Repository\PearRepository;
-use Composer\TestCase;
+use Tangram\Repository\PearRepository;
+use Tangram\TestCase;
 
 /**
  * @group legacy
@@ -48,7 +48,7 @@ class PearRepositoryTest extends TestCase
 
         foreach ($expectedPackages as $expectedPackage) {
             $package = $this->repository->findPackage($expectedPackage['name'], $expectedPackage['version']);
-            $this->assertInstanceOf('Composer\Package\PackageInterface',
+            $this->assertInstanceOf('Tangram\Package\PackageInterface',
                 $package,
                 'Expected package ' . $expectedPackage['name'] . ', version ' . $expectedPackage['version'] .
                 ' not found in pear channel ' . $url
@@ -74,7 +74,7 @@ class PearRepositoryTest extends TestCase
 
         $this->createRepository($repoConfig);
         foreach ($expectedPackages as $expectedPackage) {
-            $this->assertInstanceOf('Composer\Package\PackageInterface',
+            $this->assertInstanceOf('Tangram\Package\PackageInterface',
                 $this->repository->findPackage($expectedPackage['name'], $expectedPackage['version']),
                 'Expected package ' . $expectedPackage['name'] . ', version ' . $expectedPackage['version'] .
                 ' not found in pear channel ' . $url
@@ -126,12 +126,12 @@ class PearRepositoryTest extends TestCase
 
     private function createRepository($repoConfig)
     {
-        $ioInterface = $this->getMockBuilder('Composer\IO\IOInterface')
+        $ioInterface = $this->getMockBuilder('Tangram\IO\IOInterface')
             ->getMock();
 
-        $config = new \Composer\Config();
+        $config = new \Tangram\Config();
 
-        $this->remoteFilesystem = $this->getMockBuilder('Composer\Util\RemoteFilesystem')
+        $this->remoteFilesystem = $this->getMockBuilder('Tangram\Util\RemoteFilesystem')
             ->disableOriginalConstructor()
             ->getMock();
 

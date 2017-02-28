@@ -11,14 +11,14 @@
 
 namespace Tangram\Test\Mock;
 
-use Composer\Composer;
-use Composer\Config;
-use Composer\Factory;
-use Composer\Repository\RepositoryManager;
-use Composer\Repository\WritableRepositoryInterface;
-use Composer\Installer;
-use Composer\IO\IOInterface;
-use Composer\TestCase;
+use Tangram\Composer;
+use Tangram\Config;
+use Tangram\Factory;
+use Tangram\Repository\RepositoryManager;
+use Tangram\Repository\WritableRepositoryInterface;
+use Tangram\Installer;
+use Tangram\IO\IOInterface;
+use Tangram\TestCase;
 
 class FactoryMock extends Factory
 {

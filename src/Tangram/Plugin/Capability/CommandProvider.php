@@ -16,7 +16,7 @@ namespace Tangram\Plugin\Capability;
  * Commands Provider Interface
  *
  * This capability will receive an array with 'composer' and 'io' keys as
- * constructor argument. Those contain Composer\Composer and Composer\IO\IOInterface
+ * constructor argument. Those contain Tangram\Composer and Tangram\IO\IOInterface
  * instances. It also contains a 'plugin' key containing the plugin instance that
  * created the capability.
  *
@@ -27,7 +27,7 @@ interface CommandProvider extends Capability
     /**
      * Retreives an array of commands
      *
-     * @return \Composer\Command\BaseCommand[]
+     * @return \Tangram\Command\BaseCommand[]
      */
     public function getCommands();
 }

@@ -12,7 +12,7 @@
 
 namespace Tangram\Installer;
 
-use Composer\Package\PackageInterface;
+use Tangram\Package\PackageInterface;
 
 /**
  * Interface for the package installation manager that handle binary installation.

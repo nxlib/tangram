@@ -12,13 +12,13 @@
 
 namespace Tangram\Util;
 
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\Loader\ValidatingArrayLoader;
-use Composer\Package\Loader\InvalidPackageException;
-use Composer\Json\JsonValidationException;
-use Composer\IO\IOInterface;
-use Composer\Json\JsonFile;
-use Composer\Spdx\SpdxLicenses;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\Loader\ValidatingArrayLoader;
+use Tangram\Package\Loader\InvalidPackageException;
+use Tangram\Json\JsonValidationException;
+use Tangram\IO\IOInterface;
+use Tangram\Json\JsonFile;
+use Tangram\Spdx\SpdxLicenses;
 
 /**
  * Validates a composer configuration.

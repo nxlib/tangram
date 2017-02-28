@@ -12,8 +12,8 @@
 
 namespace Tangram\Test;
 
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 

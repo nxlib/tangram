@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Package\Loader;
 
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\Dumper\ArrayDumper;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\Dumper\ArrayDumper;
 
 class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -188,7 +188,7 @@ class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
 
         $package = $this->loader->load($config);
 
-        $this->assertInstanceOf('Composer\Package\AliasPackage', $package);
+        $this->assertInstanceOf('Tangram\Package\AliasPackage', $package);
         $this->assertEquals('1.0.x-dev', $package->getPrettyVersion());
 
         $config = array(
@@ -199,7 +199,7 @@ class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
 
         $package = $this->loader->load($config);
 
-        $this->assertInstanceOf('Composer\Package\AliasPackage', $package);
+        $this->assertInstanceOf('Tangram\Package\AliasPackage', $package);
         $this->assertEquals('1.0.x-dev', $package->getPrettyVersion());
 
         $config = array(
@@ -210,7 +210,7 @@ class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
 
         $package = $this->loader->load($config);
 
-        $this->assertInstanceOf('Composer\Package\AliasPackage', $package);
+        $this->assertInstanceOf('Tangram\Package\AliasPackage', $package);
         $this->assertEquals('4.0.x-dev', $package->getPrettyVersion());
 
         $config = array(
@@ -221,7 +221,7 @@ class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
 
         $package = $this->loader->load($config);
 
-        $this->assertInstanceOf('Composer\Package\AliasPackage', $package);
+        $this->assertInstanceOf('Tangram\Package\AliasPackage', $package);
         $this->assertEquals('4.0.x-dev', $package->getPrettyVersion());
 
         $config = array(
@@ -232,7 +232,7 @@ class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
 
         $package = $this->loader->load($config);
 
-        $this->assertInstanceOf('Composer\Package\CompletePackage', $package);
+        $this->assertInstanceOf('Tangram\Package\CompletePackage', $package);
         $this->assertEquals('4.x-dev', $package->getPrettyVersion());
     }
 

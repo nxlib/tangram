@@ -12,10 +12,10 @@
 
 namespace Tangram;
 
-use Composer\Config\ConfigSourceInterface;
-use Composer\Downloader\TransportException;
-use Composer\IO\IOInterface;
-use Composer\Util\Platform;
+use Tangram\Config\ConfigSourceInterface;
+use Tangram\Downloader\TransportException;
+use Tangram\IO\IOInterface;
+use Tangram\Util\Platform;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

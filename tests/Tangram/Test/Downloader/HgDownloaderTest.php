@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\Downloader;
 
-use Composer\Downloader\HgDownloader;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Util\Platform;
+use Tangram\Downloader\HgDownloader;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Platform;
 
 class HgDownloaderTest extends TestCase
 {
@@ -37,10 +37,10 @@ class HgDownloaderTest extends TestCase
 
     protected function getDownloaderMock($io = null, $config = null, $executor = null, $filesystem = null)
     {
-        $io = $io ?: $this->getMock('Composer\IO\IOInterface');
-        $config = $config ?: $this->getMock('Composer\Config');
-        $executor = $executor ?: $this->getMock('Composer\Util\ProcessExecutor');
-        $filesystem = $filesystem ?: $this->getMock('Composer\Util\Filesystem');
+        $io = $io ?: $this->getMock('Tangram\IO\IOInterface');
+        $config = $config ?: $this->getMock('Tangram\Config');
+        $executor = $executor ?: $this->getMock('Tangram\Util\ProcessExecutor');
+        $filesystem = $filesystem ?: $this->getMock('Tangram\Util\Filesystem');
 
         return new HgDownloader($io, $config, $executor, $filesystem);
     }
@@ -50,7 +50,7 @@ class HgDownloaderTest extends TestCase
      */
     public function testDownloadForPackageWithoutSourceReference()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->once())
             ->method('getSourceReference')
             ->will($this->returnValue(null));
@@ -61,16 +61,16 @@ class HgDownloaderTest extends TestCase
 
     public function testDownload()
     {
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('ref'));
         $packageMock->expects($this->once())
             ->method('getSourceUrls')
             ->will($this->returnValue(array('https://mercurial.dev/l3l0/composer')));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
 
-        $expectedGitCommand = $this->getCmd('hg clone \'https://mercurial.dev/l3l0/composer\' \'composerPath\'');
+        $expectedGitCommand = $this->getCmd('hg clone \'https://mercurial.dev/l3l0/Tangram\' \'composerPath\'');
         $processExecutor->expects($this->at(0))
             ->method('execute')
             ->with($this->equalTo($expectedGitCommand))
@@ -91,8 +91,8 @@ class HgDownloaderTest extends TestCase
      */
     public function testUpdateforPackageWithoutSourceReference()
     {
-        $initialPackageMock = $this->getMock('Composer\Package\PackageInterface');
-        $sourcePackageMock = $this->getMock('Composer\Package\PackageInterface');
+        $initialPackageMock = $this->getMock('Tangram\Package\PackageInterface');
+        $sourcePackageMock = $this->getMock('Tangram\Package\PackageInterface');
         $sourcePackageMock->expects($this->once())
             ->method('getSourceReference')
             ->will($this->returnValue(null));
@@ -105,14 +105,14 @@ class HgDownloaderTest extends TestCase
     {
         $fs = new Filesystem;
         $fs->ensureDirectoryExists($this->workingDir.'/.hg');
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
         $packageMock->expects($this->any())
             ->method('getSourceReference')
             ->will($this->returnValue('ref'));
         $packageMock->expects($this->any())
             ->method('getSourceUrls')
             ->will($this->returnValue(array('https://github.com/l3l0/composer')));
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
 
         $expectedHgCommand = $this->getCmd("hg st");
         $processExecutor->expects($this->at(0))
@@ -133,12 +133,12 @@ class HgDownloaderTest extends TestCase
     {
         $expectedResetCommand = $this->getCmd('cd \'composerPath\' && hg st');
 
-        $packageMock = $this->getMock('Composer\Package\PackageInterface');
-        $processExecutor = $this->getMock('Composer\Util\ProcessExecutor');
+        $packageMock = $this->getMock('Tangram\Package\PackageInterface');
+        $processExecutor = $this->getMock('Tangram\Util\ProcessExecutor');
         $processExecutor->expects($this->any())
             ->method('execute')
             ->with($this->equalTo($expectedResetCommand));
-        $filesystem = $this->getMock('Composer\Util\Filesystem');
+        $filesystem = $this->getMock('Tangram\Util\Filesystem');
         $filesystem->expects($this->any())
             ->method('removeDirectory')
             ->with($this->equalTo('composerPath'))

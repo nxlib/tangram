@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Installer;
 
-use Composer\Installer\MetapackageInstaller;
+use Tangram\Installer\MetapackageInstaller;
 
 class MetapackageInstallerTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,9 +22,9 @@ class MetapackageInstallerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->repository = $this->getMock('Composer\Repository\InstalledRepositoryInterface');
+        $this->repository = $this->getMock('Tangram\Repository\InstalledRepositoryInterface');
 
-        $this->io = $this->getMock('Composer\IO\IOInterface');
+        $this->io = $this->getMock('Tangram\IO\IOInterface');
 
         $this->installer = new MetapackageInstaller();
     }
@@ -93,7 +93,7 @@ class MetapackageInstallerTest extends \PHPUnit_Framework_TestCase
 
     private function createPackageMock()
     {
-        return $this->getMockBuilder('Composer\Package\Package')
+        return $this->getMockBuilder('Tangram\Package\Package')
             ->setConstructorArgs(array(md5(mt_rand()), '1.0.0.0', '1.0.0'))
             ->getMock();
     }

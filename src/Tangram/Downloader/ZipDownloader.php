@@ -12,15 +12,15 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Config;
-use Composer\Cache;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Package\PackageInterface;
-use Composer\Util\IniHelper;
-use Composer\Util\Platform;
-use Composer\Util\ProcessExecutor;
-use Composer\Util\RemoteFilesystem;
-use Composer\IO\IOInterface;
+use Tangram\Config;
+use Tangram\Cache;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Package\PackageInterface;
+use Tangram\Util\IniHelper;
+use Tangram\Util\Platform;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\IO\IOInterface;
 use Symfony\Component\Process\ExecutableFinder;
 use ZipArchive;
 

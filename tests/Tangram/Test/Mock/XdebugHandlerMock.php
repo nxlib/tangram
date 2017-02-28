@@ -11,8 +11,8 @@
 
 namespace Tangram\Test\Mock;
 
-use Composer\Factory;
-use Composer\XdebugHandler;
+use Tangram\Factory;
+use Tangram\XdebugHandler;
 
 class XdebugHandlerMock extends XdebugHandler
 {

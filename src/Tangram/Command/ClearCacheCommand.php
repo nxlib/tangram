@@ -12,8 +12,8 @@
 
 namespace Tangram\Command;
 
-use Composer\Cache;
-use Composer\Factory;
+use Tangram\Cache;
+use Tangram\Factory;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -27,7 +27,7 @@ class ClearCacheCommand extends BaseCommand
         $this
             ->setName('clear-cache')
             ->setAliases(array('clearcache'))
-            ->setDescription('Clears composer\'s internal package cache.')
+            ->setDescription('Clears Tangram\'s internal package cache.')
             ->setHelp(<<<EOT
 The <info>clear-cache</info> deletes all cached packages from composer's
 cache directory.

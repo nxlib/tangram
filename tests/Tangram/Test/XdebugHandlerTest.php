@@ -12,8 +12,8 @@
 
 namespace Tangram\Test;
 
-use Composer\Test\Mock\XdebugHandlerMock;
-use Composer\Util\IniHelper;
+use Tangram\Test\Mock\XdebugHandlerMock;
+use Tangram\Util\IniHelper;
 
 /**
  * @author John Stevenson <john-stevenson@blueyonder.co.uk>

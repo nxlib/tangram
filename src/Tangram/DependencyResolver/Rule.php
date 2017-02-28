@@ -12,9 +12,9 @@
 
 namespace Tangram\DependencyResolver;
 
-use Composer\Package\CompletePackage;
-use Composer\Package\PackageInterface;
-use Composer\Package\Link;
+use Tangram\Package\CompletePackage;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\Link;
 
 /**
  * @author Nils Adermann <naderman@naderman.de>

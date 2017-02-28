@@ -12,7 +12,7 @@
 
 namespace Tangram\Repository;
 
-use Composer\Package\PackageInterface;
+use Tangram\Package\PackageInterface;
 
 /**
  * Composite repository.

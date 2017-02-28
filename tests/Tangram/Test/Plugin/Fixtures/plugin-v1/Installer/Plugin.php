@@ -2,9 +2,9 @@
 
 namespace Installer;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Plugin\PluginInterface;
+use Tangram\Composer;
+use Tangram\IO\IOInterface;
+use Tangram\Plugin\PluginInterface;
 
 class Plugin implements PluginInterface
 {

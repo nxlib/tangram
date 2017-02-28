@@ -12,12 +12,12 @@
 
 namespace Tangram\Installer;
 
-use Composer\IO\IOInterface;
-use Composer\Package\PackageInterface;
-use Composer\Util\Filesystem;
-use Composer\Util\Platform;
-use Composer\Util\ProcessExecutor;
-use Composer\Util\Silencer;
+use Tangram\IO\IOInterface;
+use Tangram\Package\PackageInterface;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Platform;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Util\Silencer;
 
 /**
  * Utility to handle installation of package "bin"/binaries

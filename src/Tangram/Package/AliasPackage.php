@@ -12,8 +12,8 @@
 
 namespace Tangram\Package;
 
-use Composer\Semver\Constraint\Constraint;
-use Composer\Package\Version\VersionParser;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\Package\Version\VersionParser;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Mock;
 
-use Composer\Util\RemoteFilesystem;
-use Composer\Downloader\TransportException;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\Downloader\TransportException;
 
 /**
  * Remote filesystem mock

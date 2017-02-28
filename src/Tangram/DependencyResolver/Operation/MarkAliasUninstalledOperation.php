@@ -12,8 +12,8 @@
 
 namespace Tangram\DependencyResolver\Operation;
 
-use Composer\Package\AliasPackage;
-use Composer\Package\PackageInterface;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\PackageInterface;
 
 /**
  * Solver install operation.

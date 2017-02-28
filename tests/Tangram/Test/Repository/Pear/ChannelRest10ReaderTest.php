@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Repository\Pear;
 
-use Composer\TestCase;
-use Composer\Test\Mock\RemoteFilesystemMock;
+use Tangram\TestCase;
+use Tangram\Test\Mock\RemoteFilesystemMock;
 
 class ChannelRest10ReaderTest extends TestCase
 {
@@ -29,9 +29,9 @@ class ChannelRest10ReaderTest extends TestCase
             'http://test.loc/rest10/r/http_request/deps.1.4.0.txt' => file_get_contents(__DIR__ . '/Fixtures/Rest1.0/http_request_deps.1.4.0.txt'),
         ));
 
-        $reader = new \Composer\Repository\Pear\ChannelRest10Reader($rfs);
+        $reader = new \Tangram\Repository\Pear\ChannelRest10Reader($rfs);
 
-        /** @var $packages \Composer\Package\PackageInterface[] */
+        /** @var $packages \Tangram\Package\PackageInterface[] */
         $packages = $reader->read('http://test.loc/rest10');
 
         $this->assertCount(2, $packages);

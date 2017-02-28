@@ -12,11 +12,11 @@
 
 namespace Tangram\Package\Archiver;
 
-use Composer\Downloader\DownloadManager;
-use Composer\Package\PackageInterface;
-use Composer\Package\RootPackageInterface;
-use Composer\Util\Filesystem;
-use Composer\Json\JsonFile;
+use Tangram\Downloader\DownloadManager;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\RootPackageInterface;
+use Tangram\Util\Filesystem;
+use Tangram\Json\JsonFile;
 
 /**
  * @author Matthieu Moquet <matthieu@moquet.net>

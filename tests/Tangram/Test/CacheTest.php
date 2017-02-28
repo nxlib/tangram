@@ -12,8 +12,8 @@
 
 namespace Tangram\Test;
 
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 
 class CacheTest extends TestCase
 {
@@ -36,9 +36,9 @@ class CacheTest extends TestCase
 
         $this->finder = $this->getMockBuilder('Symfony\Component\Finder\Finder')->disableOriginalConstructor()->getMock();
 
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
         $this->cache = $this->getMock(
-            'Composer\Cache',
+            'Tangram\Cache',
             array('getFinder'),
             array($io, $this->root)
         );

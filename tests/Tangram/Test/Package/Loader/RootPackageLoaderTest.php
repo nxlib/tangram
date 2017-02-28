@@ -12,17 +12,17 @@
 
 namespace Tangram\Test\Package\Loader;
 
-use Composer\Config;
-use Composer\Package\Loader\RootPackageLoader;
-use Composer\Package\BasePackage;
-use Composer\Package\Version\VersionGuesser;
-use Composer\Semver\VersionParser;
+use Tangram\Config;
+use Tangram\Package\Loader\RootPackageLoader;
+use Tangram\Package\BasePackage;
+use Tangram\Package\Version\VersionGuesser;
+use Tangram\Semver\VersionParser;
 
 class RootPackageLoaderTest extends \PHPUnit_Framework_TestCase
 {
     protected function loadPackage($data)
     {
-        $manager = $this->getMockBuilder('\\Composer\\Repository\\RepositoryManager')
+        $manager = $this->getMockBuilder('\\Tangram\\Repository\\RepositoryManager')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -64,12 +64,12 @@ class RootPackageLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testNoVersionIsVisibleInPrettyVersion()
     {
-        $manager = $this->getMockBuilder('\\Composer\\Repository\\RepositoryManager')
+        $manager = $this->getMockBuilder('\\Tangram\\Repository\\RepositoryManager')
             ->disableOriginalConstructor()
             ->getMock()
         ;
 
-        $executor = $this->getMockBuilder('\\Composer\\Util\\ProcessExecutor')
+        $executor = $this->getMockBuilder('\\Tangram\\Util\\ProcessExecutor')
             ->setMethods(array('execute'))
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
@@ -97,12 +97,12 @@ class RootPackageLoaderTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('proc_open() is not available');
         }
 
-        $manager = $this->getMockBuilder('\\Composer\\Repository\\RepositoryManager')
+        $manager = $this->getMockBuilder('\\Tangram\\Repository\\RepositoryManager')
             ->disableOriginalConstructor()
             ->getMock()
         ;
 
-        $executor = $this->getMockBuilder('\\Composer\\Util\\ProcessExecutor')
+        $executor = $this->getMockBuilder('\\Tangram\\Util\\ProcessExecutor')
             ->setMethods(array('execute'))
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
@@ -147,12 +147,12 @@ class RootPackageLoaderTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('proc_open() is not available');
         }
 
-        $manager = $this->getMockBuilder('\\Composer\\Repository\\RepositoryManager')
+        $manager = $this->getMockBuilder('\\Tangram\\Repository\\RepositoryManager')
             ->disableOriginalConstructor()
             ->getMock()
         ;
 
-        $executor = $this->getMockBuilder('\\Composer\\Util\\ProcessExecutor')
+        $executor = $this->getMockBuilder('\\Tangram\\Util\\ProcessExecutor')
             ->setMethods(array('execute'))
             ->disableArgumentCloning()
             ->disableOriginalConstructor()

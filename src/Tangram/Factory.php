@@ -12,29 +12,29 @@
 
 namespace Tangram;
 
-use Composer\Config\JsonConfigSource;
-use Composer\Json\JsonFile;
-use Composer\IO\IOInterface;
-use Composer\Package\Archiver;
-use Composer\Package\Version\VersionGuesser;
-use Composer\Repository\RepositoryManager;
-use Composer\Repository\RepositoryFactory;
-use Composer\Repository\WritableRepositoryInterface;
-use Composer\Util\Filesystem;
-use Composer\Util\Platform;
-use Composer\Util\ProcessExecutor;
-use Composer\Util\RemoteFilesystem;
-use Composer\Util\Silencer;
-use Composer\Plugin\PluginEvents;
-use Composer\EventDispatcher\Event;
+use Tangram\Config\JsonConfigSource;
+use Tangram\Json\JsonFile;
+use Tangram\IO\IOInterface;
+use Tangram\Package\Archiver;
+use Tangram\Package\Version\VersionGuesser;
+use Tangram\Repository\RepositoryManager;
+use Tangram\Repository\RepositoryFactory;
+use Tangram\Repository\WritableRepositoryInterface;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Platform;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\Util\Silencer;
+use Tangram\Plugin\PluginEvents;
+use Tangram\EventDispatcher\Event;
 use Seld\JsonLint\DuplicateKeyException;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Autoload\AutoloadGenerator;
-use Composer\Package\Version\VersionParser;
-use Composer\Downloader\TransportException;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Autoload\AutoloadGenerator;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Downloader\TransportException;
 use Seld\JsonLint\JsonParser;
 
 /**
@@ -241,7 +241,7 @@ class Factory
     }
 
     /**
-     * @deprecated Use Composer\Repository\RepositoryFactory::defaultRepos instead
+     * @deprecated Use Tangram\Repository\RepositoryFactory::defaultRepos instead
      */
     public static function createDefaultRepositories(IOInterface $io = null, Config $config = null, RepositoryManager $rm = null)
     {
@@ -345,7 +345,7 @@ class Factory
         $parser = new VersionParser;
         $guesser = new VersionGuesser($config, new ProcessExecutor($io), $parser);
         $loader  = new Package\Loader\RootPackageLoader($rm, $config, $parser, $guesser);
-        $package = $loader->load($localConfig, 'Composer\Package\RootPackage', $cwd);
+        $package = $loader->load($localConfig, 'Tangram\Package\RootPackage', $cwd);
         $composer->setPackage($package);
 
         // initialize installation manager

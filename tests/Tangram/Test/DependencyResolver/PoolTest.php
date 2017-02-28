@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\DependencyResolver;
 
-use Composer\DependencyResolver\Pool;
-use Composer\Repository\ArrayRepository;
-use Composer\Package\BasePackage;
-use Composer\TestCase;
+use Tangram\DependencyResolver\Pool;
+use Tangram\Repository\ArrayRepository;
+use Tangram\Package\BasePackage;
+use Tangram\TestCase;
 
 class PoolTest extends TestCase
 {

@@ -12,11 +12,11 @@
 
 namespace Tangram\Command;
 
-use Composer\Factory;
-use Composer\Package\Loader\ValidatingArrayLoader;
-use Composer\Plugin\CommandEvent;
-use Composer\Plugin\PluginEvents;
-use Composer\Util\ConfigValidator;
+use Tangram\Factory;
+use Tangram\Package\Loader\ValidatingArrayLoader;
+use Tangram\Plugin\CommandEvent;
+use Tangram\Plugin\PluginEvents;
+use Tangram\Util\ConfigValidator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;

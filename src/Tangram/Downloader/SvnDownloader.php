@@ -12,9 +12,9 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Package\PackageInterface;
-use Composer\Util\Svn as SvnUtil;
-use Composer\Repository\VcsRepository;
+use Tangram\Package\PackageInterface;
+use Tangram\Util\Svn as SvnUtil;
+use Tangram\Repository\VcsRepository;
 
 /**
  * @author Ben Bieker <mail@ben-bieker.de>

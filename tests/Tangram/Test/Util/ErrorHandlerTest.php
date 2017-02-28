@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Util\ErrorHandler;
-use Composer\TestCase;
+use Tangram\Util\ErrorHandler;
+use Tangram\TestCase;
 
 /**
  * ErrorHandler test case

@@ -12,11 +12,11 @@
 
 namespace Tangram\Test\Repository\Vcs;
 
-use Composer\Downloader\TransportException;
-use Composer\Repository\Vcs\GitHubDriver;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Config;
+use Tangram\Downloader\TransportException;
+use Tangram\Repository\Vcs\GitHubDriver;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Config;
 
 class GitHubDriverTest extends TestCase
 {
@@ -48,16 +48,16 @@ class GitHubDriverTest extends TestCase
         $identifier = 'v0.0.0';
         $sha = 'SOMESHA';
 
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
         $io->expects($this->any())
             ->method('isInteractive')
             ->will($this->returnValue(true));
 
-        $remoteFilesystem = $this->getMockBuilder('Composer\Util\RemoteFilesystem')
+        $remoteFilesystem = $this->getMockBuilder('Tangram\Util\RemoteFilesystem')
             ->setConstructorArgs(array($io))
             ->getMock();
 
-        $process = $this->getMock('Composer\Util\ProcessExecutor');
+        $process = $this->getMock('Tangram\Util\ProcessExecutor');
         $process->expects($this->any())
             ->method('execute')
             ->will($this->returnValue(1));
@@ -86,8 +86,8 @@ class GitHubDriverTest extends TestCase
             ->with($this->equalTo('github.com'), $this->equalTo($repoApiUrl), $this->equalTo(false))
             ->will($this->returnValue('{"master_branch": "test_master", "private": true, "owner": {"login": "composer"}, "name": "packagist"}'));
 
-        $configSource = $this->getMock('Composer\Config\ConfigSourceInterface');
-        $authConfigSource = $this->getMock('Composer\Config\ConfigSourceInterface');
+        $configSource = $this->getMock('Tangram\Config\ConfigSourceInterface');
+        $authConfigSource = $this->getMock('Tangram\Config\ConfigSourceInterface');
         $this->config->setConfigSource($configSource);
         $this->config->setAuthConfigSource($authConfigSource);
 
@@ -119,12 +119,12 @@ class GitHubDriverTest extends TestCase
         $identifier = 'v0.0.0';
         $sha = 'SOMESHA';
 
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
         $io->expects($this->any())
             ->method('isInteractive')
             ->will($this->returnValue(true));
 
-        $remoteFilesystem = $this->getMockBuilder('Composer\Util\RemoteFilesystem')
+        $remoteFilesystem = $this->getMockBuilder('Tangram\Util\RemoteFilesystem')
             ->setConstructorArgs(array($io))
             ->getMock();
 
@@ -162,12 +162,12 @@ class GitHubDriverTest extends TestCase
         $identifier = 'feature/3.2-foo';
         $sha = 'SOMESHA';
 
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
         $io->expects($this->any())
             ->method('isInteractive')
             ->will($this->returnValue(true));
 
-        $remoteFilesystem = $this->getMockBuilder('Composer\Util\RemoteFilesystem')
+        $remoteFilesystem = $this->getMockBuilder('Tangram\Util\RemoteFilesystem')
             ->setConstructorArgs(array($io))
             ->getMock();
 
@@ -218,16 +218,16 @@ class GitHubDriverTest extends TestCase
         $identifier = 'v0.0.0';
         $sha = 'SOMESHA';
 
-        $process = $this->getMockBuilder('Composer\Util\ProcessExecutor')
+        $process = $this->getMockBuilder('Tangram\Util\ProcessExecutor')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
         $io->expects($this->any())
             ->method('isInteractive')
             ->will($this->returnValue(false));
 
-        $remoteFilesystem = $this->getMockBuilder('Composer\Util\RemoteFilesystem')
+        $remoteFilesystem = $this->getMockBuilder('Tangram\Util\RemoteFilesystem')
             ->setConstructorArgs(array($io))
             ->getMock();
 

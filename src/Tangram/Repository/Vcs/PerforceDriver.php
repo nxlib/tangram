@@ -12,10 +12,10 @@
 
 namespace Tangram\Repository\Vcs;
 
-use Composer\Config;
-use Composer\IO\IOInterface;
-use Composer\Util\ProcessExecutor;
-use Composer\Util\Perforce;
+use Tangram\Config;
+use Tangram\IO\IOInterface;
+use Tangram\Util\ProcessExecutor;
+use Tangram\Util\Perforce;
 
 /**
  * @author Matt Whittom <Matt.Whittom@veteransunited.com>

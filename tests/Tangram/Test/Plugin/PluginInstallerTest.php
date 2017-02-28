@@ -12,16 +12,16 @@
 
 namespace Tangram\Test\Installer;
 
-use Composer\Composer;
-use Composer\Config;
-use Composer\Installer\PluginInstaller;
-use Composer\Package\CompletePackage;
-use Composer\Package\Loader\JsonLoader;
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Plugin\PluginManager;
-use Composer\Autoload\AutoloadGenerator;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\Composer;
+use Tangram\Config;
+use Tangram\Installer\PluginInstaller;
+use Tangram\Package\CompletePackage;
+use Tangram\Package\Loader\JsonLoader;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Plugin\PluginManager;
+use Tangram\Autoload\AutoloadGenerator;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 
 class PluginInstallerTest extends TestCase
 {
@@ -76,29 +76,29 @@ class PluginInstallerTest extends TestCase
             $this->packages[] = $loader->load(__DIR__ . $filename);
         }
 
-        $dm = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $dm = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->repository = $this->getMock('Composer\Repository\InstalledRepositoryInterface');
+        $this->repository = $this->getMock('Tangram\Repository\InstalledRepositoryInterface');
 
-        $rm = $this->getMockBuilder('Composer\Repository\RepositoryManager')
+        $rm = $this->getMockBuilder('Tangram\Repository\RepositoryManager')
             ->disableOriginalConstructor()
             ->getMock();
         $rm->expects($this->any())
             ->method('getLocalRepository')
             ->will($this->returnValue($this->repository));
 
-        $im = $this->getMock('Composer\Installer\InstallationManager');
+        $im = $this->getMock('Tangram\Installer\InstallationManager');
         $im->expects($this->any())
             ->method('getInstallPath')
             ->will($this->returnCallback(function ($package) {
                 return __DIR__.'/Fixtures/'.$package->getPrettyName();
             }));
 
-        $this->io = $this->getMock('Composer\IO\IOInterface');
+        $this->io = $this->getMock('Tangram\IO\IOInterface');
 
-        $dispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock();
+        $dispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock();
         $this->autoloadGenerator = new AutoloadGenerator($dispatcher);
 
         $this->composer = new Composer();
@@ -222,7 +222,7 @@ class PluginInstallerTest extends TestCase
     private function setPluginApiVersionWithPlugins($newPluginApiVersion, array $plugins = array())
     {
         // reset the plugin manager's installed plugins
-        $this->pm = $this->getMockBuilder('Composer\Plugin\PluginManager')
+        $this->pm = $this->getMockBuilder('Tangram\Plugin\PluginManager')
                          ->setMethods(array('getPluginApiVersion'))
                          ->setConstructorArgs(array($this->io, $this->composer))
                          ->getMock();
@@ -235,7 +235,7 @@ class PluginInstallerTest extends TestCase
         $plugApiInternalPackage = $this->getPackage(
             'composer-plugin-api',
             $newPluginApiVersion,
-            'Composer\Package\CompletePackage'
+            'Tangram\Package\CompletePackage'
         );
 
         // Add the plugins to the repo along with the internal Plugin package on which they all rely.
@@ -306,18 +306,18 @@ class PluginInstallerTest extends TestCase
         $installer = new PluginInstaller($this->io, $this->composer);
         $this->pm->loadInstalledPlugins();
 
-        $caps = $this->pm->getPluginCapabilities('Composer\Plugin\Capability\CommandProvider', array('composer' => $this->composer, 'io' => $this->io));
+        $caps = $this->pm->getPluginCapabilities('Tangram\Plugin\Capability\CommandProvider', array('composer' => $this->composer, 'io' => $this->io));
         $this->assertCount(1, $caps);
-        $this->assertInstanceOf('Composer\Plugin\Capability\CommandProvider', $caps[0]);
+        $this->assertInstanceOf('Tangram\Plugin\Capability\CommandProvider', $caps[0]);
 
         $commands = $caps[0]->getCommands();
         $this->assertCount(1, $commands);
-        $this->assertInstanceOf('Composer\Command\BaseCommand', $commands[0]);
+        $this->assertInstanceOf('Tangram\Command\BaseCommand', $commands[0]);
     }
 
     public function testIncapablePluginIsCorrectlyDetected()
     {
-        $plugin = $this->getMockBuilder('Composer\Plugin\PluginInterface')
+        $plugin = $this->getMockBuilder('Tangram\Plugin\PluginInterface')
                        ->getMock();
 
         $this->assertNull($this->pm->getPluginCapability($plugin, 'Fake\Ability'));
@@ -325,10 +325,10 @@ class PluginInstallerTest extends TestCase
 
     public function testCapabilityImplementsComposerPluginApiClassAndIsConstructedWithArgs()
     {
-        $capabilityApi = 'Composer\Plugin\Capability\Capability';
-        $capabilityImplementation = 'Composer\Test\Plugin\Mock\Capability';
+        $capabilityApi = 'Tangram\Plugin\Capability\Capability';
+        $capabilityImplementation = 'Tangram\Test\Plugin\Mock\Capability';
 
-        $plugin = $this->getMockBuilder('Composer\Test\Plugin\Mock\CapablePluginInterface')
+        $plugin = $this->getMockBuilder('Tangram\Test\Plugin\Mock\CapablePluginInterface')
                        ->getMock();
 
         $plugin->expects($this->once())
@@ -372,9 +372,9 @@ class PluginInstallerTest extends TestCase
      */
     public function testQueryingWithInvalidCapabilityClassNameThrows($invalidImplementationClassNames)
     {
-        $capabilityApi = 'Composer\Plugin\Capability\Capability';
+        $capabilityApi = 'Tangram\Plugin\Capability\Capability';
 
-        $plugin = $this->getMockBuilder('Composer\Test\Plugin\Mock\CapablePluginInterface')
+        $plugin = $this->getMockBuilder('Tangram\Test\Plugin\Mock\CapablePluginInterface')
                        ->getMock();
 
         $plugin->expects($this->once())
@@ -388,9 +388,9 @@ class PluginInstallerTest extends TestCase
 
     public function testQueryingNonProvidedCapabilityReturnsNullSafely()
     {
-        $capabilityApi = 'Composer\Plugin\Capability\MadeUpCapability';
+        $capabilityApi = 'Tangram\Plugin\Capability\MadeUpCapability';
 
-        $plugin = $this->getMockBuilder('Composer\Test\Plugin\Mock\CapablePluginInterface')
+        $plugin = $this->getMockBuilder('Tangram\Test\Plugin\Mock\CapablePluginInterface')
                        ->getMock();
 
         $plugin->expects($this->once())

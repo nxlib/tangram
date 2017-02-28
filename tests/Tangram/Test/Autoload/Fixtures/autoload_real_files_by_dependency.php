@@ -8,7 +8,7 @@ class ComposerAutoloaderInitFilesAutoloadOrder
 
     public static function loadClassLoader($class)
     {
-        if ('Composer\Autoload\ClassLoader' === $class) {
+        if ('Tangram\Autoload\ClassLoader' === $class) {
             require __DIR__ . '/ClassLoader.php';
         }
     }
@@ -20,14 +20,14 @@ class ComposerAutoloaderInitFilesAutoloadOrder
         }
 
         spl_autoload_register(array('ComposerAutoloaderInitFilesAutoloadOrder', 'loadClassLoader'), true, true);
-        self::$loader = $loader = new \Composer\Autoload\ClassLoader();
+        self::$loader = $loader = new \Tangram\Autoload\ClassLoader();
         spl_autoload_unregister(array('ComposerAutoloaderInitFilesAutoloadOrder', 'loadClassLoader'));
 
         $useStaticLoader = PHP_VERSION_ID >= 50600 && !defined('HHVM_VERSION') && (!function_exists('zend_loader_file_encoded') || !zend_loader_file_encoded());
         if ($useStaticLoader) {
             require_once __DIR__ . '/autoload_static.php';
 
-            call_user_func(\Composer\Autoload\ComposerStaticInitFilesAutoloadOrder::getInitializer($loader));
+            call_user_func(\Tangram\Autoload\ComposerStaticInitFilesAutoloadOrder::getInitializer($loader));
         } else {
             $map = require __DIR__ . '/autoload_namespaces.php';
             foreach ($map as $namespace => $path) {
@@ -48,7 +48,7 @@ class ComposerAutoloaderInitFilesAutoloadOrder
         $loader->register(true);
 
         if ($useStaticLoader) {
-            $includeFiles = Composer\Autoload\ComposerStaticInitFilesAutoloadOrder::$files;
+            $includeFiles = Tangram\Autoload\ComposerStaticInitFilesAutoloadOrder::$files;
         } else {
             $includeFiles = require __DIR__ . '/autoload_files.php';
         }

@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Util\Filesystem;
-use Composer\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\TestCase;
 
 class FilesystemTest extends TestCase
 {

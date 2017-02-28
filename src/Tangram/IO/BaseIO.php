@@ -12,8 +12,8 @@
 
 namespace Tangram\IO;
 
-use Composer\Config;
-use Composer\Util\ProcessExecutor;
+use Tangram\Config;
+use Tangram\Util\ProcessExecutor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 

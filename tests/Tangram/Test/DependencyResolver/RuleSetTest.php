@@ -12,11 +12,11 @@
 
 namespace Tangram\Test\DependencyResolver;
 
-use Composer\DependencyResolver\Rule;
-use Composer\DependencyResolver\RuleSet;
-use Composer\DependencyResolver\Pool;
-use Composer\Repository\ArrayRepository;
-use Composer\TestCase;
+use Tangram\DependencyResolver\Rule;
+use Tangram\DependencyResolver\RuleSet;
+use Tangram\DependencyResolver\Pool;
+use Tangram\Repository\ArrayRepository;
+use Tangram\TestCase;
 
 class RuleSetTest extends TestCase
 {
@@ -159,7 +159,7 @@ class RuleSetTest extends TestCase
 
     private function getRuleMock()
     {
-        return $this->getMockBuilder('Composer\DependencyResolver\Rule')
+        return $this->getMockBuilder('Tangram\DependencyResolver\Rule')
             ->disableOriginalConstructor()
             ->getMock();
     }

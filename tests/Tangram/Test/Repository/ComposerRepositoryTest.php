@@ -12,13 +12,13 @@
 
 namespace Tangram\Test\Repository;
 
-use Composer\IO\NullIO;
-use Composer\Repository\ComposerRepository;
-use Composer\Repository\RepositoryInterface;
-use Composer\Test\Mock\FactoryMock;
-use Composer\TestCase;
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Semver\VersionParser;
+use Tangram\IO\NullIO;
+use Tangram\Repository\ComposerRepository;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\Test\Mock\FactoryMock;
+use Tangram\TestCase;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Semver\VersionParser;
 
 class ComposerRepositoryTest extends TestCase
 {
@@ -32,7 +32,7 @@ class ComposerRepositoryTest extends TestCase
         );
 
         $repository = $this->getMock(
-            'Composer\Repository\ComposerRepository',
+            'Tangram\Repository\ComposerRepository',
             array(
                 'loadRootServerFile',
                 'createPackage',
@@ -55,7 +55,7 @@ class ComposerRepositoryTest extends TestCase
             $repository
                 ->expects($this->at($at + 2))
                 ->method('createPackage')
-                ->with($this->identicalTo($arg), $this->equalTo('Composer\Package\CompletePackage'))
+                ->with($this->identicalTo($arg), $this->equalTo('Tangram\Package\CompletePackage'))
                 ->will($this->returnValue($stubPackage));
         }
 
@@ -99,12 +99,12 @@ class ComposerRepositoryTest extends TestCase
 
     public function testWhatProvides()
     {
-        $repo = $this->getMockBuilder('Composer\Repository\ComposerRepository')
+        $repo = $this->getMockBuilder('Tangram\Repository\ComposerRepository')
             ->disableOriginalConstructor()
             ->setMethods(array('fetchFile'))
             ->getMock();
 
-        $cache = $this->getMockBuilder('Composer\Cache')->disableOriginalConstructor()->getMock();
+        $cache = $this->getMockBuilder('Tangram\Cache')->disableOriginalConstructor()->getMock();
         $cache->expects($this->any())
             ->method('sha256')
             ->will($this->returnValue(false));
@@ -146,7 +146,7 @@ class ComposerRepositoryTest extends TestCase
                 ),
             )));
 
-        $pool = $this->getMock('Composer\DependencyResolver\Pool');
+        $pool = $this->getMock('Tangram\DependencyResolver\Pool');
         $pool->expects($this->any())
             ->method('isPackageAcceptable')
             ->will($this->returnValue(true));
@@ -163,7 +163,7 @@ class ComposerRepositoryTest extends TestCase
 
         $this->assertCount(7, $packages);
         $this->assertEquals(array('1', '1-alias', '2', '2-alias', '2-root', '3', '3-root'), array_keys($packages));
-        $this->assertInstanceOf('Composer\Package\AliasPackage', $packages['2-root']);
+        $this->assertInstanceOf('Tangram\Package\AliasPackage', $packages['2-root']);
         $this->assertSame($packages['2'], $packages['2-root']->getAliasOf());
         $this->assertSame($packages['2'], $packages['2-alias']->getAliasOf());
     }
@@ -183,7 +183,7 @@ class ComposerRepositoryTest extends TestCase
             )
         );
 
-        $rfs = $this->getMockBuilder('Composer\Util\RemoteFilesystem')
+        $rfs = $this->getMockBuilder('Tangram\Util\RemoteFilesystem')
             ->disableOriginalConstructor()
             ->getMock();
 

@@ -12,7 +12,7 @@
 
 namespace Tangram;
 
-use Composer\Util\IniHelper;
+use Tangram\Util\IniHelper;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**

@@ -12,7 +12,7 @@
 
 namespace Tangram\Repository;
 
-use Composer\Package\PackageInterface;
+use Tangram\Package\PackageInterface;
 
 /**
  * Repository interface.
@@ -39,7 +39,7 @@ interface RepositoryInterface extends \Countable
      * Searches for the first match of a package by name and version.
      *
      * @param string                                                 $name       package name
-     * @param string|\Composer\Semver\Constraint\ConstraintInterface $constraint package version or version constraint to match against
+     * @param string|\Tangram\Semver\Constraint\ConstraintInterface $constraint package version or version constraint to match against
      *
      * @return PackageInterface|null
      */
@@ -49,7 +49,7 @@ interface RepositoryInterface extends \Countable
      * Searches for all packages matching a name and optionally a version.
      *
      * @param string                                                 $name       package name
-     * @param string|\Composer\Semver\Constraint\ConstraintInterface $constraint package version or version constraint to match against
+     * @param string|\Tangram\Semver\Constraint\ConstraintInterface $constraint package version or version constraint to match against
      *
      * @return PackageInterface[]
      */

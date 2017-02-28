@@ -12,7 +12,7 @@
 
 namespace Tangram\IO;
 
-use Composer\Config;
+use Tangram\Config;
 
 /**
  * The Input/Output helper interface.

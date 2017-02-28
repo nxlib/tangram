@@ -12,8 +12,8 @@
 
 namespace Tangram\Installer;
 
-use Composer\Package\PackageInterface;
-use Composer\Repository\InstalledRepositoryInterface;
+use Tangram\Package\PackageInterface;
+use Tangram\Repository\InstalledRepositoryInterface;
 use InvalidArgumentException;
 
 /**

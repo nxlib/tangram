@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Downloader\TransportException;
-use Composer\Util\GitHub;
+use Tangram\Downloader\TransportException;
+use Tangram\Util\GitHub;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
@@ -106,7 +106,7 @@ class GitHubTest extends \PHPUnit_Framework_TestCase
     private function getIOMock()
     {
         $io = $this
-            ->getMockBuilder('Composer\IO\ConsoleIO')
+            ->getMockBuilder('Tangram\IO\ConsoleIO')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -116,7 +116,7 @@ class GitHubTest extends \PHPUnit_Framework_TestCase
 
     private function getConfigMock()
     {
-        $config = $this->getMock('Composer\Config');
+        $config = $this->getMock('Tangram\Config');
 
         return $config;
     }
@@ -124,7 +124,7 @@ class GitHubTest extends \PHPUnit_Framework_TestCase
     private function getRemoteFilesystemMock()
     {
         $rfs = $this
-            ->getMockBuilder('Composer\Util\RemoteFilesystem')
+            ->getMockBuilder('Tangram\Util\RemoteFilesystem')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -135,7 +135,7 @@ class GitHubTest extends \PHPUnit_Framework_TestCase
     private function getAuthJsonMock()
     {
         $authjson = $this
-            ->getMockBuilder('Composer\Config\JsonConfigSource')
+            ->getMockBuilder('Tangram\Config\JsonConfigSource')
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -151,7 +151,7 @@ class GitHubTest extends \PHPUnit_Framework_TestCase
     private function getConfJsonMock()
     {
         $confjson = $this
-            ->getMockBuilder('Composer\Config\JsonConfigSource')
+            ->getMockBuilder('Tangram\Config\JsonConfigSource')
             ->disableOriginalConstructor()
             ->getMock()
         ;

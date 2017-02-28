@@ -12,14 +12,14 @@
 
 namespace Tangram\Test\Repository;
 
-use Composer\TestCase;
+use Tangram\TestCase;
 use Symfony\Component\Process\ExecutableFinder;
-use Composer\Package\Dumper\ArrayDumper;
-use Composer\Repository\VcsRepository;
-use Composer\Util\Filesystem;
-use Composer\Util\ProcessExecutor;
-use Composer\IO\NullIO;
-use Composer\Config;
+use Tangram\Package\Dumper\ArrayDumper;
+use Tangram\Repository\VcsRepository;
+use Tangram\Util\Filesystem;
+use Tangram\Util\ProcessExecutor;
+use Tangram\IO\NullIO;
+use Tangram\Config;
 
 /**
  * @group slow

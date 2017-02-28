@@ -12,9 +12,9 @@
 
 namespace Tangram\SelfUpdate;
 
-use Composer\Util\RemoteFilesystem;
-use Composer\Config;
-use Composer\Json\JsonFile;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\Config;
+use Tangram\Json\JsonFile;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

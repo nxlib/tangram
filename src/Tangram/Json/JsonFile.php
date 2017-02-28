@@ -15,9 +15,9 @@ namespace Tangram\Json;
 use JsonSchema\Validator;
 use Seld\JsonLint\JsonParser;
 use Seld\JsonLint\ParsingException;
-use Composer\Util\RemoteFilesystem;
-use Composer\IO\IOInterface;
-use Composer\Downloader\TransportException;
+use Tangram\Util\RemoteFilesystem;
+use Tangram\IO\IOInterface;
+use Tangram\Downloader\TransportException;
 
 /**
  * Reads/writes json files.

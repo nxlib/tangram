@@ -12,16 +12,16 @@
 
 namespace Tangram\Test\DependencyResolver;
 
-use Composer\IO\NullIO;
-use Composer\Repository\ArrayRepository;
-use Composer\DependencyResolver\DefaultPolicy;
-use Composer\DependencyResolver\Pool;
-use Composer\DependencyResolver\Request;
-use Composer\DependencyResolver\Solver;
-use Composer\DependencyResolver\SolverProblemsException;
-use Composer\Package\Link;
-use Composer\TestCase;
-use Composer\Semver\Constraint\MultiConstraint;
+use Tangram\IO\NullIO;
+use Tangram\Repository\ArrayRepository;
+use Tangram\DependencyResolver\DefaultPolicy;
+use Tangram\DependencyResolver\Pool;
+use Tangram\DependencyResolver\Request;
+use Tangram\DependencyResolver\Solver;
+use Tangram\DependencyResolver\SolverProblemsException;
+use Tangram\Package\Link;
+use Tangram\TestCase;
+use Tangram\Semver\Constraint\MultiConstraint;
 
 class SolverTest extends TestCase
 {
@@ -444,7 +444,7 @@ class SolverTest extends TestCase
         $this->request->install('A');
 
         // must explicitly pick the provider, so error in this case
-        $this->setExpectedException('Composer\DependencyResolver\SolverProblemsException');
+        $this->setExpectedException('Tangram\DependencyResolver\SolverProblemsException');
         $this->solver->solve($this->request);
     }
 
@@ -477,7 +477,7 @@ class SolverTest extends TestCase
 
         $this->request->install('A');
 
-        $this->setExpectedException('Composer\DependencyResolver\SolverProblemsException');
+        $this->setExpectedException('Tangram\DependencyResolver\SolverProblemsException');
         $this->solver->solve($this->request);
     }
 
@@ -648,7 +648,7 @@ class SolverTest extends TestCase
 
         $this->request->install('C', $this->getVersionConstraint('==', '2.0.0.0-dev'));
 
-        $this->setExpectedException('Composer\DependencyResolver\SolverProblemsException');
+        $this->setExpectedException('Tangram\DependencyResolver\SolverProblemsException');
 
         $this->solver->solve($this->request);
     }

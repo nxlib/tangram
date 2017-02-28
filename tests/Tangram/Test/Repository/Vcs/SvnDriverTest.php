@@ -12,11 +12,11 @@
 
 namespace Tangram\Test\Repository\Vcs;
 
-use Composer\Repository\Vcs\SvnDriver;
-use Composer\Config;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
-use Composer\Util\Platform;
+use Tangram\Repository\Vcs\SvnDriver;
+use Tangram\Config;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
+use Tangram\Util\Platform;
 
 class SvnDriverTest extends TestCase
 {
@@ -45,13 +45,13 @@ class SvnDriverTest extends TestCase
      */
     public function testWrongCredentialsInUrl()
     {
-        $console = $this->getMock('Composer\IO\IOInterface');
+        $console = $this->getMock('Tangram\IO\IOInterface');
 
         $output  = "svn: OPTIONS of 'https://corp.svn.local/repo':";
         $output .= " authorization failed: Could not authenticate to server:";
         $output .= " rejected Basic challenge (https://corp.svn.local/)";
 
-        $process = $this->getMock('Composer\Util\ProcessExecutor');
+        $process = $this->getMock('Tangram\Util\ProcessExecutor');
         $process->expects($this->at(1))
             ->method('execute')
             ->will($this->returnValue(1));
@@ -95,7 +95,7 @@ class SvnDriverTest extends TestCase
     public function testSupport($url, $assertion)
     {
         $config = new Config();
-        $result = SvnDriver::supports($this->getMock('Composer\IO\IOInterface'), $config, $url);
+        $result = SvnDriver::supports($this->getMock('Tangram\IO\IOInterface'), $config, $url);
         $this->assertEquals($assertion, $result);
     }
 }

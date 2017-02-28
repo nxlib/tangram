@@ -12,10 +12,10 @@
 
 namespace Tangram\Util;
 
-use Composer\Config;
-use Composer\IO\IOInterface;
-use Composer\Downloader\TransportException;
-use Composer\CaBundle\CaBundle;
+use Tangram\Config;
+use Tangram\IO\IOInterface;
+use Tangram\Downloader\TransportException;
+use Tangram\CaBundle\CaBundle;
 use Psr\Log\LoggerInterface;
 
 /**

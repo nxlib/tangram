@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Repository;
 
-use Composer\Repository\ArrayRepository;
-use Composer\Repository\RepositoryInterface;
-use Composer\TestCase;
+use Tangram\Repository\ArrayRepository;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\TestCase;
 
 class ArrayRepositoryTest extends TestCase
 {
@@ -108,10 +108,10 @@ class ArrayRepositoryTest extends TestCase
     {
         $repo = new ArrayRepository();
 
-        $repo->addPackage($this->getPackage('foo', '1', 'Composer\Package\CompletePackage'));
-        $repo->addPackage($this->getPackage('bar', '1', 'Composer\Package\CompletePackage'));
+        $repo->addPackage($this->getPackage('foo', '1', 'Tangram\Package\CompletePackage'));
+        $repo->addPackage($this->getPackage('bar', '1', 'Tangram\Package\CompletePackage'));
 
-        $package = $this->getPackage('foobar', '1', 'Composer\Package\CompletePackage');
+        $package = $this->getPackage('foobar', '1', 'Tangram\Package\CompletePackage');
         $package->setType('composer-plugin');
         $repo->addPackage($package);
 

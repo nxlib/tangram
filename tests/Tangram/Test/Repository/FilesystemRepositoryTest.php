@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\Repository;
 
-use Composer\Repository\FilesystemRepository;
-use Composer\TestCase;
+use Tangram\Repository\FilesystemRepository;
+use Tangram\TestCase;
 
 class FilesystemRepositoryTest extends TestCase
 {
@@ -43,7 +43,7 @@ class FilesystemRepositoryTest extends TestCase
     }
 
     /**
-     * @expectedException \Composer\Repository\InvalidRepositoryException
+     * @expectedException \Tangram\Repository\InvalidRepositoryException
      */
     public function testCorruptedRepositoryFile()
     {
@@ -104,7 +104,7 @@ class FilesystemRepositoryTest extends TestCase
 
     private function createJsonFileMock()
     {
-        return $this->getMockBuilder('Composer\Json\JsonFile')
+        return $this->getMockBuilder('Tangram\Json\JsonFile')
             ->disableOriginalConstructor()
             ->getMock();
     }

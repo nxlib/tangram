@@ -12,8 +12,8 @@
 
 namespace Tangram\Test\IO;
 
-use Composer\IO\NullIO;
-use Composer\TestCase;
+use Tangram\IO\NullIO;
+use Tangram\TestCase;
 
 class NullIOTest extends TestCase
 {

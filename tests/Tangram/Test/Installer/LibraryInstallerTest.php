@@ -12,11 +12,11 @@
 
 namespace Tangram\Test\Installer;
 
-use Composer\Installer\LibraryInstaller;
-use Composer\Util\Filesystem;
-use Composer\TestCase;
-use Composer\Composer;
-use Composer\Config;
+use Tangram\Installer\LibraryInstaller;
+use Tangram\Util\Filesystem;
+use Tangram\TestCase;
+use Tangram\Composer;
+use Tangram\Config;
 
 class LibraryInstallerTest extends TestCase
 {
@@ -52,13 +52,13 @@ class LibraryInstallerTest extends TestCase
             ),
         ));
 
-        $this->dm = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $this->dm = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->disableOriginalConstructor()
             ->getMock();
         $this->composer->setDownloadManager($this->dm);
 
-        $this->repository = $this->getMock('Composer\Repository\InstalledRepositoryInterface');
-        $this->io = $this->getMock('Composer\IO\IOInterface');
+        $this->repository = $this->getMock('Tangram\Repository\InstalledRepositoryInterface');
+        $this->io = $this->getMock('Tangram\IO\IOInterface');
     }
 
     protected function tearDown()
@@ -132,7 +132,7 @@ class LibraryInstallerTest extends TestCase
      */
     public function testUpdate()
     {
-        $filesystem = $this->getMockBuilder('Composer\Util\Filesystem')
+        $filesystem = $this->getMockBuilder('Tangram\Util\Filesystem')
           ->getMock();
         $filesystem
           ->expects($this->once())
@@ -261,7 +261,7 @@ class LibraryInstallerTest extends TestCase
      */
     public function testEnsureBinariesInstalled()
     {
-        $binaryInstallerMock = $this->getMockBuilder('Composer\Installer\BinaryInstaller')
+        $binaryInstallerMock = $this->getMockBuilder('Tangram\Installer\BinaryInstaller')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -283,7 +283,7 @@ class LibraryInstallerTest extends TestCase
 
     protected function createPackageMock()
     {
-        return $this->getMockBuilder('Composer\Package\Package')
+        return $this->getMockBuilder('Tangram\Package\Package')
             ->setConstructorArgs(array(md5(mt_rand()), '1.0.0.0', '1.0.0'))
             ->getMock();
     }

@@ -12,7 +12,7 @@
 
 namespace Tangram;
 
-use Composer\Console\HtmlOutputFormatter;
+use Tangram\Console\HtmlOutputFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class HtmlOutputFormatterTest extends \PHPUnit_Framework_TestCase

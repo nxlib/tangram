@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\DependencyResolver;
 
-use Composer\DependencyResolver\Rule;
-use Composer\DependencyResolver\RuleSet;
-use Composer\DependencyResolver\RuleSetIterator;
-use Composer\DependencyResolver\Pool;
+use Tangram\DependencyResolver\Rule;
+use Tangram\DependencyResolver\RuleSet;
+use Tangram\DependencyResolver\RuleSetIterator;
+use Tangram\DependencyResolver\Pool;
 
 class RuleSetIteratorTest extends \PHPUnit_Framework_TestCase
 {

@@ -12,7 +12,7 @@
 
 namespace Tangram\Test;
 
-use Composer\Config;
+use Tangram\Config;
 
 class DefaultConfigTest extends \PHPUnit_Framework_TestCase
 {

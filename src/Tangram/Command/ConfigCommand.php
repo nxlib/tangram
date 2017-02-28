@@ -12,18 +12,18 @@
 
 namespace Tangram\Command;
 
-use Composer\Util\Platform;
-use Composer\Util\Silencer;
+use Tangram\Util\Platform;
+use Tangram\Util\Silencer;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Composer\Config;
-use Composer\Config\JsonConfigSource;
-use Composer\Factory;
-use Composer\Json\JsonFile;
-use Composer\Semver\VersionParser;
-use Composer\Package\BasePackage;
+use Tangram\Config;
+use Tangram\Config\JsonConfigSource;
+use Tangram\Factory;
+use Tangram\Json\JsonFile;
+use Tangram\Semver\VersionParser;
+use Tangram\Package\BasePackage;
 
 /**
  * @author Joshua Estes <Joshua.Estes@iostudio.com>

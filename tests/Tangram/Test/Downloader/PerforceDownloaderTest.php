@@ -12,12 +12,12 @@
 
 namespace Tangram\Test\Downloader;
 
-use Composer\Downloader\PerforceDownloader;
-use Composer\Config;
-use Composer\Repository\VcsRepository;
-use Composer\IO\IOInterface;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\Downloader\PerforceDownloader;
+use Tangram\Config;
+use Tangram\Repository\VcsRepository;
+use Tangram\IO\IOInterface;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 
 /**
  * @author Matt Whittom <Matt.Whittom@veteransunited.com>
@@ -62,7 +62,7 @@ class PerforceDownloaderTest extends TestCase
 
     protected function getMockProcessExecutor()
     {
-        return $this->getMock('Composer\Util\ProcessExecutor');
+        return $this->getMock('Tangram\Util\ProcessExecutor');
     }
 
     protected function getConfig()
@@ -76,12 +76,12 @@ class PerforceDownloaderTest extends TestCase
 
     protected function getMockIoInterface()
     {
-        return $this->getMock('Composer\IO\IOInterface');
+        return $this->getMock('Tangram\IO\IOInterface');
     }
 
     protected function getMockPackageInterface(VcsRepository $repository)
     {
-        $package = $this->getMock('Composer\Package\PackageInterface');
+        $package = $this->getMock('Tangram\Package\PackageInterface');
         $package->expects($this->any())->method('getRepository')->will($this->returnValue($repository));
 
         return $package;
@@ -94,7 +94,7 @@ class PerforceDownloaderTest extends TestCase
 
     protected function getMockRepository(array $repoConfig, IOInterface $io, Config $config)
     {
-        $class = 'Composer\Repository\VcsRepository';
+        $class = 'Tangram\Repository\VcsRepository';
         $methods = array('getRepoConfig');
         $args = array($repoConfig, $io, $config);
         $repository = $this->getMock($class, $methods, $args);
@@ -110,7 +110,7 @@ class PerforceDownloaderTest extends TestCase
 
     public function testInitPerforceDoesNothingIfPerforceAlreadySet()
     {
-        $perforce = $this->getMockBuilder('Composer\Util\Perforce')->disableOriginalConstructor()->getMock();
+        $perforce = $this->getMockBuilder('Tangram\Util\Perforce')->disableOriginalConstructor()->getMock();
         $this->downloader->setPerforce($perforce);
         $this->repository->expects($this->never())->method('getRepoConfig');
         $this->downloader->initPerforce($this->package, $this->testPath, 'SOURCE_REF');
@@ -128,7 +128,7 @@ class PerforceDownloaderTest extends TestCase
         $this->package->expects($this->once())->method('getSourceReference')->will($this->returnValue($ref));
         $this->io->expects($this->once())->method('writeError')->with($this->stringContains('Cloning '.$ref));
         $perforceMethods = array('setStream', 'p4Login', 'writeP4ClientSpec', 'connectClient', 'syncCodeBase', 'cleanupClientSpec');
-        $perforce = $this->getMockBuilder('Composer\Util\Perforce', $perforceMethods)->disableOriginalConstructor()->getMock();
+        $perforce = $this->getMockBuilder('Tangram\Util\Perforce', $perforceMethods)->disableOriginalConstructor()->getMock();
         $perforce->expects($this->at(0))->method('initializePath')->with($this->equalTo($this->testPath));
         $perforce->expects($this->at(1))->method('setStream')->with($this->equalTo($ref));
         $perforce->expects($this->at(2))->method('p4Login');
@@ -151,7 +151,7 @@ class PerforceDownloaderTest extends TestCase
         $this->package->expects($this->once())->method('getSourceReference')->will($this->returnValue($ref));
         $this->io->expects($this->once())->method('writeError')->with($this->stringContains('Cloning '.$ref));
         $perforceMethods = array('setStream', 'p4Login', 'writeP4ClientSpec', 'connectClient', 'syncCodeBase', 'cleanupClientSpec');
-        $perforce = $this->getMockBuilder('Composer\Util\Perforce', $perforceMethods)->disableOriginalConstructor()->getMock();
+        $perforce = $this->getMockBuilder('Tangram\Util\Perforce', $perforceMethods)->disableOriginalConstructor()->getMock();
         $perforce->expects($this->at(0))->method('initializePath')->with($this->equalTo($this->testPath));
         $perforce->expects($this->at(1))->method('setStream')->with($this->equalTo($ref));
         $perforce->expects($this->at(2))->method('p4Login');

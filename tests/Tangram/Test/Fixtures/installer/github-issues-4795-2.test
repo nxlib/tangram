@@ -2,7 +2,7 @@
 
 See Github issue #4795 ( github.com/composer/composer/issues/4795 ).
 
-Composer\Installer::whitelistUpdateDependencies should not output a warning for dependencies that need to be updated
+Tangram\Installer::whitelistUpdateDependencies should not output a warning for dependencies that need to be updated
 that are also a root package, when that root package is also explicitly whitelisted.
 
 --COMPOSER--

@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Downloader;
 
-use Composer\Downloader\DownloadManager;
+use Tangram\Downloader\DownloadManager;
 
 class DownloadManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,8 +21,8 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->filesystem = $this->getMock('Composer\Util\Filesystem');
-        $this->io = $this->getMock('Composer\IO\IOInterface');
+        $this->filesystem = $this->getMock('Tangram\Util\Filesystem');
+        $this->io = $this->getMock('Tangram\IO\IOInterface');
     }
 
     public function testSetGetDownloader()
@@ -70,7 +70,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getInstallationSource')
             ->will($this->returnValue('dist'));
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloader'))
             ->getMock();
@@ -102,7 +102,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getInstallationSource')
             ->will($this->returnValue('source'));
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloader'))
             ->getMock();
@@ -136,7 +136,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getInstallationSource')
             ->will($this->returnValue('source'));
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloader'))
             ->getMock();
@@ -168,7 +168,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getInstallationSource')
             ->will($this->returnValue('dist'));
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloader'))
             ->getMock();
@@ -220,7 +220,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -271,7 +271,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -330,7 +330,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -366,7 +366,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -396,7 +396,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
           ->method('setInstallationSource')
           ->with('source');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
           ->setConstructorArgs(array($this->io, false, $this->filesystem))
           ->setMethods(array('getDownloaderForInstalledPackage'))
           ->getMock();
@@ -432,7 +432,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -469,7 +469,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -506,7 +506,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -567,7 +567,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('update')
             ->with($initial, $target, 'vendor/bundles/FOS/UserBundle');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -604,7 +604,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('remove')
             ->with($initial, 'vendor/bundles/FOS/UserBundle');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage', 'download'))
             ->getMock();
@@ -645,7 +645,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('update')
             ->with($initial, $target, 'vendor/pkg');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage', 'download'))
             ->getMock();
@@ -682,7 +682,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('remove')
             ->with($initial, 'vendor/pkg');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage', 'download'))
             ->getMock();
@@ -704,7 +704,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
         $initial = $this->createPackageMock();
         $target = $this->createPackageMock();
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
           ->setConstructorArgs(array($this->io, false, $this->filesystem))
           ->setMethods(array('getDownloaderForInstalledPackage'))
           ->getMock();
@@ -727,7 +727,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('remove')
             ->with($package, 'vendor/bundles/FOS/UserBundle');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -744,7 +744,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
     {
         $package = $this->createPackageMock();
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
           ->setConstructorArgs(array($this->io, false, $this->filesystem))
           ->setMethods(array('getDownloaderForInstalledPackage'))
           ->getMock();
@@ -758,7 +758,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Composer\Downloader\DownloadManager::resolvePackageInstallPreference
+     * @covers Tangram\Downloader\DownloadManager::resolvePackageInstallPreference
      */
     public function testInstallPreferenceWithoutPreferenceDev()
     {
@@ -787,7 +787,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -801,7 +801,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Composer\Downloader\DownloadManager::resolvePackageInstallPreference
+     * @covers Tangram\Downloader\DownloadManager::resolvePackageInstallPreference
      */
     public function testInstallPreferenceWithoutPreferenceNoDev()
     {
@@ -830,7 +830,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -844,7 +844,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Composer\Downloader\DownloadManager::resolvePackageInstallPreference
+     * @covers Tangram\Downloader\DownloadManager::resolvePackageInstallPreference
      */
     public function testInstallPreferenceWithoutMatchDev()
     {
@@ -876,7 +876,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -891,7 +891,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Composer\Downloader\DownloadManager::resolvePackageInstallPreference
+     * @covers Tangram\Downloader\DownloadManager::resolvePackageInstallPreference
      */
     public function testInstallPreferenceWithoutMatchNoDev()
     {
@@ -923,7 +923,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -938,7 +938,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Composer\Downloader\DownloadManager::resolvePackageInstallPreference
+     * @covers Tangram\Downloader\DownloadManager::resolvePackageInstallPreference
      */
     public function testInstallPreferenceWithMatchAutoDev()
     {
@@ -970,7 +970,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -985,7 +985,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Composer\Downloader\DownloadManager::resolvePackageInstallPreference
+     * @covers Tangram\Downloader\DownloadManager::resolvePackageInstallPreference
      */
     public function testInstallPreferenceWithMatchAutoNoDev()
     {
@@ -1017,7 +1017,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -1032,7 +1032,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Composer\Downloader\DownloadManager::resolvePackageInstallPreference
+     * @covers Tangram\Downloader\DownloadManager::resolvePackageInstallPreference
      */
     public function testInstallPreferenceWithMatchSource()
     {
@@ -1060,7 +1060,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -1075,7 +1075,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Composer\Downloader\DownloadManager::resolvePackageInstallPreference
+     * @covers Tangram\Downloader\DownloadManager::resolvePackageInstallPreference
      */
     public function testInstallPreferenceWithMatchDist()
     {
@@ -1103,7 +1103,7 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
             ->method('download')
             ->with($package, 'target_dir');
 
-        $manager = $this->getMockBuilder('Composer\Downloader\DownloadManager')
+        $manager = $this->getMockBuilder('Tangram\Downloader\DownloadManager')
             ->setConstructorArgs(array($this->io, false, $this->filesystem))
             ->setMethods(array('getDownloaderForInstalledPackage'))
             ->getMock();
@@ -1119,13 +1119,13 @@ class DownloadManagerTest extends \PHPUnit_Framework_TestCase
 
     private function createDownloaderMock()
     {
-        return $this->getMockBuilder('Composer\Downloader\DownloaderInterface')
+        return $this->getMockBuilder('Tangram\Downloader\DownloaderInterface')
             ->getMock();
     }
 
     private function createPackageMock()
     {
-        return $this->getMockBuilder('Composer\Package\PackageInterface')
+        return $this->getMockBuilder('Tangram\Package\PackageInterface')
             ->getMock();
     }
 }

@@ -12,7 +12,7 @@
 
 namespace Tangram\Util;
 
-use Composer\IO\IOInterface;
+use Tangram\IO\IOInterface;
 use Symfony\Component\Process\Process;
 
 /**

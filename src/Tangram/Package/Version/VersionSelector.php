@@ -12,12 +12,12 @@
 
 namespace Tangram\Package\Version;
 
-use Composer\DependencyResolver\Pool;
-use Composer\Package\BasePackage;
-use Composer\Package\PackageInterface;
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\Dumper\ArrayDumper;
-use Composer\Semver\Constraint\Constraint;
+use Tangram\DependencyResolver\Pool;
+use Tangram\Package\BasePackage;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\Dumper\ArrayDumper;
+use Tangram\Semver\Constraint\Constraint;
 
 /**
  * Selects the best possible version for a package

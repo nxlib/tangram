@@ -13,7 +13,7 @@
 namespace Tangram\Util;
 
 use Symfony\Component\Process\PhpProcess;
-use Composer\CaBundle\CaBundle;
+use Tangram\CaBundle\CaBundle;
 
 /**
  * @author Chris Smith <chris@cs278.org>

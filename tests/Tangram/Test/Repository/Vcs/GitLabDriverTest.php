@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\Repository\Vcs;
 
-use Composer\Repository\Vcs\GitLabDriver;
-use Composer\Config;
-use Composer\TestCase;
-use Composer\Util\Filesystem;
+use Tangram\Repository\Vcs\GitLabDriver;
+use Tangram\Config;
+use Tangram\TestCase;
+use Tangram\Util\Filesystem;
 
 /**
  * @author Jérôme Tamarelle <jerome@tamarelle.net>
@@ -39,9 +39,9 @@ class GitLabDriverTest extends TestCase
             ),
         ));
 
-        $this->io = $this->prophesize('Composer\IO\IOInterface');
-        $this->process = $this->prophesize('Composer\Util\ProcessExecutor');
-        $this->remoteFilesystem = $this->prophesize('Composer\Util\RemoteFilesystem');
+        $this->io = $this->prophesize('Tangram\IO\IOInterface');
+        $this->process = $this->prophesize('Tangram\Util\ProcessExecutor');
+        $this->remoteFilesystem = $this->prophesize('Tangram\Util\RemoteFilesystem');
     }
 
     public function tearDown()

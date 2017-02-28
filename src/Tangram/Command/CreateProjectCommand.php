@@ -12,33 +12,33 @@
 
 namespace Tangram\Command;
 
-use Composer\Config;
-use Composer\Factory;
-use Composer\Installer;
-use Composer\Installer\ProjectInstaller;
-use Composer\Installer\InstallationManager;
-use Composer\Installer\SuggestedPackagesReporter;
-use Composer\IO\IOInterface;
-use Composer\Package\BasePackage;
-use Composer\DependencyResolver\Pool;
-use Composer\DependencyResolver\Operation\InstallOperation;
-use Composer\Package\Version\VersionSelector;
-use Composer\Package\AliasPackage;
-use Composer\Repository\RepositoryFactory;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\PlatformRepository;
-use Composer\Repository\InstalledFilesystemRepository;
-use Composer\Script\ScriptEvents;
-use Composer\Util\Silencer;
+use Tangram\Config;
+use Tangram\Factory;
+use Tangram\Installer;
+use Tangram\Installer\ProjectInstaller;
+use Tangram\Installer\InstallationManager;
+use Tangram\Installer\SuggestedPackagesReporter;
+use Tangram\IO\IOInterface;
+use Tangram\Package\BasePackage;
+use Tangram\DependencyResolver\Pool;
+use Tangram\DependencyResolver\Operation\InstallOperation;
+use Tangram\Package\Version\VersionSelector;
+use Tangram\Package\AliasPackage;
+use Tangram\Repository\RepositoryFactory;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Repository\PlatformRepository;
+use Tangram\Repository\InstalledFilesystemRepository;
+use Tangram\Script\ScriptEvents;
+use Tangram\Util\Silencer;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
-use Composer\Json\JsonFile;
-use Composer\Config\JsonConfigSource;
-use Composer\Util\Filesystem;
-use Composer\Package\Version\VersionParser;
+use Tangram\Json\JsonFile;
+use Tangram\Config\JsonConfigSource;
+use Tangram\Util\Filesystem;
+use Tangram\Package\Version\VersionParser;
 
 /**
  * Install a package as new project into new directory.

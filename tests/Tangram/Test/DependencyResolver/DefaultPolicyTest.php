@@ -12,14 +12,14 @@
 
 namespace Tangram\Test\DependencyResolver;
 
-use Composer\Repository\ArrayRepository;
-use Composer\Repository\RepositoryInterface;
-use Composer\DependencyResolver\DefaultPolicy;
-use Composer\DependencyResolver\Pool;
-use Composer\Package\Link;
-use Composer\Package\AliasPackage;
-use Composer\Semver\Constraint\Constraint;
-use Composer\TestCase;
+use Tangram\Repository\ArrayRepository;
+use Tangram\Repository\RepositoryInterface;
+use Tangram\DependencyResolver\DefaultPolicy;
+use Tangram\DependencyResolver\Pool;
+use Tangram\Package\Link;
+use Tangram\Package\AliasPackage;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\TestCase;
 
 class DefaultPolicyTest extends TestCase
 {

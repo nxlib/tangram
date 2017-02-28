@@ -12,11 +12,11 @@
 
 namespace Tangram\Repository;
 
-use Composer\IO\IOInterface;
-use Composer\Config;
-use Composer\EventDispatcher\EventDispatcher;
-use Composer\Package\PackageInterface;
-use Composer\Util\RemoteFilesystem;
+use Tangram\IO\IOInterface;
+use Tangram\Config;
+use Tangram\EventDispatcher\EventDispatcher;
+use Tangram\Package\PackageInterface;
+use Tangram\Util\RemoteFilesystem;
 
 /**
  * Repositories manager.
@@ -47,7 +47,7 @@ class RepositoryManager
      * Searches for a package by it's name and version in managed repositories.
      *
      * @param string                                                 $name       package name
-     * @param string|\Composer\Semver\Constraint\ConstraintInterface $constraint package version or version constraint to match against
+     * @param string|\Tangram\Semver\Constraint\ConstraintInterface $constraint package version or version constraint to match against
      *
      * @return PackageInterface|null
      */
@@ -66,7 +66,7 @@ class RepositoryManager
      * Searches for all packages matching a name and optionally a version in managed repositories.
      *
      * @param string                                                 $name       package name
-     * @param string|\Composer\Semver\Constraint\ConstraintInterface $constraint package version or version constraint to match against
+     * @param string|\Tangram\Semver\Constraint\ConstraintInterface $constraint package version or version constraint to match against
      *
      * @return array
      */
@@ -126,7 +126,7 @@ class RepositoryManager
 
         $reflMethod = new \ReflectionMethod($class, '__construct');
         $params = $reflMethod->getParameters();
-        if (isset($params[4]) && $params[4]->getClass() && $params[4]->getClass()->getName() === 'Composer\Util\RemoteFilesystem') {
+        if (isset($params[4]) && $params[4]->getClass() && $params[4]->getClass()->getName() === 'Tangram\Util\RemoteFilesystem') {
             return new $class($config, $this->io, $this->config, $this->eventDispatcher, $this->rfs);
         }
 

@@ -12,14 +12,14 @@
 
 namespace Tangram\Downloader;
 
-use Composer\Config;
-use Composer\Package\Dumper\ArrayDumper;
-use Composer\Package\PackageInterface;
-use Composer\Package\Version\VersionGuesser;
-use Composer\Package\Version\VersionParser;
-use Composer\Util\ProcessExecutor;
-use Composer\IO\IOInterface;
-use Composer\Util\Filesystem;
+use Tangram\Config;
+use Tangram\Package\Dumper\ArrayDumper;
+use Tangram\Package\PackageInterface;
+use Tangram\Package\Version\VersionGuesser;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Util\ProcessExecutor;
+use Tangram\IO\IOInterface;
+use Tangram\Util\Filesystem;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

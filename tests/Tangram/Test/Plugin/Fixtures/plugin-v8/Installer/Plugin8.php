@@ -2,10 +2,10 @@
 
 namespace Installer;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Plugin\PluginInterface;
-use Composer\Plugin\Capable;
+use Tangram\Composer;
+use Tangram\IO\IOInterface;
+use Tangram\Plugin\PluginInterface;
+use Tangram\Plugin\Capable;
 
 class Plugin8 implements PluginInterface, Capable
 {
@@ -18,7 +18,7 @@ class Plugin8 implements PluginInterface, Capable
     public function getCapabilities()
     {
         return array(
-            'Composer\Plugin\Capability\CommandProvider' => 'Installer\CommandProvider',
+            'Tangram\Plugin\Capability\CommandProvider' => 'Installer\CommandProvider',
         );
     }
 }

@@ -12,16 +12,16 @@
 
 namespace Tangram\Command;
 
-use Composer\DependencyResolver\Pool;
-use Composer\Json\JsonFile;
-use Composer\Factory;
-use Composer\Repository\RepositoryFactory;
-use Composer\Package\BasePackage;
-use Composer\Package\Version\VersionParser;
-use Composer\Package\Version\VersionSelector;
-use Composer\Repository\CompositeRepository;
-use Composer\Repository\PlatformRepository;
-use Composer\Util\ProcessExecutor;
+use Tangram\DependencyResolver\Pool;
+use Tangram\Json\JsonFile;
+use Tangram\Factory;
+use Tangram\Repository\RepositoryFactory;
+use Tangram\Package\BasePackage;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Package\Version\VersionSelector;
+use Tangram\Repository\CompositeRepository;
+use Tangram\Repository\PlatformRepository;
+use Tangram\Util\ProcessExecutor;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;

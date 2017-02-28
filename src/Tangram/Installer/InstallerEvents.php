@@ -24,7 +24,7 @@ class InstallerEvents
      * resolve operations.
      *
      * The event listener method receives a
-     * Composer\Installer\InstallerEvent instance.
+     * Tangram\Installer\InstallerEvent instance.
      *
      * @var string
      */
@@ -35,7 +35,7 @@ class InstallerEvents
      * resolve operations.
      *
      * The event listener method receives a
-     * Composer\Installer\InstallerEvent instance.
+     * Tangram\Installer\InstallerEvent instance.
      *
      * @var string
      */

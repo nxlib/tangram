@@ -12,25 +12,25 @@
 
 namespace Tangram\Test;
 
-use Composer\Installer;
-use Composer\Console\Application;
-use Composer\Json\JsonFile;
-use Composer\Util\Filesystem;
-use Composer\Repository\ArrayRepository;
-use Composer\Repository\RepositoryManager;
-use Composer\Repository\InstalledArrayRepository;
-use Composer\Package\RootPackageInterface;
-use Composer\Package\Link;
-use Composer\Package\Locker;
-use Composer\Test\Mock\FactoryMock;
-use Composer\Test\Mock\InstalledFilesystemRepositoryMock;
-use Composer\Test\Mock\InstallationManagerMock;
+use Tangram\Installer;
+use Tangram\Console\Application;
+use Tangram\Json\JsonFile;
+use Tangram\Util\Filesystem;
+use Tangram\Repository\ArrayRepository;
+use Tangram\Repository\RepositoryManager;
+use Tangram\Repository\InstalledArrayRepository;
+use Tangram\Package\RootPackageInterface;
+use Tangram\Package\Link;
+use Tangram\Package\Locker;
+use Tangram\Test\Mock\FactoryMock;
+use Tangram\Test\Mock\InstalledFilesystemRepositoryMock;
+use Tangram\Test\Mock\InstallationManagerMock;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Formatter\OutputFormatter;
-use Composer\TestCase;
-use Composer\IO\BufferIO;
+use Tangram\TestCase;
+use Tangram\IO\BufferIO;
 
 class InstallerTest extends TestCase
 {
@@ -57,10 +57,10 @@ class InstallerTest extends TestCase
      */
     public function testInstaller(RootPackageInterface $rootPackage, $repositories, array $options)
     {
-        $io = $this->getMock('Composer\IO\IOInterface');
+        $io = $this->getMock('Tangram\IO\IOInterface');
 
-        $downloadManager = $this->getMock('Composer\Downloader\DownloadManager', array(), array($io));
-        $config = $this->getMock('Composer\Config');
+        $downloadManager = $this->getMock('Tangram\Downloader\DownloadManager', array(), array($io));
+        $config = $this->getMock('Tangram\Config');
 
         $repositoryManager = new RepositoryManager($io, $config);
         $repositoryManager->setLocalRepository(new InstalledArrayRepository());
@@ -72,11 +72,11 @@ class InstallerTest extends TestCase
             $repositoryManager->addRepository($repository);
         }
 
-        $locker = $this->getMockBuilder('Composer\Package\Locker')->disableOriginalConstructor()->getMock();
+        $locker = $this->getMockBuilder('Tangram\Package\Locker')->disableOriginalConstructor()->getMock();
         $installationManager = new InstallationManagerMock();
 
-        $eventDispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock();
-        $autoloadGenerator = $this->getMockBuilder('Composer\Autoload\AutoloadGenerator')->disableOriginalConstructor()->getMock();
+        $eventDispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock();
+        $autoloadGenerator = $this->getMockBuilder('Tangram\Autoload\AutoloadGenerator')->disableOriginalConstructor()->getMock();
 
         $installer = new Installer($io, $config, clone $rootPackage, $downloadManager, $repositoryManager, $locker, $installationManager, $eventDispatcher, $autoloadGenerator);
         $result = $installer->run();
@@ -103,7 +103,7 @@ class InstallerTest extends TestCase
         // when A requires B and B requires A, and A is a non-published root package
         // the install of B should succeed
 
-        $a = $this->getPackage('A', '1.0.0', 'Composer\Package\RootPackage');
+        $a = $this->getPackage('A', '1.0.0', 'Tangram\Package\RootPackage');
         $a->setRequires(array(
             new Link('A', 'B', $this->getVersionConstraint('=', '1.0.0')),
         ));
@@ -123,7 +123,7 @@ class InstallerTest extends TestCase
         // #480: when A requires B and B requires A, and A is a published root package
         // only B should be installed, as A is the root
 
-        $a = $this->getPackage('A', '1.0.0', 'Composer\Package\RootPackage');
+        $a = $this->getPackage('A', '1.0.0', 'Tangram\Package\RootPackage');
         $a->setRequires(array(
             new Link('A', 'B', $this->getVersionConstraint('=', '1.0.0')),
         ));
@@ -167,7 +167,7 @@ class InstallerTest extends TestCase
         $composer = FactoryMock::create($io, $composerConfig);
         $this->tempComposerHome = $composer->getConfig()->get('home');
 
-        $jsonMock = $this->getMockBuilder('Composer\Json\JsonFile')->disableOriginalConstructor()->getMock();
+        $jsonMock = $this->getMockBuilder('Tangram\Json\JsonFile')->disableOriginalConstructor()->getMock();
         $jsonMock->expects($this->any())
             ->method('read')
             ->will($this->returnValue($installed));
@@ -178,7 +178,7 @@ class InstallerTest extends TestCase
         $repositoryManager = $composer->getRepositoryManager();
         $repositoryManager->setLocalRepository(new InstalledFilesystemRepositoryMock($jsonMock));
 
-        $lockJsonMock = $this->getMockBuilder('Composer\Json\JsonFile')->disableOriginalConstructor()->getMock();
+        $lockJsonMock = $this->getMockBuilder('Tangram\Json\JsonFile')->disableOriginalConstructor()->getMock();
         $lockJsonMock->expects($this->any())
             ->method('read')
             ->will($this->returnValue($lock));
@@ -201,8 +201,8 @@ class InstallerTest extends TestCase
         $locker   = new Locker($io, $lockJsonMock, $repositoryManager, $composer->getInstallationManager(), $contents);
         $composer->setLocker($locker);
 
-        $eventDispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock();
-        $autoloadGenerator = $this->getMock('Composer\Autoload\AutoloadGenerator', array(), array($eventDispatcher));
+        $eventDispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')->disableOriginalConstructor()->getMock();
+        $autoloadGenerator = $this->getMock('Tangram\Autoload\AutoloadGenerator', array(), array($eventDispatcher));
         $composer->setAutoloadGenerator($autoloadGenerator);
         $composer->setEventDispatcher($eventDispatcher);
 

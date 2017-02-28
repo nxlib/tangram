@@ -12,9 +12,9 @@
 
 namespace Tangram\Script;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\EventDispatcher\Event as BaseEvent;
+use Tangram\Composer;
+use Tangram\IO\IOInterface;
+use Tangram\EventDispatcher\Event as BaseEvent;
 
 /**
  * The script event class

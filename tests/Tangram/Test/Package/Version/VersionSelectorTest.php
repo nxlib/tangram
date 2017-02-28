@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\Package\Version;
 
-use Composer\Package\Version\VersionSelector;
-use Composer\Package\Package;
-use Composer\Package\Link;
-use Composer\Semver\VersionParser;
+use Tangram\Package\Version\VersionSelector;
+use Tangram\Package\Package;
+use Tangram\Package\Link;
+use Tangram\Semver\VersionParser;
 
 class VersionSelectorTest extends \PHPUnit_Framework_TestCase
 {
@@ -197,7 +197,7 @@ class VersionSelectorTest extends \PHPUnit_Framework_TestCase
         $versionSelector = new VersionSelector($pool);
         $versionParser = new VersionParser();
 
-        $package = $this->getMock('\Composer\Package\PackageInterface');
+        $package = $this->getMock('\Tangram\Package\PackageInterface');
         $package
             ->expects($this->any())
             ->method('getPrettyVersion')
@@ -274,6 +274,6 @@ class VersionSelectorTest extends \PHPUnit_Framework_TestCase
 
     private function createMockPool()
     {
-        return $this->getMock('Composer\DependencyResolver\Pool', array(), array(), '', true);
+        return $this->getMock('Tangram\DependencyResolver\Pool', array(), array(), '', true);
     }
 }

@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\Autoload;
 
-use Composer\Autoload\ClassLoader;
+use Tangram\Autoload\ClassLoader;
 
 /**
- * Tests the Composer\Autoload\ClassLoader class.
+ * Tests the Tangram\Autoload\ClassLoader class.
  */
 class ClassLoaderTest extends \PHPUnit_Framework_TestCase
 {

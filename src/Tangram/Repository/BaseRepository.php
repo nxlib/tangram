@@ -12,10 +12,10 @@
 
 namespace Tangram\Repository;
 
-use Composer\Package\RootPackageInterface;
-use Composer\Semver\Constraint\ConstraintInterface;
-use Composer\Semver\Constraint\Constraint;
-use Composer\Package\Link;
+use Tangram\Package\RootPackageInterface;
+use Tangram\Semver\Constraint\ConstraintInterface;
+use Tangram\Semver\Constraint\Constraint;
+use Tangram\Package\Link;
 
 /**
  * Common ancestor class for generic repository functionality.

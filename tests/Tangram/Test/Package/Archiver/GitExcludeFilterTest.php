@@ -12,7 +12,7 @@
 
 namespace Tangram\Test\Package\Archiver;
 
-use Composer\Package\Archiver\GitExcludeFilter;
+use Tangram\Package\Archiver\GitExcludeFilter;
 
 class GitExcludeFilterTest extends \PHPUnit_Framework_TestCase
 {

@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Package\Archiver;
 
-use Composer\Factory;
-use Composer\Package\Archiver\ArchiveManager;
-use Composer\Package\PackageInterface;
+use Tangram\Factory;
+use Tangram\Package\Archiver\ArchiveManager;
+use Tangram\Package\PackageInterface;
 
 class ArchiveManagerTest extends ArchiverTest
 {

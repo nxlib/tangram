@@ -12,11 +12,11 @@
 
 namespace Tangram\Command;
 
-use Composer\Composer;
-use Composer\Config;
-use Composer\Console\Application;
-use Composer\IO\IOInterface;
-use Composer\IO\NullIO;
+use Tangram\Composer;
+use Tangram\Config;
+use Tangram\Console\Application;
+use Tangram\IO\IOInterface;
+use Tangram\IO\NullIO;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\Command;
@@ -54,8 +54,8 @@ abstract class BaseCommand extends Command
                 $this->composer = $application->getComposer($required, $disablePlugins);
             } elseif ($required) {
                 throw new \RuntimeException(
-                    'Could not create a Composer\Composer instance, you must inject '.
-                    'one if this command is not used with a Composer\Console\Application instance'
+                    'Could not create a Tangram\Composer instance, you must inject '.
+                    'one if this command is not used with a Tangram\Console\Application instance'
                 );
             }
         }

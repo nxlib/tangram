@@ -12,17 +12,17 @@
 
 namespace Tangram\Test\Autoload;
 
-use Composer\Autoload\AutoloadGenerator;
-use Composer\Package\Link;
-use Composer\Util\Filesystem;
-use Composer\Package\AliasPackage;
-use Composer\Package\Package;
-use Composer\TestCase;
-use Composer\Script\ScriptEvents;
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Installer\InstallationManager;
-use Composer\Config;
-use Composer\EventDispatcher\EventDispatcher;
+use Tangram\Autoload\AutoloadGenerator;
+use Tangram\Package\Link;
+use Tangram\Util\Filesystem;
+use Tangram\Package\AliasPackage;
+use Tangram\Package\Package;
+use Tangram\TestCase;
+use Tangram\Script\ScriptEvents;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\Installer\InstallationManager;
+use Tangram\Config;
+use Tangram\EventDispatcher\EventDispatcher;
 use PHPUnit_Framework_MockObject_MockObject as MockObject;
 
 class AutoloadGeneratorTest extends TestCase
@@ -92,7 +92,7 @@ class AutoloadGeneratorTest extends TestCase
         $this->vendorDir = $this->workingDir.DIRECTORY_SEPARATOR.'composer-test-autoload';
         $this->ensureDirectoryExistsAndClear($this->vendorDir);
 
-        $this->config = $this->getMock('Composer\Config');
+        $this->config = $this->getMock('Tangram\Config');
 
         $this->configValueMap = array(
             'vendor-dir' => function () use ($that) {
@@ -117,7 +117,7 @@ class AutoloadGeneratorTest extends TestCase
         $this->origDir = getcwd();
         chdir($this->workingDir);
 
-        $this->im = $this->getMockBuilder('Composer\Installer\InstallationManager')
+        $this->im = $this->getMockBuilder('Tangram\Installer\InstallationManager')
             ->disableOriginalConstructor()
             ->getMock();
         $this->im->expects($this->any())
@@ -127,9 +127,9 @@ class AutoloadGeneratorTest extends TestCase
 
                 return $that->vendorDir.'/'.$package->getName() . ($targetDir ? '/'.$targetDir : '');
             }));
-        $this->repository = $this->getMock('Composer\Repository\InstalledRepositoryInterface');
+        $this->repository = $this->getMock('Tangram\Repository\InstalledRepositoryInterface');
 
-        $this->eventDispatcher = $this->getMockBuilder('Composer\EventDispatcher\EventDispatcher')
+        $this->eventDispatcher = $this->getMockBuilder('Tangram\EventDispatcher\EventDispatcher')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -1005,7 +1005,7 @@ EOF;
             ->method('getCanonicalPackages')
             ->will($this->returnValue(array($vendorPackage)));
 
-        $im = $this->getMockBuilder('Composer\Installer\InstallationManager')
+        $im = $this->getMockBuilder('Tangram\Installer\InstallationManager')
             ->disableOriginalConstructor()
             ->getMock();
         $im->expects($this->any())

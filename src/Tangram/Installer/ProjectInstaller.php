@@ -12,10 +12,10 @@
 
 namespace Tangram\Installer;
 
-use Composer\Package\PackageInterface;
-use Composer\Downloader\DownloadManager;
-use Composer\Repository\InstalledRepositoryInterface;
-use Composer\Util\Filesystem;
+use Tangram\Package\PackageInterface;
+use Tangram\Downloader\DownloadManager;
+use Tangram\Repository\InstalledRepositoryInterface;
+use Tangram\Util\Filesystem;
 
 /**
  * Project Installer is used to install a single package into a directory as

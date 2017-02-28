@@ -12,12 +12,12 @@
 
 namespace Tangram\Package\LinkConstraint;
 
-use Composer\Semver\Constraint\MultiConstraint as SemverMultiConstraint;
+use Tangram\Semver\Constraint\MultiConstraint as SemverMultiConstraint;
 
-trigger_error('The ' . __NAMESPACE__ . '\MultiConstraint class is deprecated, use Composer\Semver\Constraint\MultiConstraint instead.', E_USER_DEPRECATED);
+trigger_error('The ' . __NAMESPACE__ . '\MultiConstraint class is deprecated, use Tangram\Semver\Constraint\MultiConstraint instead.', E_USER_DEPRECATED);
 
 /**
- * @deprecated use Composer\Semver\Constraint\MultiConstraint instead
+ * @deprecated use Tangram\Semver\Constraint\MultiConstraint instead
  */
 class MultiConstraint extends SemverMultiConstraint implements LinkConstraintInterface
 {

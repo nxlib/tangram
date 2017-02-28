@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\DependencyResolver;
 
-use Composer\DependencyResolver\Request;
-use Composer\Repository\ArrayRepository;
-use Composer\TestCase;
+use Tangram\DependencyResolver\Request;
+use Tangram\Repository\ArrayRepository;
+use Tangram\TestCase;
 
 class RequestTest extends TestCase
 {

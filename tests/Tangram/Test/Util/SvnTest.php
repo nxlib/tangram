@@ -12,10 +12,10 @@
 
 namespace Tangram\Test\Util;
 
-use Composer\Config;
-use Composer\IO\NullIO;
-use Composer\Util\Platform;
-use Composer\Util\Svn;
+use Tangram\Config;
+use Tangram\IO\NullIO;
+use Tangram\Util\Platform;
+use Tangram\Util\Svn;
 
 class SvnTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,7 +30,7 @@ class SvnTest extends \PHPUnit_Framework_TestCase
     public function testCredentials($url, $expect)
     {
         $svn = new Svn($url, new NullIO, new Config());
-        $reflMethod = new \ReflectionMethod('Composer\\Util\\Svn', 'getCredentialString');
+        $reflMethod = new \ReflectionMethod('Tangram\\Util\\Svn', 'getCredentialString');
         $reflMethod->setAccessible(true);
 
         $this->assertEquals($expect, $reflMethod->invoke($svn));
@@ -55,7 +55,7 @@ class SvnTest extends \PHPUnit_Framework_TestCase
         $url = 'http://svn.example.org';
 
         $svn = new Svn($url, new NullIO(), new Config());
-        $reflMethod = new \ReflectionMethod('Composer\\Util\\Svn', 'getCommand');
+        $reflMethod = new \ReflectionMethod('Tangram\\Util\\Svn', 'getCommand');
         $reflMethod->setAccessible(true);
 
         $this->assertEquals(
@@ -78,7 +78,7 @@ class SvnTest extends \PHPUnit_Framework_TestCase
         ));
 
         $svn = new Svn($url, new NullIO, $config);
-        $reflMethod = new \ReflectionMethod('Composer\\Util\\Svn', 'getCredentialString');
+        $reflMethod = new \ReflectionMethod('Tangram\\Util\\Svn', 'getCredentialString');
         $reflMethod->setAccessible(true);
 
         $this->assertEquals($this->getCmd(" --username 'foo' --password 'bar' "), $reflMethod->invoke($svn));
@@ -101,7 +101,7 @@ class SvnTest extends \PHPUnit_Framework_TestCase
 
         $svn = new Svn($url, new NullIO, $config);
         $svn->setCacheCredentials(true);
-        $reflMethod = new \ReflectionMethod('Composer\\Util\\Svn', 'getCredentialString');
+        $reflMethod = new \ReflectionMethod('Tangram\\Util\\Svn', 'getCredentialString');
         $reflMethod->setAccessible(true);
 
         $this->assertEquals($this->getCmd(" --username 'foo' --password 'bar' "), $reflMethod->invoke($svn));
@@ -124,7 +124,7 @@ class SvnTest extends \PHPUnit_Framework_TestCase
 
         $svn = new Svn($url, new NullIO, $config);
         $svn->setCacheCredentials(false);
-        $reflMethod = new \ReflectionMethod('Composer\\Util\\Svn', 'getCredentialString');
+        $reflMethod = new \ReflectionMethod('Tangram\\Util\\Svn', 'getCredentialString');
         $reflMethod->setAccessible(true);
 
         $this->assertEquals($this->getCmd(" --no-auth-cache --username 'foo' --password 'bar' "), $reflMethod->invoke($svn));

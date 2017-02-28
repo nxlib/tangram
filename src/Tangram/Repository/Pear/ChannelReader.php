@@ -12,7 +12,7 @@
 
 namespace Tangram\Repository\Pear;
 
-use Composer\Util\RemoteFilesystem;
+use Tangram\Util\RemoteFilesystem;
 
 /**
  * PEAR Channel package reader.

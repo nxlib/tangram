@@ -12,8 +12,8 @@
 
 namespace Tangram\Repository;
 
-use Composer\Package\Loader\ArrayLoader;
-use Composer\Package\Loader\ValidatingArrayLoader;
+use Tangram\Package\Loader\ArrayLoader;
+use Tangram\Package\Loader\ValidatingArrayLoader;
 
 /**
  * Package repository.

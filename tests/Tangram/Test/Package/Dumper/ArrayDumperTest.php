@@ -12,9 +12,9 @@
 
 namespace Tangram\Test\Package\Dumper;
 
-use Composer\Package\Dumper\ArrayDumper;
-use Composer\Package\Link;
-use Composer\Semver\Constraint\Constraint;
+use Tangram\Package\Dumper\ArrayDumper;
+use Tangram\Package\Link;
+use Tangram\Semver\Constraint\Constraint;
 
 class ArrayDumperTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,14 +23,14 @@ class ArrayDumperTest extends \PHPUnit_Framework_TestCase
      */
     private $dumper;
     /**
-     * @var \Composer\Package\CompletePackageInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Tangram\Package\CompletePackageInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     private $package;
 
     public function setUp()
     {
         $this->dumper = new ArrayDumper();
-        $this->package = $this->getMock('Composer\Package\CompletePackageInterface');
+        $this->package = $this->getMock('Tangram\Package\CompletePackageInterface');
         $this->packageExpects('getTransportOptions', array());
     }
 
@@ -55,7 +55,7 @@ class ArrayDumperTest extends \PHPUnit_Framework_TestCase
 
     public function testRootPackage()
     {
-        $this->package = $this->getMock('Composer\Package\RootPackageInterface');
+        $this->package = $this->getMock('Tangram\Package\RootPackageInterface');
 
         $this
             ->packageExpects('getMinimumStability', 'dev')
@@ -91,7 +91,7 @@ class ArrayDumperTest extends \PHPUnit_Framework_TestCase
      */
     public function testKeys($key, $value, $method = null, $expectedValue = null)
     {
-        $this->package = $this->getMock('Composer\Package\RootPackageInterface');
+        $this->package = $this->getMock('Tangram\Package\RootPackageInterface');
 
         $this->packageExpects('get'.ucfirst($method ?: $key), $value);
         $this->packageExpects('isAbandoned', $value);

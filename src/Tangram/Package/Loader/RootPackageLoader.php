@@ -12,15 +12,15 @@
 
 namespace Tangram\Package\Loader;
 
-use Composer\Package\BasePackage;
-use Composer\Package\AliasPackage;
-use Composer\Config;
-use Composer\Package\RootPackageInterface;
-use Composer\Repository\RepositoryFactory;
-use Composer\Package\Version\VersionGuesser;
-use Composer\Package\Version\VersionParser;
-use Composer\Repository\RepositoryManager;
-use Composer\Util\ProcessExecutor;
+use Tangram\Package\BasePackage;
+use Tangram\Package\AliasPackage;
+use Tangram\Config;
+use Tangram\Package\RootPackageInterface;
+use Tangram\Repository\RepositoryFactory;
+use Tangram\Package\Version\VersionGuesser;
+use Tangram\Package\Version\VersionParser;
+use Tangram\Repository\RepositoryManager;
+use Tangram\Util\ProcessExecutor;
 
 /**
  * ArrayLoader built for the sole purpose of loading the root package
@@ -61,7 +61,7 @@ class RootPackageLoader extends ArrayLoader
      * @param  string               $cwd    cwd of the root package to be used to guess the version if it is not provided
      * @return RootPackageInterface
      */
-    public function load(array $config, $class = 'Composer\Package\RootPackage', $cwd = null)
+    public function load(array $config, $class = 'Tangram\Package\RootPackage', $cwd = null)
     {
         if (!isset($config['name'])) {
             $config['name'] = '__root__';
