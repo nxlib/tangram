@@ -48,7 +48,7 @@ class Compiler
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
         }
-        $vendorPath = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'vendor';
+        $vendorPath = dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.'vendor';
         $composerPath = $vendorPath.DIRECTORY_SEPARATOR.'composer';
 
         $this->addFile($phar, new \SplFileInfo($vendorPath.DIRECTORY_SEPARATOR.'autoload.php'));
