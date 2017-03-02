@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+if (PHP_SAPI !== 'cli') {
+    echo 'Warning: Tangram should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
+}
+require __DIR__.'/../src/bootstrap.php';
+
+use Tangram\Console\Application;
+
+// run the command application
+$application = new Application();
+$application->run();
+
