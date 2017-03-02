@@ -41,5 +41,11 @@
     },
     "bin": [
         "bin/tangram"
-    ]
+    ],
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
 }

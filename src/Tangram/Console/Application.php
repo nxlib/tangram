@@ -12,6 +12,8 @@
 
 namespace Tangram\Console;
 
+use Symfony\Component\Console\Output\ConsoleOutput;
+
 class Application
 {
     private static $logo = '   ________
@@ -22,10 +24,13 @@ class Application
              `-`      __ / /            `-`
                      /____/                                                
 ';
-
+    private static $console;
 
     public function __construct()
     {
-        //todo
+        self::$console = new ConsoleOutput();
+    }
+    public function run(){
+        self::$console->write(self::$logo);
     }
 }
