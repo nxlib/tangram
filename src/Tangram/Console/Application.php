@@ -13,6 +13,7 @@
 namespace Tangram\Console;
 
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Tangram\Tangram;
 
 class Application
 {
@@ -22,15 +23,56 @@ class Application
    / / / /__| \ / / / / /_ / / /  / /__| \ / / / / / / 
   /_/  \____\ \/_/ /_/\___/ /_/   \____\ \/_/ /_/ /_/ 
              `-`      __ / /            `-`
-                     /____/                                                
+                     /____/   
 ';
-    private static $console;
-
+    private static $line = '- - - - - - - - - - - - - - - - - - - - - - - - - - -';
     public function __construct()
     {
-        self::$console = new ConsoleOutput();
+        //todo
     }
     public function run(){
-        self::$console->write(self::$logo);
+        if(TG_COMMAND == ""){
+            $this->info();
+            echo $this->getHelp();
+            exit;
+        }
+        //command
+        if(TG_COMMAND != 'build'){
+            exit("command \"".TG_COMMAND." \" not found!");
+        }
+        $tangramJsonFile = TG_RUN_PATH.DIRECTORY_SEPARATOR."tangram.json";
+        if(!file_exists($tangramJsonFile)){
+            exit("Error: tangram.js not found");
+        }
+        $tangramData = json_decode(file_get_contents($tangramJsonFile),1);
+        $modulePath = 'modules';
+        if(isset($tangramData['modules-path']) && !empty($tangramData['modules-path'])){
+            $modulePath = $tangramData['modules-path'];
+        }
+        $modulePath = TG_RUN_PATH.DIRECTORY_SEPARATOR.$modulePath;
+        if(!file_exists($modulePath)){
+            exit("Error: module path not found");
+        }
+
     }
+    private function info(){
+        console(self::$logo);
+        $this->getVersion();
+        $this->getLine();
+    }
+    private function getLine(){
+        console(self::$line);
+    }
+    private function getVersion(){
+        console("@version:".Tangram::VERSION);
+    }
+    private function getHelp(){
+        return <<<'EOF'
+command
+    build [module] [--option]
+    option:--router --permission
+    eg: build tangram/demo --router
+EOF;
+    }
+
 }

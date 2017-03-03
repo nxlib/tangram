@@ -1,11 +1,5 @@
 <?php
 
-function console($data){
-    echo "<prev>";
-    print_r($data);
-    echo "</prev>\r\n";
-
-}
 function includeIfExists($file)
 {
     return file_exists($file) ? include $file : false;

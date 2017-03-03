@@ -1,9 +1,35 @@
 #!/usr/bin/env php
 <?php
+function console($data){
+    print_r($data);
+    echo "\r\n";
 
+}
 if (PHP_SAPI !== 'cli') {
     echo 'Warning: Tangram should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
 }
+$args = $argv;
+unset($args[0]);
+$commandAndModule = [];
+$options = [];
+foreach ($args as $value){
+    if(strpos($value,"--") === 0){
+        $options[] = $value;
+        continue;
+    }
+    $commandAndModule[] = $value;
+}
+$command = isset($commandAndModule[0]) ? $commandAndModule[0] : '';
+$module = isset($commandAndModule[1]) ? $commandAndModule[1] : '';
+$option = isset($options[0]) ? $options[0] : '';
+console($command);
+console($module);
+console($option);
+define("TG_COMMAND",strtolower($command));
+define("TG_MODULE",$module);
+define("TG_OPTION",strtolower($option));
+define("TG_RUN_PATH",__DIR__);
+
 require __DIR__.'/../src/bootstrap.php';
 
 use Tangram\Console\Application;
