@@ -59,27 +59,31 @@ class Application
             exit("Error: module path not found");
         }
         $pathInfo = Dir::scan($trueModulePath,3);
-        $moudles = [];
+        $modules = [];
         foreach ($pathInfo as $key => $value){
             if(is_array($value)){
                 foreach ($value as $k => $v){
-                    $moudles[] = $key.DIRECTORY_SEPARATOR.$k;
+                    $modules[] = $key.DIRECTORY_SEPARATOR.$k;
                 }
             }
         }
-        console($moudles);
         Dir::create($tangramModule);
         Dir::create($autoTrangram);
 
         $classMap = [];
         $routerMap = [];
         $permissionMap = [];
-        foreach ($moudles as $value){
+        $namespaces = [];
+        foreach ($modules as $value){
             $json = $trueModulePath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR."tangram.json";
             if(file_exists($json)){
                 $json = json_decode(file_get_contents($json),1);
                 if(isset($json['autoload']['psr-4']) && !empty($json['autoload']['psr-4'])){
                     foreach ($json['autoload']['psr-4'] as $key => $psr4){
+                        $namespaces[] = [
+                            'ns' => $key,
+                            'path' => $trueModulePath.DIRECTORY_SEPARATOR.$value
+                        ];
                         $tmp = str_replace('\\','\\\\',$key);
                         if(empty($psr4)){
                             $psr4 = $modulePath.'/'.$value;
@@ -90,11 +94,33 @@ class Application
 
             }
         }
-        console($classMap);
-        console($this->classMapFile($classMap));
+//        console($classMap);
+//        console($this->classMapFile($classMap));
         File::create($autoTrangram.DIRECTORY_SEPARATOR.'autoload_classmap.php',$this->classMapFile($classMap));
         $md5 = md5(time());
-        //todo
+        //todo permission-map
+        //todo rest-permission-map
+        //todo router-map
+        foreach ($namespaces as $module){
+            console($module);
+            $path = $module['path'].DIRECTORY_SEPARATOR.'controller';
+            $namespace = $module['ns'].'Controller';
+            if(file_exists($path)){
+                $files = Dir::scan($path);
+                if(empty($files)){
+                    continue;
+                }
+                foreach ($files as $file){
+                    include $path.DIRECTORY_SEPARATOR.$file;
+                    $controller = str_replace('.php','',$file);
+                    $reflect = new \ReflectionClass($namespace.'\\'.$controller);
+                    console($reflect->getMethods());
+                    console($reflect->getDocComment());
+                }
+
+
+            }
+        }
 
     }
     private function info(){
