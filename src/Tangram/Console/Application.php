@@ -12,6 +12,7 @@
 
 namespace Tangram\Console;
 
+use Nette\Reflection\ClassType;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Tangram\Tangram;
 use Tangram\Utils\Dir;
@@ -114,9 +115,18 @@ class Application
                 foreach ($files as $file){
                     include $path.DIRECTORY_SEPARATOR.$file;
                     $controller = str_replace('.php','',$file);
-                    $reflect = new \ReflectionClass($namespace.'\\'.$controller);
-                    console($reflect->getMethods());
-                    console($reflect->getDocComment());
+                    $reflect = new ClassType($namespace.'\\'.$controller);
+                    console($reflect->getName());
+                    console($reflect->getAnnotation("bbb"));
+//                    console($reflect->getMethod('bar')->getAnnotation('RequestMapping'));
+                    $methods = $reflect->getMethods();
+                    if(!empty($methods)){
+                        foreach ($methods as $method){
+//                            console($method);
+//                            console($method->docComment);
+                            console($reflect->getMethod($method->name)->getAnnotation('RequestMapping'));
+                        }
+                    }
                 }
 
 
