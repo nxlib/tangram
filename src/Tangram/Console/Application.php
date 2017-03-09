@@ -101,6 +101,7 @@ class Application
         //todo permission-map
         //todo rest-permission-map
         //todo router-map
+        //read file
         foreach ($namespaces as $module){
             console($module);
             $path = $module['path'].DIRECTORY_SEPARATOR.'controller';
