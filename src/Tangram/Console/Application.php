@@ -13,7 +13,6 @@
 namespace Tangram\Console;
 
 use Nette\Reflection\ClassType;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use Tangram\Tangram;
 use Tangram\Utils\Dir;
 use Tangram\Utils\File;
@@ -103,6 +102,7 @@ class Application
         //todo rest-permission-map
         //todo router-map
         //read file
+        $uriList = [];
         foreach ($namespaces as $module){
             console($module);
             $path = $module['path'].DIRECTORY_SEPARATOR.'controller';
@@ -117,19 +117,96 @@ class Application
                     $controller = str_replace('.php','',$file);
                     $reflect = new ClassType($namespace.'\\'.$controller);
                     console($reflect->getName());
-                    console($reflect->getAnnotation("bbb"));
-//                    console($reflect->getMethod('bar')->getAnnotation('RequestMapping'));
+                    $isAuth = $reflect->getAnnotation("Auth");
+                    $isRestController = $reflect->getAnnotation("RestController");
+                    console($reflect->getAnnotation("RequestMapping"));
+                    console($reflect->getAnnotation("Permission"));
+                    $requestMapping = $reflect->getAnnotation("RequestMapping");
+                    $mainPermission = $reflect->getAnnotation("Permission");
+                    $path = "";
+                    $moduleName = "";
+
+                    if(!empty($requestMapping)){
+                        if(is_string($requestMapping)){
+                            $path = rtrim($requestMapping,"/**");
+                        }
+                        if(isset($requestMapping->path)){
+                            $path = rtrim($requestMapping->path,"/**");
+                        }
+                    }
+                    if(isset($mainPermission->module)){
+                        $moduleName = $mainPermission->module;
+                    }
+
                     $methods = $reflect->getMethods();
                     if(!empty($methods)){
+                        console($methods);
                         foreach ($methods as $method){
-//                            console($method);
-//                            console($method->docComment);
-                            console($reflect->getMethod($method->name)->getAnnotation('RequestMapping'));
+                            if($method->public){
+                                //共有方法才能做权限点
+                                $permission = [
+                                    'module' => $moduleName,
+                                    'nav' => '',
+                                    'menu' => '',
+                                    'name' => ''
+                                ];
+                                $methodRequestMapping = $method->getAnnotation('RequestMapping');
+                                $viewPermission = $method->getAnnotation('ViewPermission');
+                                $methodPermission = $method->getAnnotation('Permission');
+                                console($viewPermission);
+                                console($methodPermission);
+                                $uri = $path."/";
+                                var_dump($path);
+                                $requestMethod = "get";
+                                if(empty($methodRequestMapping)){
+                                    //
+                                    $uri .= $method->name;
+                                }else{
+                                    $uri .= isset($methodRequestMapping->path) ? $methodRequestMapping->path:"";
+                                    $requestMethod = isset($methodRequestMapping->method) ? $methodRequestMapping->method:$requestMethod;
+                                }
+                                if(!empty($viewPermission)){
+                                    //页面权限优先级高于功能权限
+                                    $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
+                                    $permission['nav'] = isset($methodPermission->nav) ? $methodPermission->nav : $permission['nav'];
+                                    $permission['menu'] = isset($methodPermission->menu) ? $methodPermission->menu : $permission['menu'];
+                                }else{
+                                    //
+                                    $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
+                                    $permission['name'] = isset($methodPermission->name) ? $methodPermission->name : $permission['name'];
+                                }
+                                $uriList[] = [
+                                    'uri' => $uri,
+                                    'method' => strtolower($requestMethod),
+                                    'module' => $permission['module'],
+                                    'nav' => $permission['nav'],
+                                    'menu' => $permission['menu'],
+                                    'name' => $permission['name'],
+                                    'auth' => $isAuth,
+                                    'rest' => $isRestController,
+                                    'namespace' => $reflect->getNamespaceName(),
+                                    'class' => $reflect->name,
+                                    'function' => $method->name
+                                ];
+                            }
                         }
                     }
                 }
-
-
+                console($uriList);
+                if(!empty($uriList)){
+                    foreach ($uriList as $item){
+                        $key = strtoupper($item['method']).'#'.$item['uri'];
+                        if(isset($routerMap[$key])){
+                            die("ERROR:存在相同的URI:\r\n path:{$item['uri']}\r\n method:{$item['method']}\r\n");
+                        }
+                        $routerMap[$key] = [
+                            'namespace' => $item['namespace'],
+                            'class' => $item['class'],
+                            'function' => $item['function']
+                        ];
+                        //todo
+                    }
+                }
             }
         }
 
@@ -169,10 +246,10 @@ class AutoLoadClassMap{
 EOF;
     }
     private function routerMapFile($data){
-        $get = implode(",\r\n",$data);
-        $post = implode(",\r\n",$data);
-        $put = implode(",\r\n",$data);
-        $del = implode(",\r\n",$data);
+        $get = implode(",\r\n",$data['get']);
+        $post = implode(",\r\n",$data['post']);
+        $put = implode(",\r\n",$data['put']);
+        $del = implode(",\r\n",$data['del']);
         return <<<"EOF"
 <?php
 class AutoRouterMap
