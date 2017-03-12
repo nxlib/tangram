@@ -73,16 +73,26 @@ class Application
         $classMap = [];
         $routerMap = [];
         $permissionMap = [];
+        $authMap = [];
         $namespaces = [];
         foreach ($modules as $value){
             $json = $trueModulePath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR."tangram.json";
             if(file_exists($json)){
+                console("path:".$value);
                 $json = json_decode(file_get_contents($json),1);
+                if(!isset($json['name'])){
+                    die("ERROR:\"{$json}\" do not have \"name\" key");
+                }
+                if(substr_count($json['name'],"/") != 1){
+                    die("ERROR:\"{$json}\" => \"name\" unavailable");
+                }
                 if(isset($json['autoload']['psr-4']) && !empty($json['autoload']['psr-4'])){
+                    $nameExplode = explode("/",$value);
                     foreach ($json['autoload']['psr-4'] as $key => $psr4){
                         $namespaces[] = [
                             'ns' => $key,
-                            'path' => $trueModulePath.DIRECTORY_SEPARATOR.$value
+                            'path' => $trueModulePath.DIRECTORY_SEPARATOR.$value,
+                            'name' => end($nameExplode)
                         ];
                         $tmp = str_replace('\\','\\\\',$key);
                         if(empty($psr4)){
@@ -107,6 +117,7 @@ class Application
             console($module);
             $path = $module['path'].DIRECTORY_SEPARATOR.'controller';
             $namespace = $module['ns'].'Controller';
+            $moduledPath = $module['name'];
             if(file_exists($path)){
                 $files = Dir::scan($path);
                 if(empty($files)){
@@ -123,21 +134,25 @@ class Application
                     console($reflect->getAnnotation("Permission"));
                     $requestMapping = $reflect->getAnnotation("RequestMapping");
                     $mainPermission = $reflect->getAnnotation("Permission");
-                    $path = "";
+                    $requestPath = str_replace($reflect->getNamespaceName().'\\','',$reflect->getName());
+                    $requestPath = '/'.strtolower($moduledPath).'/'.strtolower(str_replace('Controller','',$requestPath));
                     $moduleName = "";
 
                     if(!empty($requestMapping)){
                         if(is_string($requestMapping)){
-                            $path = rtrim($requestMapping,"/**");
+                            $requestPath = rtrim($requestMapping,"/**");
                         }
                         if(isset($requestMapping->path)){
-                            $path = rtrim($requestMapping->path,"/**");
+                            $requestPath = rtrim($requestMapping->path,"/**");
                         }
                     }
                     if(isset($mainPermission->module)){
                         $moduleName = $mainPermission->module;
                     }
-
+                    //auth-handler
+                    if(!is_null($isAuth) && boolval($isAuth)){
+                        $authMap[$requestPath."/**"] = true;
+                    }
                     $methods = $reflect->getMethods();
                     if(!empty($methods)){
                         console($methods);
@@ -155,14 +170,28 @@ class Application
                                 $methodPermission = $method->getAnnotation('Permission');
                                 console($viewPermission);
                                 console($methodPermission);
-                                $uri = $path."/";
-                                var_dump($path);
+                                $uri = $requestPath."/";
+                                var_dump($requestPath);
                                 $requestMethod = "get";
                                 if(empty($methodRequestMapping)){
                                     //
                                     $uri .= $method->name;
                                 }else{
-                                    $uri .= isset($methodRequestMapping->path) ? $methodRequestMapping->path:"";
+                                    if(is_string($methodRequestMapping)){
+                                        if(empty($requestMapping)){
+                                            $uri = $methodRequestMapping;
+                                        }else{
+                                            $uri .= $methodRequestMapping;
+                                        }
+                                    }
+                                    if(isset($methodRequestMapping->path)){
+                                        if(empty($requestMapping)){
+                                            $uri = $methodRequestMapping->path;
+                                        }else{
+                                            $uri .= $methodRequestMapping->path;
+                                        }
+                                    }
+
                                     $requestMethod = isset($methodRequestMapping->method) ? $methodRequestMapping->method:$requestMethod;
                                 }
                                 if(!empty($viewPermission)){
@@ -182,33 +211,89 @@ class Application
                                     'nav' => $permission['nav'],
                                     'menu' => $permission['menu'],
                                     'name' => $permission['name'],
-                                    'auth' => $isAuth,
                                     'rest' => $isRestController,
                                     'namespace' => $reflect->getNamespaceName(),
                                     'class' => $reflect->name,
                                     'function' => $method->name
                                 ];
+                                $methodAuth = $method->getAnnotation('Auth');
+                                if(!is_null($methodAuth)){
+                                    $authKey = strtolower($requestMethod).'#'.$uri;
+                                    $authMap[$authKey] = boolval($methodAuth);
+                                }
                             }
                         }
                     }
                 }
-                console($uriList);
-                if(!empty($uriList)){
-                    foreach ($uriList as $item){
-                        $key = strtoupper($item['method']).'#'.$item['uri'];
-                        if(isset($routerMap[$key])){
-                            die("ERROR:存在相同的URI:\r\n path:{$item['uri']}\r\n method:{$item['method']}\r\n");
-                        }
-                        $routerMap[$key] = [
-                            'namespace' => $item['namespace'],
-                            'class' => $item['class'],
-                            'function' => $item['function']
-                        ];
-                        //todo
-                    }
+            }
+        }
+        console($uriList);
+        if(!empty($uriList)){
+            foreach ($uriList as $item){
+                $key = strtoupper($item['method']).'#'.$item['uri'];
+                if(isset($routerMap[$key])){
+                    console($routerMap);
+                    die("ERROR:存在相同的URI:\r\n path:{$item['uri']}\r\n method:{$item['method']}\r\n");
+                }
+                $routerMap[$key] = [
+                    'namespace' => $item['namespace'],
+                    'class' => $item['class'],
+                    'function' => $item['function']
+                ];
+                if(!empty($item['module']) || !empty($item['nav']) || !empty($item['menu']) || !empty($item['name'])){
+                    $permissionMap[$key] = [
+                        'module' => $item['module'],
+                        'nav' => $item['nav'],
+                        'menu' => $item['menu'],
+                        'name' => $item['name'],
+                        'rest' => $item['rest']
+                    ];
                 }
             }
         }
+        console($routerMap);
+        console($permissionMap);
+        console($authMap);
+        $authMapFileData = [];
+        foreach ($authMap as $key => $value){
+            if($value){
+                $authMapFileData[] = "        '{$key}' => true";
+            }else{
+                $authMapFileData[] = "        '{$key}' => false";
+            }
+
+        }
+        File::create($autoTrangram.DIRECTORY_SEPARATOR.'autoload_auth_map.php',$this->authMapFile($authMapFileData));
+        $permissionMapFileData = [];
+        foreach ($permissionMap as $key => $value){
+            $tmp = "";
+            foreach ($value as $k => $v){
+                if($k == 'rest'){
+                    if($v){
+                        $tmp .= "'{$k}' => true, ";
+                    }else{
+                        $tmp .= "'{$k}' => false, ";
+                    }
+
+                }else{
+                    $tmp .= "'{$k}' => '{$v}', ";
+                }
+            }
+            $tmp = rtrim($tmp,' ,');
+            $permissionMapFileData[] = "        '{$key}' => [{$tmp}]";
+        }
+        File::create($autoTrangram.DIRECTORY_SEPARATOR.'autoload_permission_map.php',$this->permissionMapFile($permissionMapFileData));
+
+        $routerMapFileData = [];
+        foreach ($routerMap as $key => $value){
+            $tmp = "";
+            foreach ($value as $k => $v){
+                $tmp .= "'{$k}' => '{$v}', ";
+            }
+            $tmp = rtrim($tmp,' ,');
+            $routerMapFileData[] = "        '{$key}' => [{$tmp}]";
+        }
+        File::create($autoTrangram.DIRECTORY_SEPARATOR.'autoload_router_map.php',$this->routerMapFile($routerMapFileData));
 
     }
     private function info(){
@@ -246,27 +331,14 @@ class AutoLoadClassMap{
 EOF;
     }
     private function routerMapFile($data){
-        $get = implode(",\r\n",$data['get']);
-        $post = implode(",\r\n",$data['post']);
-        $put = implode(",\r\n",$data['put']);
-        $del = implode(",\r\n",$data['del']);
+        asort($data);
+        $str = implode(",\r\n",$data);
         return <<<"EOF"
 <?php
 class AutoRouterMap
 {
     private static \$map = [
-        'GET' => [
-{$get}
-        ],
-        'POST' => [
-{$post}
-        ],
-        'PUT' => [
-{$put}
-        ],
-        'DELETE' => [
-{$del}
-        ]
+{$str}
     ];
     public static function getMap()
     {
@@ -291,12 +363,29 @@ class AutoPermissionMap
 }
 EOF;
     }
-    private function readFile($md5){
+    private function authMapFile($data){
+        $str = implode(",\r\n",$data);
+        return <<<"EOF"
+<?php
+class AutoAuthMap
+{
+    private static \$map = [
+{$str}
+    ];
+    public static function getMap()
+    {
+        return static::\$map;
+    }
+}
+EOF;
+    }
+    private function realFile($md5){
         return <<<"EOF"
 <?php
 include "autoload_router_map.php";
 include "autoload_permission_map.php";
 include "autoload_classmap.php";
+include "autoload_auth_map.php";
 
 class TangramAutoloaderInit{$md5}(){
     public static function getLoader(){
