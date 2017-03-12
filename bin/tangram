@@ -28,7 +28,15 @@ console($option);
 define("TG_COMMAND",strtolower($command));
 define("TG_MODULE",$module);
 define("TG_OPTION",strtolower($option));
-define("TG_RUN_PATH",__DIR__);
+$runPath = __DIR__;
+
+$runPath = str_replace("phar://","",$runPath);
+$pos = strpos($runPath,"tangram.phar");
+if($pos !== false){
+    $runPath = substr($runPath,0,$pos);
+}
+console($runPath);
+define("TG_RUN_PATH",$runPath);
 
 require __DIR__.'/../src/bootstrap.php';
 

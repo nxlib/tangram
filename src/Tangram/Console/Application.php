@@ -44,12 +44,12 @@ class Application
         }
         $tangramJsonFile = TG_RUN_PATH.DIRECTORY_SEPARATOR."tangram.json";
         if(!file_exists($tangramJsonFile)){
-            exit("Error: tangram.js not found");
+            exit("Error: {$tangramJsonFile} not found");
         }
         $tangramData = json_decode(file_get_contents($tangramJsonFile),1);
         $modulePath = 'modules';
-        $tangramModule = $modulePath.DIRECTORY_SEPARATOR.'tangram-modules';
-        $autoTrangram = $modulePath.DIRECTORY_SEPARATOR.'tangram-modules'.DIRECTORY_SEPARATOR.'auto-tangram';
+        $tangramModule = 'tangram-modules';
+        $autoTrangram = 'tangram-modules'.DIRECTORY_SEPARATOR.'auto-tangram';
 
         if(isset($tangramData['modules-path']) && !empty($tangramData['modules-path'])){
             $modulePath = $tangramData['modules-path'];

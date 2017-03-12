@@ -44,6 +44,56 @@ class Compiler
             ->name('*.php')
             ->in(__DIR__.'/../../vendor/symfony/')
         ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/bin/')
+        ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/doctrine/')
+        ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/myclabs/')
+        ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/nette/')
+        ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/phpdocumentor/')
+        ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/phpspec/')
+        ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/phpunit/')
+        ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/psr/')
+        ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/sebastian/')
+        ;
+        $finder->files()
+            ->ignoreVCS(true)
+            ->name('*.php')
+            ->in(__DIR__.'/../../vendor/webmozart/')
+        ;
 
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
