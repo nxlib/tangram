@@ -293,7 +293,9 @@ class Application
             $tmp = rtrim($tmp,' ,');
             $routerMapFileData[] = "        '{$key}' => [{$tmp}]";
         }
-        File::create($autoTrangram.DIRECTORY_SEPARATOR.'autoload_router_map.php',$this->routerMapFile($routerMapFileData));
+        File::create($autoTrangram.DIRECTORY_SEPARATOR.'autoload_real.php',$this->realFile($md5));
+
+        File::create($tangramModule.DIRECTORY_SEPARATOR.'autoload.php',$this->autoloadFile($md5));
 
     }
     private function info(){
@@ -387,7 +389,7 @@ include "autoload_permission_map.php";
 include "autoload_classmap.php";
 include "autoload_auth_map.php";
 
-class TangramAutoloaderInit{$md5}(){
+class TangramAutoloaderInit{$md5} {
     public static function getLoader(){
         return;
     }
