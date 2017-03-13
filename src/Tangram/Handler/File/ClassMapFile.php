@@ -12,4 +12,20 @@ namespace Tangram\Handler\File;
 class ClassMapFile
 {
     const NAME = "autoload_classmap.php";
+
+    private function classMapFile($data){
+        $str = implode(",\r\n",$data);
+        return <<<"EOF"
+<?php
+class AutoLoadClassMap{
+    private static \$map = [
+{$str}
+    ];
+    public static function getMap()
+    {
+        return static::\$map;
+    }
+}
+EOF;
+    }
 }

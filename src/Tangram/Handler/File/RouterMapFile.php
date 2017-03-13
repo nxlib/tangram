@@ -12,4 +12,23 @@ namespace Tangram\Handler\File;
 class RouterMapFile
 {
     const NAME = "autoload_router_map.php";
+
+    private function routerMapFile($data)
+    {
+        asort($data);
+        $str = implode(",\r\n", $data);
+        return <<<"EOF"
+<?php
+class AutoRouterMap
+{
+    private static \$map = [
+{$str}
+    ];
+    public static function getMap()
+    {
+        return static::\$map;
+    }
+}
+EOF;
+    }
 }
