@@ -77,11 +77,6 @@ class Compiler
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/phpunit/')
-        ;
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
             ->in(__DIR__.'/../../vendor/psr/')
         ;
         $finder->files()

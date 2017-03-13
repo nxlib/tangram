@@ -22,9 +22,6 @@ foreach ($args as $value){
 $command = isset($commandAndModule[0]) ? $commandAndModule[0] : '';
 $module = isset($commandAndModule[1]) ? $commandAndModule[1] : '';
 $option = isset($options[0]) ? $options[0] : '';
-console($command);
-console($module);
-console($option);
 define("TG_COMMAND",strtolower($command));
 define("TG_MODULE",$module);
 define("TG_OPTION",strtolower($option));
@@ -35,7 +32,6 @@ $pos = strpos($runPath,"tangram.phar");
 if($pos !== false){
     $runPath = substr($runPath,0,$pos);
 }
-console($runPath);
 define("TG_RUN_PATH",$runPath);
 
 require __DIR__.'/../src/bootstrap.php';

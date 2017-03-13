@@ -1,15 +1,4 @@
 <?php
-
-/*
- * This file is part of Composer.
- *
- * (c) Nils Adermann <naderman@naderman.de>
- *     Jordi Boggiano <j.boggiano@seld.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Tangram\Console;
 
 use Nette\Reflection\ClassType;
@@ -78,7 +67,6 @@ class Application
         foreach ($modules as $value){
             $json = $trueModulePath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR."tangram.json";
             if(file_exists($json)){
-                console("path:".$value);
                 $json = json_decode(file_get_contents($json),1);
                 if(!isset($json['name'])){
                     die("ERROR:\"{$json}\" do not have \"name\" key");
@@ -114,7 +102,6 @@ class Application
         //read file
         $uriList = [];
         foreach ($namespaces as $module){
-            console($module);
             $path = $module['path'].DIRECTORY_SEPARATOR.'controller';
             $namespace = $module['ns'].'Controller';
             $moduledPath = $module['name'];
@@ -127,11 +114,8 @@ class Application
                     include $path.DIRECTORY_SEPARATOR.$file;
                     $controller = str_replace('.php','',$file);
                     $reflect = new ClassType($namespace.'\\'.$controller);
-                    console($reflect->getName());
                     $isAuth = $reflect->getAnnotation("Auth");
                     $isRestController = $reflect->getAnnotation("RestController");
-                    console($reflect->getAnnotation("RequestMapping"));
-                    console($reflect->getAnnotation("Permission"));
                     $requestMapping = $reflect->getAnnotation("RequestMapping");
                     $mainPermission = $reflect->getAnnotation("Permission");
                     $requestPath = str_replace($reflect->getNamespaceName().'\\','',$reflect->getName());
@@ -155,9 +139,8 @@ class Application
                     }
                     $methods = $reflect->getMethods();
                     if(!empty($methods)){
-                        console($methods);
                         foreach ($methods as $method){
-                            if($method->public){
+                            if($method->isPublic()){
                                 //共有方法才能做权限点
                                 $permission = [
                                     'module' => $moduleName,
@@ -168,10 +151,7 @@ class Application
                                 $methodRequestMapping = $method->getAnnotation('RequestMapping');
                                 $viewPermission = $method->getAnnotation('ViewPermission');
                                 $methodPermission = $method->getAnnotation('Permission');
-                                console($viewPermission);
-                                console($methodPermission);
                                 $uri = $requestPath."/";
-                                var_dump($requestPath);
                                 $requestMethod = "get";
                                 if(empty($methodRequestMapping)){
                                     //
@@ -227,7 +207,6 @@ class Application
                 }
             }
         }
-        console($uriList);
         if(!empty($uriList)){
             foreach ($uriList as $item){
                 $key = strtoupper($item['method']).'#'.$item['uri'];
@@ -251,9 +230,6 @@ class Application
                 }
             }
         }
-        console($routerMap);
-        console($permissionMap);
-        console($authMap);
         $authMapFileData = [];
         foreach ($authMap as $key => $value){
             if($value){
