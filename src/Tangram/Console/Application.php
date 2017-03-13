@@ -92,8 +92,6 @@ class Application
 
             }
         }
-//        console($classMap);
-//        console($this->classMapFile($classMap));
         File::create($autoTrangram.DIRECTORY_SEPARATOR.'autoload_classmap.php',$this->classMapFile($classMap));
         $md5 = md5(time());
         //todo permission-map
