@@ -11,27 +11,30 @@ namespace Tangram\Utils;
 
 class Dir
 {
-    public static function scan($path,$deep=1,$ignore = []){
-        if($deep === 0){
+    public static function scan($path, $deep = 1, $ignore = [])
+    {
+        if ($deep === 0) {
             return [];
         }
-        $_ignore = array_merge(['.','..','.DS_Store','.gitkeep','.svn'],$ignore);
+        $_ignore = array_merge(['.', '..', '.DS_Store', '.gitkeep', '.svn'], $ignore);
         $dir = scandir($path);
         $rs = [];
-        foreach ($dir as $key => $v){
-            if(in_array($v,$_ignore)){
+        foreach ($dir as $key => $v) {
+            if (in_array($v, $_ignore)) {
                 continue;
             }
-            if(is_dir($path.DIRECTORY_SEPARATOR.$v)){
-                $rs[$v] = self::scan($path.DIRECTORY_SEPARATOR.$v,$deep-1);
-            }else{
+            if (is_dir($path . DIRECTORY_SEPARATOR . $v)) {
+                $rs[$v] = self::scan($path . DIRECTORY_SEPARATOR . $v, $deep - 1);
+            } else {
                 $rs[] = $v;
             }
         }
         return $rs;
     }
-    public static function create($path){
-        if(!file_exists($path)){
+
+    public static function create($path)
+    {
+        if (!file_exists($path)) {
             mkdir($path);
         }
     }

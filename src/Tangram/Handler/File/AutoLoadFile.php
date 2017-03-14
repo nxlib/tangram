@@ -9,11 +9,14 @@
 namespace Tangram\Handler\File;
 
 
+use Tangram\Utils\File;
+
 class AutoLoadFile
 {
     const NAME = "autoload.php";
 
-    private function autoloadFile($md5){
+    private static function file($md5)
+    {
         return <<<"EOF"
 <?php
 
@@ -23,5 +26,11 @@ require_once __DIR__ . '/auto-tangram' . '/autoload_real.php';
 
 return TangramAutoloaderInit{$md5}::getLoader();
 EOF;
+    }
+
+    public static function generate(string $md5)
+    {
+        $name = DefaultDir::TANGRAM_MODULE . DIRECTORY_SEPARATOR . self::NAME;
+        File::create($name, self::file($md5));
     }
 }

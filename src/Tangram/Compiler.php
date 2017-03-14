@@ -31,8 +31,7 @@ class Compiler
             ->ignoreVCS(true)
             ->name('*.php')
             ->notName('Compiler.php')
-            ->in(__DIR__.'/..')
-        ;
+            ->in(__DIR__ . '/..');
 
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
@@ -42,68 +41,58 @@ class Compiler
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/symfony/')
-        ;
+            ->in(__DIR__ . '/../../vendor/symfony/');
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/bin/')
-        ;
+            ->in(__DIR__ . '/../../vendor/bin/');
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/doctrine/')
-        ;
+            ->in(__DIR__ . '/../../vendor/doctrine/');
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/myclabs/')
-        ;
+            ->in(__DIR__ . '/../../vendor/myclabs/');
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/nette/')
-        ;
+            ->in(__DIR__ . '/../../vendor/nette/');
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/phpdocumentor/')
-        ;
+            ->in(__DIR__ . '/../../vendor/phpdocumentor/');
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/phpspec/')
-        ;
+            ->in(__DIR__ . '/../../vendor/phpspec/');
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/psr/')
-        ;
+            ->in(__DIR__ . '/../../vendor/psr/');
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/sebastian/')
-        ;
+            ->in(__DIR__ . '/../../vendor/sebastian/');
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__.'/../../vendor/webmozart/')
-        ;
+            ->in(__DIR__ . '/../../vendor/webmozart/');
 
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
         }
-        $vendorPath = dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR.'vendor';
-        $composerPath = $vendorPath.DIRECTORY_SEPARATOR.'composer';
+        $vendorPath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'vendor';
+        $composerPath = $vendorPath . DIRECTORY_SEPARATOR . 'composer';
 
-        $this->addFile($phar, new \SplFileInfo($vendorPath.DIRECTORY_SEPARATOR.'autoload.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath.DIRECTORY_SEPARATOR.'ClassLoader.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath.DIRECTORY_SEPARATOR.'autoload_static.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath.DIRECTORY_SEPARATOR.'autoload_real.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath.DIRECTORY_SEPARATOR.'autoload_psr4.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath.DIRECTORY_SEPARATOR.'autoload_namespaces.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath.DIRECTORY_SEPARATOR.'autoload_files.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath.DIRECTORY_SEPARATOR.'autoload_classmap.php'));
+        $this->addFile($phar, new \SplFileInfo($vendorPath . DIRECTORY_SEPARATOR . 'autoload.php'));
+        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'ClassLoader.php'));
+        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_static.php'));
+        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_real.php'));
+        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_psr4.php'));
+        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_namespaces.php'));
+        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_files.php'));
+        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_classmap.php'));
         $this->addComposerBin($phar);
 
         // Stubs
@@ -114,19 +103,19 @@ class Compiler
         // disabled for interoperability with systems without gzip ext
         // $phar->compressFiles(\Phar::GZ);
 
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../LICENSE'), false);
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../LICENSE'), false);
 
         unset($phar);
     }
 
     private function addFile($phar, $file, $strip = true)
     {
-        $path = str_replace(dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR, '', $file->getRealPath());
+        $path = str_replace(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR, '', $file->getRealPath());
 
         if ($strip) {
             $content = php_strip_whitespace($file);
         } else {
-            $content = "\n".file_get_contents($file)."\n";
+            $content = "\n" . file_get_contents($file) . "\n";
         }
 
         $content = str_replace('@package_version@', $this->version, $content);
@@ -136,7 +125,7 @@ class Compiler
 
     private function addComposerBin($phar)
     {
-        $content = file_get_contents(__DIR__.'/../../bin/tangram');
+        $content = file_get_contents(__DIR__ . '/../../bin/tangram');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
         $phar->addFromString('bin/tangram', $content);
     }

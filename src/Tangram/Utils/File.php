@@ -11,10 +11,11 @@ namespace Tangram\Utils;
 
 class File
 {
-    public static function create($name,string $data){
+    public static function create($name, string $data)
+    {
         console("File: {$name} - - - - - - DONE");
-        $fp=fopen($name,"w");
-        fwrite($fp,$data);
+        $fp = fopen($name, "w");
+        fwrite($fp, $data);
         fclose($fp);
     }
 }

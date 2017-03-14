@@ -12,11 +12,11 @@ namespace Tangram\Handler\File;
 class DefaultDir
 {
     const TANGRAM_MODULE = 'tangram-modules';
-    const AUTO_TANGRAM_FOLDER = TANGRAM_MODULE . DIRECTORY_SEPARATOR . 'auto-tangram';
+    const AUTO_TANGRAM_FOLDER = self::TANGRAM_MODULE . DIRECTORY_SEPARATOR . 'auto-tangram';
 
     public static function init()
     {
-        Dir::create(TANGRAM_MODULE);
-        Dir::create(AUTO_TANGRAM_FOLDER);
+        Dir::create(self::TANGRAM_MODULE);
+        Dir::create(self::AUTO_TANGRAM_FOLDER);
     }
 }

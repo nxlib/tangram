@@ -9,12 +9,15 @@
 namespace Tangram\Handler\File;
 
 
+use Tangram\Utils\File;
+
 class AuthMapFile
 {
     const NAME = "autoload_auth_map.php";
 
-    private function authMapFile($data){
-        $str = implode(",\r\n",$data);
+    private static function file($data)
+    {
+        $str = implode(",\r\n", $data);
         return <<<"EOF"
 <?php
 class AutoAuthMap
@@ -28,5 +31,23 @@ class AutoAuthMap
     }
 }
 EOF;
+    }
+
+    /**
+     * @param $data
+     */
+    public static function generate($data)
+    {
+        $name = DefaultDir::AUTO_TANGRAM_FOLDER . DIRECTORY_SEPARATOR . self::NAME;
+        $authMapFileData = [];
+        foreach ($data as $key => $value) {
+            if ($value) {
+                $authMapFileData[] = "        '{$key}' => true";
+            } else {
+                $authMapFileData[] = "        '{$key}' => false";
+            }
+
+        }
+        File::create($name, self::file($authMapFileData));
     }
 }
