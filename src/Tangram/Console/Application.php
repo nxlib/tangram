@@ -58,10 +58,6 @@ class Application
         ClassMapFile::generate($moduleMap->getClassMap());
         AuthMapFile::generate($moduleMap->getAuthMap());
 
-        //todo permission-map
-        //todo rest-permission-map
-        //todo router-map
-        //read file
         $uriMap = new UriMap($moduleMap->getUriList());
         PermissionMapFile::generate($uriMap->getPermissionMap());
         RouterMapFile::generate($uriMap->getRouterMap());
