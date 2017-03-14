@@ -49,7 +49,7 @@ class ModuleMap
                             if (empty($psr4)) {
                                 $psr4 = $modulePath . '/' . $value;
                             }
-                            $classMap[$tmp] = $psr4;
+                            $classMap[$tmp] = str_replace("\\","/",$psr4);
                         }
                     }
                 }
@@ -121,7 +121,7 @@ class ModuleMap
                     }
                     //auth-handler
                     if (!is_null($isAuth) && boolval($isAuth)) {
-                        $authMap[$requestPath . "/**"] = true;
+                        $this->authMap[$requestPath . "/**"] = true;
                     }
                     $methods = $reflect->getMethods();
                     if (!empty($methods)) {
