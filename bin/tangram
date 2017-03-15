@@ -12,26 +12,34 @@ $args = $argv;
 unset($args[0]);
 $commandAndModule = [];
 $options = [];
+
+$runPath = __DIR__;
+$runPath = str_replace("phar://","",$runPath);
+$pos = strpos($runPath,"tangram.phar");
+
+if($pos !== false){
+    $runPath = substr($runPath,0,$pos);
+}
+
 foreach ($args as $value){
+    if(strpos($value,"--path=") === 0){
+        $runPath = str_replace("--path=","",$value);
+        continue;
+    }
     if(strpos($value,"--") === 0){
         $options[] = $value;
         continue;
     }
     $commandAndModule[] = $value;
 }
+
 $command = isset($commandAndModule[0]) ? $commandAndModule[0] : '';
 $module = isset($commandAndModule[1]) ? $commandAndModule[1] : '';
 $option = isset($options[0]) ? $options[0] : '';
 define("TG_COMMAND",strtolower($command));
 define("TG_MODULE",$module);
 define("TG_OPTION",strtolower($option));
-$runPath = __DIR__;
 
-$runPath = str_replace("phar://","",$runPath);
-$pos = strpos($runPath,"tangram.phar");
-if($pos !== false){
-    $runPath = substr($runPath,0,$pos);
-}
 define("TG_RUN_PATH",$runPath);
 console("run-paht:".TG_RUN_PATH);
 
