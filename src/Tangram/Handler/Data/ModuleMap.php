@@ -171,7 +171,7 @@ class ModuleMap
                                     $permission['name'] = isset($methodPermission->name) ? $methodPermission->name : $permission['name'];
                                 }
                                 $uriList[] = [
-                                    'uri' => $uri,
+                                    'uri' => str_replace(DIRECTORY_SEPARATOR,"/",$uri),
                                     'method' => strtolower($requestMethod),
                                     'module' => $permission['module'],
                                     'nav' => $permission['nav'],
