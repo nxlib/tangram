@@ -48,12 +48,28 @@ class Application
             include $customVendor;
         }
         $trueModulePath = TangramData::getTrueModulePath();
-        $pathInfo = Dir::scan($trueModulePath, 3);
+        $pathInfo = Dir::scan($trueModulePath,3);
+//        console($pathInfo);
         $modules = [];
         foreach ($pathInfo as $key => $value) {
+            if($value == "tangram.json"){
+                $modules[] = $key;
+                continue;
+            }
             if (is_array($value)) {
                 foreach ($value as $k => $v) {
-                    $modules[] = $key . DIRECTORY_SEPARATOR . $k;
+                    if($v == "tangram.json"){
+                        $modules[] = $key;
+                        continue;
+                    }
+                    if(is_array($v)){
+                        foreach ($v as $itemKey => $item){
+                            if($item == "tangram.json"){
+                                $modules[] = $key.DIRECTORY_SEPARATOR.$k;
+                                continue;
+                            }
+                        }
+                    }
                 }
             }
         }
