@@ -42,7 +42,10 @@ class Application
         if (TG_COMMAND != 'build') {
             exit("command \"" . TG_COMMAND . " \" not found!");
         }
-
+        $customVendor = TG_RUN_PATH.DIRECTORY_SEPARATOR."vendor".DIRECTORY_SEPARATOR."autoload.php";
+        if(file_exists($customVendor)){
+            include $customVendor;
+        }
         $trueModulePath = TangramData::getTrueModulePath();
         $pathInfo = Dir::scan($trueModulePath, 3);
         $modules = [];
