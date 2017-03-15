@@ -9,6 +9,8 @@
 namespace Tangram\Handler\File;
 
 
+use Tangram\Utils\Dir;
+
 class DefaultDir
 {
     const TANGRAM_MODULE = 'tangram-modules';

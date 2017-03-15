@@ -8,6 +8,7 @@ use Tangram\Handler\Data\UriMap;
 use Tangram\Handler\File\AuthMapFile;
 use Tangram\Handler\File\AutoLoadFile;
 use Tangram\Handler\File\ClassMapFile;
+use Tangram\Handler\File\DefaultDir;
 use Tangram\Handler\File\PermissionMapFile;
 use Tangram\Handler\File\RealFile;
 use Tangram\Handler\File\RouterMapFile;
@@ -56,7 +57,7 @@ class Application
                 }
             }
         }
-
+        DefaultDir::init();
         $moduleMap = new ModuleMap($modules);
         ClassMapFile::generate($moduleMap->getClassMap());
         AuthMapFile::generate($moduleMap->getAuthMap());
