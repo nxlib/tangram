@@ -33,6 +33,7 @@ if($pos !== false){
     $runPath = substr($runPath,0,$pos);
 }
 define("TG_RUN_PATH",$runPath);
+console("run-paht:".TG_RUN_PATH);
 
 require __DIR__.'/../src/bootstrap.php';
 
