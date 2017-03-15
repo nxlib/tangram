@@ -37,13 +37,15 @@ class ModuleMap
                     if (substr_count($json['name'], "/") != 1) {
                         die("ERROR:\"{$json}\" => \"name\" unavailable");
                     }
+                    if (!isset($json['module'])) {
+                        die("ERROR:\"{$json}\" do not have \"module\" key");
+                    }
                     if (isset($json['autoload']['psr-4']) && !empty($json['autoload']['psr-4'])) {
-                        $nameExplode = explode("/", $value);
                         foreach ($json['autoload']['psr-4'] as $key => $psr4) {
                             $namespaces[] = [
                                 'ns' => $key,
                                 'path' => $trueModulePath . "/" . $value,
-                                'name' => end($nameExplode)
+                                'name' => $json['module']
                             ];
                             $tmp = str_replace('\\', '\\\\', $key);
                             if (empty($psr4)) {
@@ -138,7 +140,7 @@ class ModuleMap
                                 $viewPermission = $method->getAnnotation('ViewPermission');
                                 $methodPermission = $method->getAnnotation('Permission');
                                 $uri = $requestPath . "/";
-                                $requestMethod = "get";
+                                $requestMethod = "GET";
                                 if (empty($methodRequestMapping)) {
                                     //
                                     $uri .= $method->name;
@@ -159,6 +161,7 @@ class ModuleMap
                                     }
 
                                     $requestMethod = isset($methodRequestMapping->method) ? $methodRequestMapping->method : $requestMethod;
+                                    $requestMethod = strtoupper($requestMethod);
                                 }
                                 if (!empty($viewPermission)) {
                                     //页面权限优先级高于功能权限
@@ -184,7 +187,7 @@ class ModuleMap
                                 ];
                                 $methodAuth = $method->getAnnotation('Auth');
                                 if (!is_null($methodAuth)) {
-                                    $authKey = strtolower($requestMethod) . '#' . $uri;
+                                    $authKey = $requestMethod . '#' . $uri;
                                     $this->authMap[$authKey] = boolval($methodAuth);
                                 }
                             }
