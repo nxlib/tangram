@@ -196,7 +196,7 @@ class ClassMap
                                     }
 
                                     $methodAuth = $method->getAnnotation('Auth');
-                                    if (!is_null($methodAuth) && $methodAuth) {
+                                    if (!is_null($methodAuth)) {
                                         $authKey = $requestMethod . '#' . $uri;
                                         $this->authMap[$authKey] = boolval($methodAuth);
                                     }
