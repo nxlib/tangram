@@ -3,6 +3,7 @@
 namespace Tangram\Console;
 
 use Tangram\Handler\Data\ClassMap;
+use Tangram\Handler\Data\PathData;
 use Tangram\Handler\Data\TangramData;
 use Tangram\Handler\Data\UriMap;
 use Tangram\Handler\File\AuthMapFile;
@@ -47,28 +48,47 @@ class Application
         if(file_exists($customVendor)){
             include $customVendor;
         }
-        $modulesScan = Dir::scan(TangramData::getTrueModulePath(),3);
-        $restfulScan = Dir::scan(TangramData::getTrueRestfulPath(),3);
-        $webPageScan = Dir::scan(TangramData::getTrueWebPagePath(),3);
+        $projectTangramFile = TG_RUN_PATH.DIRECTORY_SEPARATOR."tangram.json";
+        if(!file_exists($projectTangramFile)){
+            exit("project tangram.json not found!");
+        }
+        //init path
+        $modulePath = "modules";
+        $restfulPath = "restful";
+        $webPagePath = "web-page";
+
+        $projectTangramData = json_decode(file_get_contents($projectTangramFile),1);
+        if(isset($projectTangramData['modules-path'])){
+            $modulePath = $projectTangramData['modules-path'];
+        }
+        if(isset($projectTangramData['restful-path'])){
+            $restfulPath = $projectTangramData['restful-path'];
+        }
+        if(isset($projectTangramData['web-page-path'])){
+            $webPagePath = $projectTangramData['web-page-path'];
+        }
+        $modulePath = new PathData($modulePath);
+        $restfulPath = new PathData($restfulPath);
+        $webPagePath = new PathData($webPagePath);
+
+        $modulesScan = Dir::scan($modulePath->getAbsolutePath(),3);
+        $restfulScan = Dir::scan($restfulPath->getAbsolutePath(),3);
+        $webPageScan = Dir::scan($webPagePath->getAbsolutePath(),3);
 
         DefaultDir::init();
-        $moduleMap = new ClassMap($modulesScan);
-        $restfulMap = new ClassMap($restfulScan);
-        $webPageMap = new ClassMap($webPageScan);
+        $moduleMap = new ClassMap($modulesScan,$modulePath);
+        $restfulMap = new ClassMap($restfulScan,$restfulPath);
+        $webPageMap = new ClassMap($webPageScan,$webPagePath);
 
-        console($moduleMap->getClassMap());
-        console($restfulMap->getClassMap());
-        console($webPageMap->getClassMap());
+        $mergeClassMap = array_merge($moduleMap->getClassMap(),$restfulMap->getClassMap(),$webPageMap->getClassMap());
+        ClassMapFile::generate($mergeClassMap);
 
-        $mergeClassMap = $moduleMap->getClassMap();
-
-        ClassMapFile::generate($moduleMap->getClassMap());
-
-//        AuthMapFile::generate($moduleMap->getAuthMap());
-//
-//        $uriMap = new UriMap($moduleMap->getUriList());
-//        PermissionMapFile::generate($uriMap->getPermissionMap());
-//        RouterMapFile::generate($uriMap->getRouterMap());
+        $mergeAuthMap = array_merge($restfulMap->getAuthMap(),$webPageMap->getAuthMap());
+        AuthMapFile::generate($mergeAuthMap);
+        $mergeUriMap = array_merge($restfulMap->getUriList(),$webPageMap->getUriList());
+        $uriMap = new UriMap($mergeUriMap);
+        PermissionMapFile::generate($uriMap->getPermissionMap());
+        RouterMapFile::generate($uriMap->getRouterMap());
 
         $md5 = md5(time());
         RealFile::generate($md5);

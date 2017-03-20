@@ -19,7 +19,7 @@ class ClassMap
     private $uriList = [];
     private $authMap = [];
 
-    public function __construct(array $modulesScan)
+    public function __construct(array $modulesScan,PathData $pathData)
     {
         $classMap = [];
         $namespaces = [];
@@ -49,35 +49,25 @@ class ClassMap
             }
         }
         if (!empty($modules)) {
-            $trueModulePath = TangramData::getTrueModulePath();
-            $modulePath = TangramData::getModulePath();
+            $trueModulePath = $pathData->getAbsolutePath();
+            $modulePath = $pathData->getPath();
             foreach ($modules as $value) {
-                $json = $trueModulePath . DIRECTORY_SEPARATOR . $value . DIRECTORY_SEPARATOR . "tangram.json";
-                if (file_exists($json)) {
-                    $json = json_decode(file_get_contents($json), 1);
-                    if (!isset($json['name'])) {
-                        die("ERROR:\"{$json}\" do not have \"name\" key");
+                $tangramData = new TangramData($trueModulePath . DIRECTORY_SEPARATOR . $value . DIRECTORY_SEPARATOR . "tangram.json");
+                foreach ($tangramData->getAutoloadPsr4() as $key => $psr4) {
+                    $namespaces[] = [
+                        'ns' => $key,
+                        'path' => $trueModulePath . "/" . $value,
+                        'name' => $tangramData->getModuleName(),
+                        'uri-prefix' => $tangramData->getUriPrefix(),
+                        'tangramData' => $tangramData
+                    ];
+                    $tmp = str_replace('\\', '\\\\', $key);
+                    if (empty($psr4)) {
+                        $psr4 = $modulePath . '/' . $value;
+                    }else{
+                        $psr4 = $modulePath . '/' . $value."/".$psr4;
                     }
-                    if (substr_count($json['name'], "/") != 1) {
-                        die("ERROR:\"{$json}\" => \"name\" unavailable");
-                    }
-                    if (!isset($json['module'])) {
-                        die("ERROR:\"{$json}\" do not have \"module\" key");
-                    }
-                    if (isset($json['autoload']['psr-4']) && !empty($json['autoload']['psr-4'])) {
-                        foreach ($json['autoload']['psr-4'] as $key => $psr4) {
-                            $namespaces[] = [
-                                'ns' => $key,
-                                'path' => $trueModulePath . "/" . $value,
-                                'name' => $json['module']
-                            ];
-                            $tmp = str_replace('\\', '\\\\', $key);
-                            if (empty($psr4)) {
-                                $psr4 = $modulePath . '/' . $value;
-                            }
-                            $classMap[$tmp] = str_replace("\\","/",$psr4);
-                        }
-                    }
+                    $classMap[$tmp] = str_replace("\\","/",$psr4);
                 }
             }
             $this->classMap = $classMap;
@@ -115,7 +105,7 @@ class ClassMap
         $uriList = [];
         foreach ($this->namespaces as $module) {
             $path = $module['path'] . DIRECTORY_SEPARATOR . 'controller';
-            $namespace = $module['ns'] . 'Controller';
+            $namespace = $module['ns'];
             $modulePath = $module['name'];
             if (file_exists($path)) {
                 $files = Dir::scan($path);
@@ -131,7 +121,7 @@ class ClassMap
                     $requestMapping = $reflect->getAnnotation("RequestMapping");
                     $mainPermission = $reflect->getAnnotation("Permission");
                     $requestPath = str_replace($reflect->getNamespaceName() . '\\', '', $reflect->getName());
-                    $requestPath = '/' . strtolower($modulePath) . '/' . strtolower(str_replace('Controller', '', $requestPath));
+                    $requestPath = '/' .$module['uri-prefix'].'/'. strtolower($modulePath) . '/' . strtolower(str_replace('Controller', '', $requestPath));
                     $moduleName = "";
 
                     if (!empty($requestMapping)) {
@@ -164,6 +154,8 @@ class ClassMap
                                 $viewPermission = $method->getAnnotation('ViewPermission');
                                 $methodPermission = $method->getAnnotation('Permission');
                                 $uri = $requestPath . "/";
+                                $uri = str_replace("//","/",$uri);
+                                $uri = str_replace("\\","/",$uri);
                                 $requestMethod = "GET";
                                 if (empty($methodRequestMapping)) {
                                     //

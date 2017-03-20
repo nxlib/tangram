@@ -11,113 +11,76 @@ namespace Tangram\Handler\Data;
 
 class TangramData
 {
-    const TANGRAM_FILE = TG_RUN_PATH . DIRECTORY_SEPARATOR . "tangram.json";
+    private $name;
+    private $moduleName;
+    private $uriPrefix;
+    private $require;
+    private $autoloadPsr4;
+    private $data;
 
-    private static $data;
-
-    private static $modulePath;
-    private static $trueModulePath;
-
-    private static $restfulPath;
-    private static $trueRestfulPath;
-
-    private static $webPagePath;
-    private static $trueWebPagePath;
-
-    public static function projectInfo()
+    public function __construct($filePath)
     {
-        self::init();
-        return self::$data;
-    }
-
-    public static function getTrueModulePath()
-    {
-        self::init();
-        return self::$trueModulePath;
-    }
-
-    public static function getModulePath()
-    {
-        self::init();
-        return self::$modulePath;
-    }
-
-    private static function init()
-    {
-        if (!empty(self::$data)) {
-            return;
+        $json = json_decode(file_get_contents($filePath),1);
+        if(!isset($json['name']) || !isset($json['module']) || !isset($json['require']) || !isset($json['autoload']['psr-4'])){
+            console("ERROR:");
+            console("FILE:{$filePath}");
+            exit("MESSAGE: this is not a tangram json");
         }
-        if (!file_exists(self::TANGRAM_FILE)) {
-            exit("Error: {TANGRAM_FILE} not found");
+        $this->name = $json['name'];
+        $this->moduleName = $json['module'];
+        $this->require = $json['require'];
+        $this->autoloadPsr4 = $json['autoload']['psr-4'];
+        if(isset($json['uri-prefix'])){
+            $this->uriPrefix = $json['uri-prefix'];
         }
-        $tangramData = json_decode(file_get_contents(self::TANGRAM_FILE), 1);
-        $modulePath = 'modules';
-        $restfulPath = 'restful';
-        $webPagePath = 'web-page';
-
-
-        if (isset($tangramData['modules-path']) && !empty($tangramData['modules-path'])) {
-            $modulePath = $tangramData['modules-path'];
-        }
-        if (isset($tangramData['restful-path']) && !empty($tangramData['restful-path'])) {
-            $restfulPath = $tangramData['restful-path'];
-        }
-        if (isset($tangramData['web-page-path']) && !empty($tangramData['web-page-path'])) {
-            $webPagePath = $tangramData['web-page-path'];
-        }
-        $trueModulePath = TG_RUN_PATH . DIRECTORY_SEPARATOR . $modulePath;
-        $trueRestfulPath = TG_RUN_PATH . DIRECTORY_SEPARATOR . $restfulPath;
-        $trueWebPagePath = TG_RUN_PATH . DIRECTORY_SEPARATOR . $webPagePath;
-
-        if (!file_exists($trueModulePath)) {
-            exit("Error: module path not found");
-        }
-        static::$data = $tangramData;
-        static::$modulePath = $modulePath;
-        static::$trueModulePath = $trueModulePath;
-        if (file_exists($trueRestfulPath)) {
-            static::$restfulPath = $restfulPath;
-            static::$trueRestfulPath = $trueRestfulPath;
-        }
-        if (file_exists($trueWebPagePath)) {
-            static::$webPagePath = $webPagePath;
-            static::$trueWebPagePath = $trueWebPagePath;
-        }
+        $this->data = $json;
     }
 
     /**
      * @return mixed
      */
-    public static function getRestfulPath()
+    public function getName()
     {
-        self::init();
-        return self::$restfulPath;
+        return $this->name;
     }
 
     /**
      * @return mixed
      */
-    public static function getTrueRestfulPath()
+    public function getModuleName()
     {
-        self::init();
-        return self::$trueRestfulPath;
+        return $this->moduleName;
     }
 
     /**
      * @return mixed
      */
-    public static function getWebPagePath()
+    public function getUriPrefix()
     {
-        self::init();
-        return self::$webPagePath;
+        return $this->uriPrefix;
     }
 
     /**
      * @return mixed
      */
-    public static function getTrueWebPagePath()
+    public function getRequire()
     {
-        self::init();
-        return self::$trueWebPagePath;
+        return $this->require;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAutoloadPsr4()
+    {
+        return $this->autoloadPsr4;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 }
