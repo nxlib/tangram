@@ -12,18 +12,42 @@ namespace Tangram\Handler\Data;
 use Nette\Reflection\ClassType;
 use Tangram\Utils\Dir;
 
-class ModuleMap
+class ClassMap
 {
     private $classMap = [];
     private $namespaces = [];
     private $uriList = [];
     private $authMap = [];
 
-    public function __construct(array $modules)
+    public function __construct(array $modulesScan)
     {
         $classMap = [];
         $namespaces = [];
-
+        $modules = [];
+        if(!empty($modulesScan)){
+            foreach ($modulesScan as $key => $value) {
+                if($value == "tangram.json"){
+                    $modules[] = $key;
+                    continue;
+                }
+                if (is_array($value)) {
+                    foreach ($value as $k => $v) {
+                        if($v == "tangram.json"){
+                            $modules[] = $key;
+                            continue;
+                        }
+                        if(is_array($v)){
+                            foreach ($v as $itemKey => $item){
+                                if($item == "tangram.json"){
+                                    $modules[] = $key.DIRECTORY_SEPARATOR.$k;
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         if (!empty($modules)) {
             $trueModulePath = TangramData::getTrueModulePath();
             $modulePath = TangramData::getModulePath();

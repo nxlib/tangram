@@ -2,7 +2,7 @@
 
 namespace Tangram\Console;
 
-use Tangram\Handler\Data\ModuleMap;
+use Tangram\Handler\Data\ClassMap;
 use Tangram\Handler\Data\TangramData;
 use Tangram\Handler\Data\UriMap;
 use Tangram\Handler\File\AuthMapFile;
@@ -47,40 +47,28 @@ class Application
         if(file_exists($customVendor)){
             include $customVendor;
         }
-        $trueModulePath = TangramData::getTrueModulePath();
-        $pathInfo = Dir::scan($trueModulePath,3);
-//        console($pathInfo);
-        $modules = [];
-        foreach ($pathInfo as $key => $value) {
-            if($value == "tangram.json"){
-                $modules[] = $key;
-                continue;
-            }
-            if (is_array($value)) {
-                foreach ($value as $k => $v) {
-                    if($v == "tangram.json"){
-                        $modules[] = $key;
-                        continue;
-                    }
-                    if(is_array($v)){
-                        foreach ($v as $itemKey => $item){
-                            if($item == "tangram.json"){
-                                $modules[] = $key.DIRECTORY_SEPARATOR.$k;
-                                continue;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        DefaultDir::init();
-        $moduleMap = new ModuleMap($modules);
-        ClassMapFile::generate($moduleMap->getClassMap());
-        AuthMapFile::generate($moduleMap->getAuthMap());
+        $modulesScan = Dir::scan(TangramData::getTrueModulePath(),3);
+        $restfulScan = Dir::scan(TangramData::getTrueRestfulPath(),3);
+        $webPageScan = Dir::scan(TangramData::getTrueWebPagePath(),3);
 
-        $uriMap = new UriMap($moduleMap->getUriList());
-        PermissionMapFile::generate($uriMap->getPermissionMap());
-        RouterMapFile::generate($uriMap->getRouterMap());
+        DefaultDir::init();
+        $moduleMap = new ClassMap($modulesScan);
+        $restfulMap = new ClassMap($restfulScan);
+        $webPageMap = new ClassMap($webPageScan);
+
+        console($moduleMap->getClassMap());
+        console($restfulMap->getClassMap());
+        console($webPageMap->getClassMap());
+
+        $mergeClassMap = $moduleMap->getClassMap();
+
+        ClassMapFile::generate($moduleMap->getClassMap());
+
+//        AuthMapFile::generate($moduleMap->getAuthMap());
+//
+//        $uriMap = new UriMap($moduleMap->getUriList());
+//        PermissionMapFile::generate($uriMap->getPermissionMap());
+//        RouterMapFile::generate($uriMap->getRouterMap());
 
         $md5 = md5(time());
         RealFile::generate($md5);

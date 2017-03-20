@@ -11,5 +11,6 @@ namespace Tangram;
 
 class Tangram
 {
+    const TANGRAM_FILE = TG_RUN_PATH . DIRECTORY_SEPARATOR . "tangram.json";
     const VERSION = '0.1.0';
 }

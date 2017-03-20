@@ -13,7 +13,7 @@ class Dir
 {
     public static function scan($path, $deep = 1, $ignore = [])
     {
-        if ($deep === 0) {
+        if ($deep === 0 || empty($path)) {
             return [];
         }
         $_ignore = array_merge(['.', '..', '.DS_Store', '.gitkeep', '.svn'], $ignore);
