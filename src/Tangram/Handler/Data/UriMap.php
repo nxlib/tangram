@@ -19,8 +19,9 @@ class UriMap
         if (!empty($uriList)) {
             foreach ($uriList as $item) {
                 $key = strtoupper($item['method']) . '#' . $item['uri'];
-                if (isset($routerMap[$key])) {
-                    console($routerMap);
+                if (isset($this->routerMap[$key])) {
+                    console($item);
+                    console($this->routerMap[$key]);
                     die("ERROR:存在相同的URI:\r\n path:{$item['uri']}\r\n method:{$item['method']}\r\n");
                 }
                 $this->routerMap[$key] = [

@@ -122,6 +122,8 @@ class ClassMap
                     $mainPermission = $reflect->getAnnotation("Permission");
                     $requestPath = str_replace($reflect->getNamespaceName() . '\\', '', $reflect->getName());
                     $requestPath = '/' .$module['uri-prefix'].'/'. strtolower($modulePath) . '/' . strtolower(str_replace('Controller', '', $requestPath));
+                    $requestPath = str_replace("//","/",$requestPath);
+                    $requestPath = str_replace("\\","/",$requestPath);
                     $moduleName = "";
 
                     if (!empty($requestMapping)) {
@@ -150,17 +152,20 @@ class ClassMap
                                     'menu' => '',
                                     'name' => ''
                                 ];
-                                $methodRequestMapping = $method->getAnnotation('RequestMapping');
-                                $viewPermission = $method->getAnnotation('ViewPermission');
-                                $methodPermission = $method->getAnnotation('Permission');
+                                //读取默认约定
                                 $uri = $requestPath . "/";
                                 $uri = str_replace("//","/",$uri);
                                 $uri = str_replace("\\","/",$uri);
                                 $requestMethod = "GET";
-                                if (empty($methodRequestMapping)) {
-                                    //
-                                    $uri .= $method->name;
-                                } else {
+                                $uri .= $method->name;
+
+                                //fix bug:在phar执行情况下，如果第一个方法没有任何comment,会默认继承class的comment
+                                if($method->getDocComment()){
+                                    //有method的comment
+                                    $methodRequestMapping = $method->getAnnotation('RequestMapping');
+                                    $viewPermission = $method->getAnnotation('ViewPermission');
+                                    $methodPermission = $method->getAnnotation('Permission');
+
                                     if (is_string($methodRequestMapping)) {
                                         if (empty($requestMapping)) {
                                             $uri = $methodRequestMapping;
@@ -178,17 +183,25 @@ class ClassMap
 
                                     $requestMethod = isset($methodRequestMapping->method) ? $methodRequestMapping->method : $requestMethod;
                                     $requestMethod = strtoupper($requestMethod);
+
+                                    if (!empty($viewPermission)) {
+                                        //页面权限优先级高于功能权限
+                                        $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
+                                        $permission['nav'] = isset($methodPermission->nav) ? $methodPermission->nav : $permission['nav'];
+                                        $permission['menu'] = isset($methodPermission->menu) ? $methodPermission->menu : $permission['menu'];
+                                    } else {
+                                        //
+                                        $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
+                                        $permission['name'] = isset($methodPermission->name) ? $methodPermission->name : $permission['name'];
+                                    }
+
+                                    $methodAuth = $method->getAnnotation('Auth');
+                                    if (!is_null($methodAuth) && $methodAuth) {
+                                        $authKey = $requestMethod . '#' . $uri;
+                                        $this->authMap[$authKey] = boolval($methodAuth);
+                                    }
                                 }
-                                if (!empty($viewPermission)) {
-                                    //页面权限优先级高于功能权限
-                                    $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
-                                    $permission['nav'] = isset($methodPermission->nav) ? $methodPermission->nav : $permission['nav'];
-                                    $permission['menu'] = isset($methodPermission->menu) ? $methodPermission->menu : $permission['menu'];
-                                } else {
-                                    //
-                                    $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
-                                    $permission['name'] = isset($methodPermission->name) ? $methodPermission->name : $permission['name'];
-                                }
+
                                 $uriList[] = [
                                     'uri' => str_replace(DIRECTORY_SEPARATOR,"/",$uri),
                                     'method' => strtolower($requestMethod),
@@ -201,11 +214,6 @@ class ClassMap
                                     'class' => $reflect->name,
                                     'function' => $method->name
                                 ];
-                                $methodAuth = $method->getAnnotation('Auth');
-                                if (!is_null($methodAuth)) {
-                                    $authKey = $requestMethod . '#' . $uri;
-                                    $this->authMap[$authKey] = boolval($methodAuth);
-                                }
                             }
                         }
                     }

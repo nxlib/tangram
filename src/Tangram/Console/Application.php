@@ -83,10 +83,16 @@ class Application
         $mergeClassMap = array_merge($moduleMap->getClassMap(),$restfulMap->getClassMap(),$webPageMap->getClassMap());
         ClassMapFile::generate($mergeClassMap);
 
+//        console($restfulMap->getAuthMap());
+//        console($webPageMap->getAuthMap());
+
         $mergeAuthMap = array_merge($restfulMap->getAuthMap(),$webPageMap->getAuthMap());
+//        console($mergeAuthMap);
         AuthMapFile::generate($mergeAuthMap);
+
         $mergeUriMap = array_merge($restfulMap->getUriList(),$webPageMap->getUriList());
         $uriMap = new UriMap($mergeUriMap);
+
         PermissionMapFile::generate($uriMap->getPermissionMap());
         RouterMapFile::generate($uriMap->getRouterMap());
 
