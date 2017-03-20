@@ -54,6 +54,8 @@ class ClassMap
             foreach ($modules as $value) {
                 $tangramData = new TangramData($trueModulePath . DIRECTORY_SEPARATOR . $value . DIRECTORY_SEPARATOR . "tangram.json");
                 foreach ($tangramData->getAutoloadPsr4() as $key => $psr4) {
+                    $key = rtrim($key,"\\");
+                    $key = $key."\\";
                     $namespaces[] = [
                         'ns' => $key,
                         'path' => $trueModulePath . "/" . $value,
@@ -61,13 +63,13 @@ class ClassMap
                         'uri-prefix' => $tangramData->getUriPrefix(),
                         'tangramData' => $tangramData
                     ];
-                    $tmp = str_replace('\\', '\\\\', $key);
+                    $namespace = str_replace('\\', '\\\\', $key);
                     if (empty($psr4)) {
                         $psr4 = $modulePath . '/' . $value;
                     }else{
                         $psr4 = $modulePath . '/' . $value."/".$psr4;
                     }
-                    $classMap[$tmp] = str_replace("\\","/",$psr4);
+                    $classMap[$namespace] = str_replace("\\","/",$psr4);
                 }
             }
             $this->classMap = $classMap;
@@ -115,7 +117,7 @@ class ClassMap
                 foreach ($files as $file) {
                     include $path . DIRECTORY_SEPARATOR . $file;
                     $controller = str_replace('.php', '', $file);
-                    $reflect = new ClassType($namespace . '\\' . $controller);
+                    $reflect = new ClassType($namespace . $controller);
                     $isAuth = $reflect->getAnnotation("Auth");
                     $isRestController = $reflect->getAnnotation("RestController");
                     $requestMapping = $reflect->getAnnotation("RequestMapping");
