@@ -4,7 +4,6 @@ namespace Tangram\Console;
 
 use Tangram\Handler\Data\ClassMap;
 use Tangram\Handler\Data\PathData;
-use Tangram\Handler\Data\TangramData;
 use Tangram\Handler\Data\UriMap;
 use Tangram\Handler\File\AuthMapFile;
 use Tangram\Handler\File\AutoLoadFile;
@@ -27,6 +26,8 @@ class Application
                      /____/   
 ';
     private static $line = '- - - - - - - - - - - - - - - - - - - - - - - - - - -';
+
+    private static $classMapFlag = [];
 
     public function __construct()
     {
@@ -80,6 +81,10 @@ class Application
         $restfulMap = new ClassMap($restfulScan,$restfulPath);
         $webPageMap = new ClassMap($webPageScan,$webPagePath);
 
+        $this->checkClassMapExist($moduleMap->getClassMap());
+        $this->checkClassMapExist($restfulMap->getClassMap());
+        $this->checkClassMapExist($webPageMap->getClassMap());
+
         $mergeClassMap = array_merge($moduleMap->getClassMap(),$restfulMap->getClassMap(),$webPageMap->getClassMap());
         ClassMapFile::generate($mergeClassMap);
 
@@ -126,5 +131,18 @@ command
     option:--router --permission
     eg: build tangram/demo --router
 EOF;
+    }
+    private function checkClassMapExist($classMap){
+        if(!empty($classMap) && is_array($classMap)){
+            foreach ($classMap as $key => $value){
+                $flag = str_replace("\\","",$key);
+                if(in_array($flag,self::$classMapFlag)){
+                    console("ERROR:");
+                    console("Namespace Exist => {$key}");
+                    exit;
+                }
+                self::$classMapFlag[] = $flag;
+            }
+        }
     }
 }
