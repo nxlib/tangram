@@ -13,6 +13,9 @@ class Dir
 {
     public static function scan($path, $deep = 1, $ignore = [])
     {
+        if (!file_exists($path)) {
+            return [];
+        }
         if ($deep === 0 || empty($path)) {
             return [];
         }
