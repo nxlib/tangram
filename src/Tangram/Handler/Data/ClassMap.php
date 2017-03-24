@@ -115,8 +115,25 @@ class ClassMap
                     continue;
                 }
                 foreach ($files as $file) {
-                    include $path . DIRECTORY_SEPARATOR . $file;
+                    $filePath = $path . DIRECTORY_SEPARATOR . $file;
+                    if(!file_exists($filePath)){
+                        console("ERROR:");
+                        console("File Don't Exist => ".$filePath);
+                        console("run in: ".__CLASS__.'=>'.__FUNCTION__);
+                        exit;
+                    }
+                    include $filePath;
+
                     $controller = str_replace('.php', '', $file);
+                    $clazz = $namespace . $controller;
+
+                    if(!class_exists($clazz)){
+                        console("ERROR:");
+                        console("Class Don't Exist => ".$clazz);
+                        console("run in: ".__CLASS__.'=>'.__FUNCTION__);
+                        exit;
+                    }
+
                     $reflect = new ClassType($namespace . $controller);
                     $isAuth = $reflect->getAnnotation("Auth");
                     $isRestController = $reflect->getAnnotation("RestController");

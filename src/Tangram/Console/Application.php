@@ -84,8 +84,12 @@ class Application
         $this->checkClassMapExist($moduleMap->getClassMap());
         $this->checkClassMapExist($restfulMap->getClassMap());
         $this->checkClassMapExist($webPageMap->getClassMap());
-
         $mergeClassMap = array_merge($moduleMap->getClassMap(),$restfulMap->getClassMap(),$webPageMap->getClassMap());
+//        console($moduleMap->getClassMap());
+//        console($restfulMap->getClassMap());
+//        console($webPageMap->getClassMap());
+//        console($mergeClassMap);
+//        exit;
         ClassMapFile::generate($mergeClassMap);
 
 //        console($restfulMap->getAuthMap());
