@@ -130,6 +130,7 @@ class ClassMap
                     if(!class_exists($clazz)){
                         console("ERROR:");
                         console("Class Don't Exist => ".$clazz);
+                        console("File => ".$filePath);
                         console("run in: ".__CLASS__.'=>'.__FUNCTION__);
                         exit;
                     }
