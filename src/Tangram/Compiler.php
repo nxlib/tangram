@@ -45,10 +45,6 @@ class Compiler
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/bin/');
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
             ->in(__DIR__ . '/../../vendor/doctrine/');
         $finder->files()
             ->ignoreVCS(true)

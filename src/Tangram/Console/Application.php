@@ -12,6 +12,7 @@ use Tangram\Handler\File\DefaultDir;
 use Tangram\Handler\File\PermissionMapFile;
 use Tangram\Handler\File\RealFile;
 use Tangram\Handler\File\RouterMapFile;
+use Tangram\Handler\File\ViewsPathFile;
 use Tangram\Tangram;
 use Tangram\Utils\Dir;
 
@@ -91,6 +92,7 @@ class Application
 //        console($mergeClassMap);
 //        exit;
         ClassMapFile::generate($mergeClassMap);
+        ViewsPathFile::generate($webPageMap->getViewsPathMap());
 
 //        console($restfulMap->getAuthMap());
 //        console($webPageMap->getAuthMap());

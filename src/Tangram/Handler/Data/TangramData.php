@@ -17,6 +17,7 @@ class TangramData
     private $require;
     private $autoloadPsr4;
     private $data;
+    private $viewsPath;
 
     public function __construct($filePath)
     {
@@ -27,6 +28,7 @@ class TangramData
             exit("MESSAGE: this is not a tangram json");
         }
         $this->name = $json['name'];
+        $this->viewsPath = isset($json['views-path']) ? $json['views-path'] : "views";
         $this->moduleName = $json['module'];
         $this->require = $json['require'];
         $this->autoloadPsr4 = $json['autoload']['psr-4'];
@@ -82,5 +84,13 @@ class TangramData
     public function getData()
     {
         return $this->data;
+    }
+
+    /**
+     * @return string
+     */
+    public function getViewsPath(): string
+    {
+        return $this->viewsPath;
     }
 }

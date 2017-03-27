@@ -51,6 +51,7 @@ class ClassMap
         if (!empty($modules)) {
             $trueModulePath = $pathData->getAbsolutePath();
             $modulePath = $pathData->getPath();
+
             foreach ($modules as $value) {
                 $tangramData = new TangramData($trueModulePath . DIRECTORY_SEPARATOR . $value . DIRECTORY_SEPARATOR . "tangram.json");
                 foreach ($tangramData->getAutoloadPsr4() as $key => $psr4) {
@@ -61,6 +62,8 @@ class ClassMap
                         'path' => $trueModulePath . "/" . $value,
                         'name' => $tangramData->getModuleName(),
                         'uri-prefix' => $tangramData->getUriPrefix(),
+                        'views-path' => $tangramData->getViewsPath(),
+                        'modulePath' => $modulePath . DIRECTORY_SEPARATOR . $value,
                         'tangramData' => $tangramData
                     ];
                     $namespace = str_replace('\\', '\\\\', $key);
@@ -81,7 +84,18 @@ class ClassMap
     {
         return $this->classMap;
     }
-
+    public function getViewsPathMap(){
+        $pathMaps = [];
+        if(empty($this->namespaces)){
+            return $pathMaps;
+        }
+        foreach ($this->namespaces as $namespace){
+            $ns = str_replace('\\', '\\\\', $namespace['ns']);
+            $path = str_replace('\\', '/', $namespace['modulePath'].DIRECTORY_SEPARATOR.$namespace['views-path']);
+            $pathMaps[$ns] = $path;
+        }
+        return $pathMaps;
+    }
     public function getNamespace()
     {
         return $this->namespaces;

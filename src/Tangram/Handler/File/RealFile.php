@@ -23,6 +23,7 @@ include "autoload_router_map.php";
 include "autoload_permission_map.php";
 include "autoload_classmap.php";
 include "autoload_auth_map.php";
+include "autoload_views_path.php";
 
 class TangramAutoloaderInit{$md5} {
     public static function getLoader(){
