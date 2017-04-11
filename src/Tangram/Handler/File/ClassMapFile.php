@@ -17,6 +17,7 @@ class ClassMapFile
 
     private static function file($data)
     {
+        rsort($data);
 //        $name = DefaultDir::AUTO_TANGRAM_FOLDER.DIRECTORY_SEPARATOR.NAME;
         $str = implode(",\r\n", $data);
         return <<<"EOF"
