@@ -47,8 +47,12 @@ class Application
             exit("command \"" . TG_COMMAND . " \" not found!");
         }
         $customVendor = TG_RUN_PATH.DIRECTORY_SEPARATOR."vendor".DIRECTORY_SEPARATOR."autoload.php";
+        console($customVendor);
         if(file_exists($customVendor)){
             include $customVendor;
+            if(class_exists("\\NxLib\\Core\\MVC")){
+                \NxLib\Core\MVC::init(TG_RUN_PATH);
+            }
         }
         $projectTangramFile = TG_RUN_PATH.DIRECTORY_SEPARATOR."tangram.json";
         if(!file_exists($projectTangramFile)){
