@@ -187,11 +187,12 @@ class ClassMap
                                     'name' => ''
                                 ];
                                 //读取默认约定
-                                $uri = $requestPath . "/";
-                                $uri = str_replace("//","/",$uri);
-                                $uri = str_replace("\\","/",$uri);
+                                $main_uri = $requestPath . "/";
+                                $main_uri = str_replace("//","/",$main_uri);
+                                $main_uri = str_replace("\\","/",$main_uri);
+
                                 $requestMethod = "GET";
-                                $uri .= $method->name;
+                                $uri = $method->name;
 
                                 //fix bug:在phar执行情况下，如果第一个方法没有任何comment,会默认继承class的comment
                                 if($method->getDocComment()){
@@ -200,19 +201,24 @@ class ClassMap
                                     $viewPermission = $method->getAnnotation('ViewPermission');
                                     $methodPermission = $method->getAnnotation('Permission');
 
-                                    if (is_string($methodRequestMapping)) {
-                                        if (empty($requestMapping)) {
-                                            $uri = $methodRequestMapping;
-                                        } else {
-                                            $uri .= $methodRequestMapping;
+                                    if(!empty($methodRequestMapping)){
+                                        $uri = "";
+                                        if (is_string($methodRequestMapping)) {
+                                            if (empty($requestMapping)) {
+                                                $uri = $methodRequestMapping;
+                                            } else {
+                                                $uri = $main_uri.$methodRequestMapping;
+                                            }
                                         }
-                                    }
-                                    if (isset($methodRequestMapping->path)) {
-                                        if (empty($requestMapping)) {
-                                            $uri = $methodRequestMapping->path;
-                                        } else {
-                                            $uri .= $methodRequestMapping->path;
+                                        if (isset($methodRequestMapping->path)) {
+                                            if (empty($requestMapping)) {
+                                                $uri = $methodRequestMapping->path;
+                                            } else {
+                                                $uri = $main_uri.$methodRequestMapping->path;
+                                            }
                                         }
+                                    }else{
+                                        $uri = $main_uri.$uri;
                                     }
 
                                     $requestMethod = isset($methodRequestMapping->method) ? $methodRequestMapping->method : $requestMethod;
@@ -234,6 +240,8 @@ class ClassMap
                                         $authKey = $requestMethod . '#' . $uri;
                                         $this->authMap[$authKey] = boolval($methodAuth);
                                     }
+                                }else{
+                                    $uri = $main_uri.$uri;
                                 }
 
                                 $uriList[] = [
