@@ -47,7 +47,6 @@ class Application
             exit("command \"" . TG_COMMAND . " \" not found!");
         }
         $customVendor = TG_RUN_PATH.DIRECTORY_SEPARATOR."vendor".DIRECTORY_SEPARATOR."autoload.php";
-        console($customVendor);
         if(file_exists($customVendor)){
             include $customVendor;
             if(class_exists("\\NxLib\\Core\\MVC")){
