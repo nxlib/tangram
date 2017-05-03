@@ -2,6 +2,8 @@
 
 namespace Tangram\Console;
 
+use Tangram\Command\Build\Build;
+use Tangram\Command\Create\Create;
 use Tangram\Handler\Data\ClassMap;
 use Tangram\Handler\Data\PathData;
 use Tangram\Handler\Data\UriMap;
@@ -28,7 +30,7 @@ class Application
 ';
     private static $line = '- - - - - - - - - - - - - - - - - - - - - - - - - - -';
 
-    private static $classMapFlag = [];
+    private static $commandList = ['build','create'];
 
     public function __construct()
     {
@@ -43,7 +45,7 @@ class Application
             exit;
         }
         //command
-        if (TG_COMMAND != 'build') {
+        if (!in_array(TG_COMMAND,static::$commandList)) {
             exit("command \"" . TG_COMMAND . " \" not found!");
         }
         $customVendor = TG_RUN_PATH.DIRECTORY_SEPARATOR."vendor".DIRECTORY_SEPARATOR."autoload.php";
@@ -72,47 +74,12 @@ class Application
         if(isset($projectTangramData['web-page-path'])){
             $webPagePath = $projectTangramData['web-page-path'];
         }
-        $modulePath = new PathData($modulePath);
-        $restfulPath = new PathData($restfulPath);
-        $webPagePath = new PathData($webPagePath);
-
-        $modulesScan = Dir::scan($modulePath->getAbsolutePath(),3);
-        $restfulScan = Dir::scan($restfulPath->getAbsolutePath(),3);
-        $webPageScan = Dir::scan($webPagePath->getAbsolutePath(),3);
-
-        DefaultDir::init();
-        $moduleMap = new ClassMap($modulesScan,$modulePath);
-        $restfulMap = new ClassMap($restfulScan,$restfulPath);
-        $webPageMap = new ClassMap($webPageScan,$webPagePath);
-
-        $this->checkClassMapExist($moduleMap->getClassMap());
-        $this->checkClassMapExist($restfulMap->getClassMap());
-        $this->checkClassMapExist($webPageMap->getClassMap());
-        $mergeClassMap = array_merge($moduleMap->getClassMap(),$restfulMap->getClassMap(),$webPageMap->getClassMap());
-//        console($moduleMap->getClassMap());
-//        console($restfulMap->getClassMap());
-//        console($webPageMap->getClassMap());
-//        console($mergeClassMap);
-//        exit;
-        ClassMapFile::generate($mergeClassMap);
-        ViewsPathFile::generate($webPageMap->getViewsPathMap());
-
-//        console($restfulMap->getAuthMap());
-//        console($webPageMap->getAuthMap());
-
-        $mergeAuthMap = array_merge($restfulMap->getAuthMap(),$webPageMap->getAuthMap());
-//        console($mergeAuthMap);
-        AuthMapFile::generate($mergeAuthMap);
-
-        $mergeUriMap = array_merge($restfulMap->getUriList(),$webPageMap->getUriList());
-        $uriMap = new UriMap($mergeUriMap);
-
-        PermissionMapFile::generate($uriMap->getPermissionMap());
-        RouterMapFile::generate($uriMap->getRouterMap());
-
-        $md5 = md5(time());
-        RealFile::generate($md5);
-        AutoLoadFile::generate($md5);
+        if(TG_COMMAND == 'build'){
+            Build::run($modulePath,$restfulPath,$webPagePath);
+        }
+        if(TG_COMMAND == 'create'){
+            Create::run($modulePath,$restfulPath,$webPagePath);
+        }
     }
 
     private function info()
@@ -141,17 +108,5 @@ command
     eg: build tangram/demo --router
 EOF;
     }
-    private function checkClassMapExist($classMap){
-        if(!empty($classMap) && is_array($classMap)){
-            foreach ($classMap as $key => $value){
-                $flag = str_replace("\\","",$key);
-                if(in_array($flag,self::$classMapFlag)){
-                    console("ERROR:");
-                    console("Namespace Exist => {$key}");
-                    exit;
-                }
-                self::$classMapFlag[] = $flag;
-            }
-        }
-    }
+
 }
