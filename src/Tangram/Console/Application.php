@@ -61,8 +61,8 @@ class Application
         }
         //init path
         $modulePath = "modules";
-        $restfulPath = "restful";
-        $webPagePath = "web-page";
+        $restfulPath = ["restful"];
+        $webPagePath = ["web-page"];
 
         $projectTangramData = json_decode(file_get_contents($projectTangramFile),1);
         if(isset($projectTangramData['modules-path'])){
