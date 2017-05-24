@@ -4,6 +4,7 @@ namespace Tangram\Console;
 
 use Tangram\Command\Build\Build;
 use Tangram\Command\Create\Create;
+use Tangram\Handler\Data\Applications;
 use Tangram\Handler\Data\ClassMap;
 use Tangram\Handler\Data\PathData;
 use Tangram\Handler\Data\UriMap;
@@ -61,24 +62,41 @@ class Application
         }
         //init path
         $modulePath = "modules";
-        $restfulPath = ["restful"];
-        $webPagePath = ["web-page"];
+        $applicationPath = "applications";
+        $restfulSign = "restful";
+        $webPageSign = "web-page";
+
 
         $projectTangramData = json_decode(file_get_contents($projectTangramFile),1);
-        if(isset($projectTangramData['modules-path'])){
-            $modulePath = $projectTangramData['modules-path'];
+
+        if(isset($projectTangramData["path"]['modules'])){
+            $modulePath = $projectTangramData["path"]['modules'];
         }
-        if(isset($projectTangramData['restful-path'])){
-            $restfulPath = $projectTangramData['restful-path'];
+        if(isset($projectTangramData["path"]['applications'])){
+            $applicationPath = $projectTangramData["path"]['applications'];
         }
-        if(isset($projectTangramData['web-page-path'])){
-            $webPagePath = $projectTangramData['web-page-path'];
+        if(isset($projectTangramData["controller-sign"]['web'])){
+            $webPageSign = $projectTangramData["controller-sign"]['web'];
         }
+        if(isset($projectTangramData["controller-sign"]['restful'])){
+            $restfulSign = $projectTangramData["controller-sign"]['restful'];
+        }
+
+        $applications = Applications::scan(TG_RUN_PATH.DIRECTORY_SEPARATOR.$applicationPath);
+        if(empty($applications)){
+            exit("folder `applications` not found!");
+        }
+
         if(TG_COMMAND == 'build'){
-            Build::run($modulePath,$restfulPath,$webPagePath);
+            foreach ($applications as $value){
+                $restful = $applicationPath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR.$restfulSign;
+                $web = $applicationPath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR.$webPageSign;
+                Build::run($modulePath,$restful,$web);
+            }
+
         }
         if(TG_COMMAND == 'create'){
-            Create::run($modulePath,$restfulPath,$webPagePath);
+            Create::run($modulePath);
         }
     }
 

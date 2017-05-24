@@ -19,7 +19,7 @@ class Create
     private static $upModule;
     private static $lowModule;
 
-    public static function run($modulePath, $restfulPath, $webPagePath)
+    public static function run($modulePath)
     {
         static::$moduleName = TG_MODULE;
         $module = explode("/", TG_MODULE);
@@ -28,8 +28,8 @@ class Create
         static::$lowModule = lcfirst(static::$module);
 
         $modulePath = TG_RUN_PATH . DIRECTORY_SEPARATOR . $modulePath . DIRECTORY_SEPARATOR . static::$module;
-        $restfulPath = TG_RUN_PATH . DIRECTORY_SEPARATOR . $restfulPath . DIRECTORY_SEPARATOR . static::$module;
-        $webPagePath = TG_RUN_PATH . DIRECTORY_SEPARATOR . $webPagePath . DIRECTORY_SEPARATOR . static::$module;
+//        $restfulPath = TG_RUN_PATH . DIRECTORY_SEPARATOR . $restfulPath . DIRECTORY_SEPARATOR . static::$module;
+//        $webPagePath = TG_RUN_PATH . DIRECTORY_SEPARATOR . $webPagePath . DIRECTORY_SEPARATOR . static::$module;
 
         $all_dir = [
             $modulePath,
@@ -37,11 +37,11 @@ class Create
             $modulePath . DIRECTORY_SEPARATOR . "model",
             $modulePath . DIRECTORY_SEPARATOR . "service",
             $modulePath . DIRECTORY_SEPARATOR . "exception",
-            $restfulPath,
-            $restfulPath . DIRECTORY_SEPARATOR . "controller",
-            $webPagePath,
-            $webPagePath . DIRECTORY_SEPARATOR . "controller",
-            $webPagePath . DIRECTORY_SEPARATOR . "views",
+//            $restfulPath,
+//            $restfulPath . DIRECTORY_SEPARATOR . "controller",
+//            $webPagePath,
+//            $webPagePath . DIRECTORY_SEPARATOR . "controller",
+//            $webPagePath . DIRECTORY_SEPARATOR . "views",
         ];
         foreach ($all_dir as $v) {
             Dir::create($v);
@@ -54,18 +54,18 @@ class Create
         }else{
             console("module is exist");
         }
-        if(!file_exists($restfulPath . DIRECTORY_SEPARATOR . "tangram.json")){
-            File::create($restfulPath . DIRECTORY_SEPARATOR . "tangram.json", self::restfulTangramJsonFile());
-            File::create($restfulPath . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR . static::$upModule . "Controller.php", self::restFile());
-        }else{
-            console("restful is exist");
-        }
-        if(!file_exists($webPagePath . DIRECTORY_SEPARATOR . "tangram.json")){
-            File::create($webPagePath . DIRECTORY_SEPARATOR . "tangram.json", self::webPageTangramJsonFile());
-            File::create($webPagePath . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR . static::$upModule . "Controller.php", self::controllerFile());
-        }else{
-            console("web-page is exist");
-        }
+//        if(!file_exists($restfulPath . DIRECTORY_SEPARATOR . "tangram.json")){
+//            File::create($restfulPath . DIRECTORY_SEPARATOR . "tangram.json", self::restfulTangramJsonFile());
+//            File::create($restfulPath . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR . static::$upModule . "Controller.php", self::restFile());
+//        }else{
+//            console("restful is exist");
+//        }
+//        if(!file_exists($webPagePath . DIRECTORY_SEPARATOR . "tangram.json")){
+//            File::create($webPagePath . DIRECTORY_SEPARATOR . "tangram.json", self::webPageTangramJsonFile());
+//            File::create($webPagePath . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR . static::$upModule . "Controller.php", self::controllerFile());
+//        }else{
+//            console("web-page is exist");
+//        }
 
 
 

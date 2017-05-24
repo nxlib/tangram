@@ -30,7 +30,7 @@ EOF;
 
     public static function generate(string $md5)
     {
-        $name = DefaultDir::TANGRAM_MODULE . DIRECTORY_SEPARATOR . self::NAME;
+        $name = DefaultDir::tangramSavePath() . DIRECTORY_SEPARATOR . self::NAME;
         File::create($name, self::file($md5));
     }
 }

@@ -36,7 +36,7 @@ EOF;
 
     public static function generate($data)
     {
-        $name = DefaultDir::AUTO_TANGRAM_FOLDER . DIRECTORY_SEPARATOR . self::NAME;
+        $name = DefaultDir::autoTangramSavePath() . DIRECTORY_SEPARATOR . self::NAME;
         $routerMapFileData = [];
         foreach ($data as $key => $value) {
             $tmp = "";

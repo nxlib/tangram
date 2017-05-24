@@ -38,7 +38,7 @@ class Dir
     public static function create($path)
     {
         if (!file_exists($path)) {
-            mkdir($path);
+            mkdir($path,0777,true);
         }
     }
 //    public static function scan4KeyValue($path,$deep=1,$ignore = []){

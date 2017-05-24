@@ -35,7 +35,8 @@ class Build
         $restfulScan = Dir::scan($restfulPath->getAbsolutePath(),3);
         $webPageScan = Dir::scan($webPagePath->getAbsolutePath(),3);
 
-        DefaultDir::init();
+        DefaultDir::init(dirname($restfulPath->getPath()));
+
         $moduleMap = new ClassMap($modulesScan,$modulePath);
         $restfulMap = new ClassMap($restfulScan,$restfulPath);
         $webPageMap = new ClassMap($webPageScan,$webPagePath);
