@@ -19,27 +19,28 @@ class ClassMap
     private $uriList = [];
     private $authMap = [];
 
-    public function __construct(array $modulesScan,PathData $pathData)
+    public function __construct(array $modulesScan, PathData $pathData)
     {
         $classMap = [];
         $namespaces = [];
         $modules = [];
-        if(!empty($modulesScan)){
+
+        if (!empty($modulesScan)) {
             foreach ($modulesScan as $key => $value) {
-                if($value == "tangram.json"){
+                if ($value == "tangram.json") {
                     $modules[] = $key;
                     continue;
                 }
                 if (is_array($value)) {
                     foreach ($value as $k => $v) {
-                        if($v == "tangram.json"){
+                        if ($v == "tangram.json") {
                             $modules[] = $key;
                             continue;
                         }
-                        if(is_array($v)){
-                            foreach ($v as $itemKey => $item){
-                                if($item == "tangram.json"){
-                                    $modules[] = $key.DIRECTORY_SEPARATOR.$k;
+                        if (is_array($v)) {
+                            foreach ($v as $itemKey => $item) {
+                                if ($item == "tangram.json") {
+                                    $modules[] = $key . DIRECTORY_SEPARATOR . $k;
                                     continue;
                                 }
                             }
@@ -53,26 +54,32 @@ class ClassMap
             $modulePath = $pathData->getPath();
 
             foreach ($modules as $value) {
-                $tangramData = new TangramData($trueModulePath . DIRECTORY_SEPARATOR . $value . DIRECTORY_SEPARATOR . "tangram.json");
+                if (empty($value)) {
+                    $currentPath = "";
+                    $tangramData = new TangramData($trueModulePath . DIRECTORY_SEPARATOR . "tangram.json");
+                } else {
+                    $currentPath = "/" . $value;
+                    $tangramData = new TangramData($trueModulePath . DIRECTORY_SEPARATOR . $value . DIRECTORY_SEPARATOR . "tangram.json");
+                }
                 foreach ($tangramData->getAutoloadPsr4() as $key => $psr4) {
-                    $key = rtrim($key,"\\");
-                    $key = $key."\\";
+                    $key = rtrim($key, "\\");
+                    $key = $key . "\\";
                     $namespaces[] = [
                         'ns' => $key,
-                        'path' => $trueModulePath . "/" . $value,
+                        'path' => $trueModulePath . $currentPath,
                         'name' => $tangramData->getModuleName(),
                         'uri-prefix' => $tangramData->getUriPrefix(),
                         'views-path' => $tangramData->getViewsPath(),
-                        'modulePath' => $modulePath . DIRECTORY_SEPARATOR . $value,
+                        'modulePath' => $modulePath . $currentPath,
                         'tangramData' => $tangramData
                     ];
                     $namespace = str_replace('\\', '\\\\', $key);
                     if (empty($psr4)) {
-                        $psr4 = $modulePath . '/' . $value;
-                    }else{
-                        $psr4 = $modulePath . '/' . $value."/".$psr4;
+                        $psr4 = $modulePath . $currentPath;
+                    } else {
+                        $psr4 = $modulePath .$currentPath. "/" . $psr4;
                     }
-                    $classMap[$namespace] = str_replace("\\","/",$psr4);
+                    $classMap[$namespace] = str_replace("\\", "/", $psr4);
                 }
             }
             $this->classMap = $classMap;
@@ -84,18 +91,21 @@ class ClassMap
     {
         return $this->classMap;
     }
-    public function getViewsPathMap(){
+
+    public function getViewsPathMap()
+    {
         $pathMaps = [];
-        if(empty($this->namespaces)){
+        if (empty($this->namespaces)) {
             return $pathMaps;
         }
-        foreach ($this->namespaces as $namespace){
+        foreach ($this->namespaces as $namespace) {
             $ns = str_replace('\\', '\\\\', $namespace['ns']);
-            $path = str_replace('\\', '/', $namespace['modulePath'].DIRECTORY_SEPARATOR.$namespace['views-path']);
+            $path = str_replace('\\', '/', $namespace['modulePath'] . DIRECTORY_SEPARATOR . $namespace['views-path']);
             $pathMaps[$ns] = $path;
         }
         return $pathMaps;
     }
+
     public function getNamespace()
     {
         return $this->namespaces;
@@ -130,10 +140,10 @@ class ClassMap
                 }
                 foreach ($files as $file) {
                     $filePath = $path . DIRECTORY_SEPARATOR . $file;
-                    if(!file_exists($filePath)){
+                    if (!file_exists($filePath)) {
                         console("ERROR:");
-                        console("File Don't Exist => ".$filePath);
-                        console("run in: ".__CLASS__.'=>'.__FUNCTION__);
+                        console("File Don't Exist => " . $filePath);
+                        console("run in: " . __CLASS__ . '=>' . __FUNCTION__);
                         exit;
                     }
                     include $filePath;
@@ -141,11 +151,11 @@ class ClassMap
                     $controller = str_replace('.php', '', $file);
                     $clazz = $namespace . $controller;
 
-                    if(!class_exists($clazz)){
+                    if (!class_exists($clazz)) {
                         console("ERROR:");
-                        console("Class Don't Exist => ".$clazz);
-                        console("File => ".$filePath);
-                        console("run in: ".__CLASS__.'=>'.__FUNCTION__);
+                        console("Class Don't Exist => " . $clazz);
+                        console("File => " . $filePath);
+                        console("run in: " . __CLASS__ . '=>' . __FUNCTION__);
                         exit;
                     }
 
@@ -155,9 +165,9 @@ class ClassMap
                     $requestMapping = $reflect->getAnnotation("RequestMapping");
                     $mainPermission = $reflect->getAnnotation("Permission");
                     $requestPath = str_replace($reflect->getNamespaceName() . '\\', '', $reflect->getName());
-                    $requestPath = '/' .$module['uri-prefix'].'/'. strtolower($modulePath) . '/' . strtolower(str_replace('Controller', '', $requestPath));
-                    $requestPath = str_replace("//","/",$requestPath);
-                    $requestPath = str_replace("\\","/",$requestPath);
+                    $requestPath = '/' . $module['uri-prefix'] . '/' . strtolower($modulePath) . '/' . strtolower(str_replace('Controller', '', $requestPath));
+                    $requestPath = str_replace("//", "/", $requestPath);
+                    $requestPath = str_replace("\\", "/", $requestPath);
                     $moduleName = "";
 
                     if (!empty($requestMapping)) {
@@ -188,37 +198,37 @@ class ClassMap
                                 ];
                                 //读取默认约定
                                 $main_uri = $requestPath . "/";
-                                $main_uri = str_replace("//","/",$main_uri);
-                                $main_uri = str_replace("\\","/",$main_uri);
+                                $main_uri = str_replace("//", "/", $main_uri);
+                                $main_uri = str_replace("\\", "/", $main_uri);
 
                                 $requestMethod = "GET";
                                 $uri = $method->name;
 
                                 //fix bug:在phar执行情况下，如果第一个方法没有任何comment,会默认继承class的comment
-                                if($method->getDocComment()){
+                                if ($method->getDocComment()) {
                                     //有method的comment
                                     $methodRequestMapping = $method->getAnnotation('RequestMapping');
                                     $viewPermission = $method->getAnnotation('ViewPermission');
                                     $methodPermission = $method->getAnnotation('Permission');
 
-                                    if(!empty($methodRequestMapping)){
+                                    if (!empty($methodRequestMapping)) {
                                         $uri = "";
                                         if (is_string($methodRequestMapping)) {
                                             if (empty($requestMapping)) {
                                                 $uri = $methodRequestMapping;
                                             } else {
-                                                $uri = $main_uri.$methodRequestMapping;
+                                                $uri = $main_uri . $methodRequestMapping;
                                             }
                                         }
                                         if (isset($methodRequestMapping->path)) {
                                             if (empty($requestMapping)) {
                                                 $uri = $methodRequestMapping->path;
                                             } else {
-                                                $uri = $main_uri.$methodRequestMapping->path;
+                                                $uri = $main_uri . $methodRequestMapping->path;
                                             }
                                         }
-                                    }else{
-                                        $uri = $main_uri.$uri;
+                                    } else {
+                                        $uri = $main_uri . $uri;
                                     }
 
                                     $requestMethod = isset($methodRequestMapping->method) ? $methodRequestMapping->method : $requestMethod;
@@ -240,12 +250,12 @@ class ClassMap
                                         $authKey = $requestMethod . '#' . $uri;
                                         $this->authMap[$authKey] = boolval($methodAuth);
                                     }
-                                }else{
-                                    $uri = $main_uri.$uri;
+                                } else {
+                                    $uri = $main_uri . $uri;
                                 }
 
                                 $uriList[] = [
-                                    'uri' => str_replace(DIRECTORY_SEPARATOR,"/",$uri),
+                                    'uri' => str_replace(DIRECTORY_SEPARATOR, "/", $uri),
                                     'method' => strtolower($requestMethod),
                                     'module' => $permission['module'],
                                     'nav' => $permission['nav'],

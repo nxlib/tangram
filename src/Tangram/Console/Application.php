@@ -86,7 +86,6 @@ class Application
         if(empty($applications)){
             exit("folder `applications` not found!");
         }
-
         if(TG_COMMAND == 'build'){
             foreach ($applications as $value){
                 $restful = $applicationPath.DIRECTORY_SEPARATOR.$value.DIRECTORY_SEPARATOR.$restfulSign;
