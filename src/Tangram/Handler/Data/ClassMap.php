@@ -204,7 +204,11 @@ class ClassMap
                                 $requestMethod = "GET";
                                 $uri = $method->name;
 
-                                //fix bug:在phar执行情况下，如果第一个方法没有任何comment,会默认继承class的comment
+                                //忽略魔术方法
+                                if(strpos($uri,"__") === 0){
+                                    continue;
+                                }
+                               //fix bug:在phar执行情况下，如果第一个方法没有任何comment,会默认继承class的comment
                                 if ($method->getDocComment()) {
                                     //有method的comment
                                     $methodRequestMapping = $method->getAnnotation('RequestMapping');
