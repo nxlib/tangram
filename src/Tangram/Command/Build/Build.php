@@ -69,8 +69,10 @@ class Build
         $md5 = md5(time());
         RealFile::generate($md5);
         AutoLoadFile::generate($md5);
+        self::$classMapFlag = [];
     }
     private static function checkClassMapExist($classMap){
+
         if(!empty($classMap) && is_array($classMap)){
             foreach ($classMap as $key => $value){
                 $flag = str_replace("\\","",$key);
