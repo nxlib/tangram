@@ -45,19 +45,10 @@ class Build
         self::checkClassMapExist($restfulMap->getClassMap());
         self::checkClassMapExist($webPageMap->getClassMap());
         $mergeClassMap = array_merge($moduleMap->getClassMap(),$restfulMap->getClassMap(),$webPageMap->getClassMap());
-//        console($moduleMap->getClassMap());
-//        console($restfulMap->getClassMap());
-//        console($webPageMap->getClassMap());
-//        console($mergeClassMap);
-//        exit;
         ClassMapFile::generate($mergeClassMap);
         ViewsPathFile::generate($webPageMap->getViewsPathMap());
 
-//        console($restfulMap->getAuthMap());
-//        console($webPageMap->getAuthMap());
-
         $mergeAuthMap = array_merge($restfulMap->getAuthMap(),$webPageMap->getAuthMap());
-//        console($mergeAuthMap);
         AuthMapFile::generate($mergeAuthMap);
 
         $mergeUriMap = array_merge($restfulMap->getUriList(),$webPageMap->getUriList());
