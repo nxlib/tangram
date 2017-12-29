@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "description": "project description file",
+  "name": "Module",
+  "properties": {
+    "require": {
+      "type": "object",
+      "description": "This is a hash of module name (keys) and version constraints (values) that are required to run this module.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "path": {
+      "type": "object",
+      "description": "controller sign",
+      "properties": {
+        "modules": {
+          "type": "string",
+          "description": "modules path"
+        },
+        "applications": {
+          "type": "string",
+          "description": "applications path"
+        }
+      }
+    },
+    "controller-sign": {
+      "type": "object",
+      "description": "controller sign",
+      "properties": {
+        "web": {
+          "type": "string",
+          "description": "web sign"
+        },
+        "restful": {
+          "type": "string",
+          "description": "restful api sign"
+        }
+      }
+    }
+  },
+  "required": [
+    "require",
+    "path",
+    "controller-sign"
+  ],
+  "type": "object"
+}

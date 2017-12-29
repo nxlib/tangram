@@ -20,7 +20,8 @@
         "symfony/console": "^2.7 || ^3.0",
         "symfony/finder": "^2.7 || ^3.0",
         "symfony/process": "^2.7 || ^3.0",
-        "nette/reflection":"^2.4"
+        "nette/reflection":"^2.4",
+        "seld/cli-prompt": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.5 || ^5.0.5",
