@@ -2,94 +2,132 @@
 
 namespace Tangram;
 
+use Tangram\Json\JsonFile;
+use Composer\Spdx\SpdxLicenses;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
+use Seld\PharUtils\Timestamps;
 
 class Compiler
 {
     private $version;
+    private $branchAliasVersion = '';
+    private $versionDate;
 
+    /**
+     * Compiles tangram into a single phar file
+     *
+     * @param  string            $pharFile The full path to the file to create
+     * @throws \RuntimeException
+     */
     public function compile($pharFile = 'tangram.phar')
     {
         if (file_exists($pharFile)) {
             unlink($pharFile);
         }
 
-        $process = new Process('git log --pretty="%h" -n1 HEAD');
+        $process = new Process('git log --pretty="%H" -n1 HEAD', __DIR__);
         if ($process->run() != 0) {
-            throw new \RuntimeException('The git binary cannot be found.');
+            throw new \RuntimeException('Can\'t run git log. You must ensure to run compile from tangram git repository clone and that git binary is available.');
         }
         $this->version = trim($process->getOutput());
 
-        $phar = new \Phar($pharFile, 0, 'tangram.phar');
+        $process = new Process('git log -n1 --pretty=%ci HEAD', __DIR__);
+        if ($process->run() != 0) {
+            throw new \RuntimeException('Can\'t run git log. You must ensure to run compile from composer git repository clone and that git binary is available.');
+        }
+
+        $this->versionDate = new \DateTime(trim($process->getOutput()));
+        $this->versionDate->setTimezone(new \DateTimeZone('UTC'));
+
+        $process = new Process('git describe --tags --exact-match HEAD');
+        if ($process->run() == 0) {
+            $this->version = trim($process->getOutput());
+        } else {
+            // get branch-alias defined in composer.json for dev-master (if any)
+            $localConfig = __DIR__.'/../../composer.json';
+            $file = new JsonFile($localConfig);
+            $localConfig = $file->read();
+            if (isset($localConfig['extra']['branch-alias']['dev-master'])) {
+                $this->branchAliasVersion = $localConfig['extra']['branch-alias']['dev-master'];
+            }
+        }
+
+        $phar = new \Phar($pharFile, 0, 'composer.phar');
         $phar->setSignatureAlgorithm(\Phar::SHA1);
 
         $phar->startBuffering();
+
+        $finderSort = function ($a, $b) {
+            return strcmp(strtr($a->getRealPath(), '\\', '/'), strtr($b->getRealPath(), '\\', '/'));
+        };
 
         $finder = new Finder();
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
             ->notName('Compiler.php')
-            ->in(__DIR__ . '/..');
+            ->notName('ClassLoader.php')
+            ->in(__DIR__.'/..')
+            ->sort($finderSort)
+        ;
 
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
         }
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/Autoload/ClassLoader.php'), false);
+
+        $finder = new Finder();
+        $finder->files()
+            ->name('*.json')
+            ->in(__DIR__.'/../../res')
+            ->in(SpdxLicenses::getResourcesDir())
+            ->sort($finderSort)
+        ;
+
+        foreach ($finder as $file) {
+            $this->addFile($phar, $file, false);
+        }
+        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../vendor/seld/cli-prompt/res/hiddeninput.exe'), false);
 
         $finder = new Finder();
         $finder->files()
             ->ignoreVCS(true)
             ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/symfony/');
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/doctrine/');
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/myclabs/');
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/nette/');
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/phpdocumentor/');
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/phpspec/');
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/psr/');
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/sebastian/');
-        $finder->files()
-            ->ignoreVCS(true)
-            ->name('*.php')
-            ->in(__DIR__ . '/../../vendor/webmozart/');
+            ->name('LICENSE')
+            ->exclude('Tests')
+            ->exclude('tests')
+            ->exclude('docs')
+            ->in(__DIR__.'/../../vendor/symfony/')
+            ->in(__DIR__.'/../../vendor/seld/jsonlint/')
+            ->in(__DIR__.'/../../vendor/seld/cli-prompt/')
+            ->in(__DIR__.'/../../vendor/justinrainbow/json-schema/')
+            ->in(__DIR__.'/../../vendor/composer/spdx-licenses/')
+            ->in(__DIR__.'/../../vendor/composer/semver/')
+            ->in(__DIR__.'/../../vendor/composer/ca-bundle/')
+            ->in(__DIR__.'/../../vendor/psr/')
+            ->sort($finderSort)
+        ;
 
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
         }
-        $vendorPath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'vendor';
-        $composerPath = $vendorPath . DIRECTORY_SEPARATOR . 'composer';
 
-        $this->addFile($phar, new \SplFileInfo($vendorPath . DIRECTORY_SEPARATOR . 'autoload.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'ClassLoader.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_static.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_real.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_psr4.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_namespaces.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_files.php'));
-        $this->addFile($phar, new \SplFileInfo($composerPath . DIRECTORY_SEPARATOR . 'autoload_classmap.php'));
-        $this->addComposerBin($phar);
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/autoload.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_namespaces.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_psr4.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_classmap.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_files.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_real.php'));
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/autoload_static.php'));
+        if (file_exists(__DIR__.'/../../vendor/composer/include_paths.php')) {
+            $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/include_paths.php'));
+        }
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../vendor/composer/ClassLoader.php'));
+
+//        $this->addFile($phar, new \SplFileInfo(CaBundle::getBundledCaBundlePath()), false);
+
+        $this->addTangramBin($phar);
 
         // Stubs
         $phar->setStub($this->getStub());
@@ -99,50 +137,128 @@ class Compiler
         // disabled for interoperability with systems without gzip ext
         // $phar->compressFiles(\Phar::GZ);
 
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/../../LICENSE'), false);
+        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../LICENSE'), false);
 
         unset($phar);
+
+        // re-sign the phar with reproducible timestamp / signature
+        $util = new Timestamps($pharFile);
+        $util->updateTimestamps($this->versionDate);
+        $util->save($pharFile, \Phar::SHA1);
+    }
+
+    /**
+     * @param  \SplFileInfo $file
+     * @return string
+     */
+    private function getRelativeFilePath($file)
+    {
+        $realPath = $file->getRealPath();
+        $pathPrefix = dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR;
+
+        $pos = strpos($realPath, $pathPrefix);
+        $relativePath = ($pos !== false) ? substr_replace($realPath, '', $pos, strlen($pathPrefix)) : $realPath;
+
+        return strtr($relativePath, '\\', '/');
     }
 
     private function addFile($phar, $file, $strip = true)
     {
-        $path = str_replace(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR, '', $file->getRealPath());
-
+        $path = $this->getRelativeFilePath($file);
+        $content = file_get_contents($file);
         if ($strip) {
-            $content = php_strip_whitespace($file);
-        } else {
-            $content = "\n" . file_get_contents($file) . "\n";
+            $content = $this->stripWhitespace($content);
+        } elseif ('LICENSE' === basename($file)) {
+            $content = "\n".$content."\n";
         }
 
-        $content = str_replace('@package_version@', $this->version, $content);
+        if ($path === 'src/Tangram/Tangram.php') {
+            $content = str_replace('@package_version@', $this->version, $content);
+            $content = str_replace('@package_branch_alias_version@', $this->branchAliasVersion, $content);
+            $content = str_replace('@release_date@', $this->versionDate->format('Y-m-d H:i:s'), $content);
+        }
 
         $phar->addFromString($path, $content);
     }
 
-    private function addComposerBin($phar)
+    private function addTangramBin($phar)
     {
-        $content = file_get_contents(__DIR__ . '/../../bin/tangram');
+        $content = file_get_contents(__DIR__.'/../../bin/tangram');
         $content = preg_replace('{^#!/usr/bin/env php\s*}', '', $content);
         $phar->addFromString('bin/tangram', $content);
     }
 
+    /**
+     * Removes whitespace from a PHP source string while preserving line numbers.
+     *
+     * @param  string $source A PHP string
+     * @return string The PHP string with the whitespace removed
+     */
+    private function stripWhitespace($source)
+    {
+        if (!function_exists('token_get_all')) {
+            return $source;
+        }
+
+        $output = '';
+        foreach (token_get_all($source) as $token) {
+            if (is_string($token)) {
+                $output .= $token;
+            } elseif (in_array($token[0], array(T_COMMENT, T_DOC_COMMENT))) {
+                $output .= str_repeat("\n", substr_count($token[1], "\n"));
+            } elseif (T_WHITESPACE === $token[0]) {
+                // reduce wide spaces
+                $whitespace = preg_replace('{[ \t]+}', ' ', $token[1]);
+                // normalize newlines to \n
+                $whitespace = preg_replace('{(?:\r\n|\r|\n)}', "\n", $whitespace);
+                // trim leading spaces
+                $whitespace = preg_replace('{\n +}', "\n", $whitespace);
+                $output .= $whitespace;
+            } else {
+                $output .= $token[1];
+            }
+        }
+
+        return $output;
+    }
+
     private function getStub()
     {
-        return <<<'EOF'
+        $stub = <<<'EOF'
 #!/usr/bin/env php
 <?php
 /*
- * This file is part of Tangram.
+ * This file is part of Composer.
  *
- * (c) Garming Lau <garming@msn.com>
+ * (c) Nils Adermann <naderman@naderman.de>
+ *     Jordi Boggiano <j.boggiano@seld.be>
  *
  * For the full copyright and license information, please view
  * the license that is located at the bottom of this file.
  */
 
-Phar::mapPhar('tangram.phar');
+// Avoid APC causing random fatal errors per https://github.com/composer/composer/issues/264
+if (extension_loaded('apc') && ini_get('apc.enable_cli') && ini_get('apc.cache_by_default')) {
+    if (version_compare(phpversion('apc'), '3.0.12', '>=')) {
+        ini_set('apc.cache_by_default', 0);
+    } else {
+        fwrite(STDERR, 'Warning: APC <= 3.0.12 may cause fatal errors when running composer commands.'.PHP_EOL);
+        fwrite(STDERR, 'Update APC, or set apc.enable_cli or apc.cache_by_default to 0 in your php.ini.'.PHP_EOL);
+    }
+}
 
-require 'phar://tangram.phar/bin/tangram';
+Phar::mapPhar('composer.phar');
+
+EOF;
+
+        // add warning once the phar is older than 60 days
+        if (preg_match('{^[a-f0-9]+$}', $this->version)) {
+            $warningTime = $this->versionDate->format('U') + 60 * 86400;
+            $stub .= "define('COMPOSER_DEV_WARNING_TIME', $warningTime);\n";
+        }
+
+        return $stub . <<<'EOF'
+require 'phar://composer.phar/bin/composer';
 
 __HALT_COMPILER();
 EOF;

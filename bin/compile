@@ -1,7 +1,26 @@
 #!/usr/bin/env php
 <?php
-require dirname(__DIR__).DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.'bootstrap.php';
-use \Tangram\Compiler;
-
-$compiler = new Compiler();
-$compiler->compile();
+$cwd = getcwd();
+chdir(__DIR__.'/../');
+$ts = rtrim(shell_exec('git log -n1 --pretty=%ct HEAD'));
+if (!is_numeric($ts)) {
+  echo 'Could not detect date using "git log -n1 --pretty=%ct HEAD"'.PHP_EOL;
+  exit(1);
+}
+// Install with the current version to force it having the right ClassLoader version
+// Install without dev packages to clean up the included classmap from phpunit classes
+shell_exec('php bin/tangram config autoloader-suffix TangramPhar' . $ts);
+shell_exec('php bin/tangram install -q --no-dev');
+shell_exec('php bin/tangram config autoloader-suffix --unset');
+chdir($cwd);
+require __DIR__.'/../src/bootstrap.php';
+use Tangram\Compiler;
+error_reporting(-1);
+ini_set('display_errors', 1);
+try {
+  $compiler = new Compiler();
+  $compiler->compile();
+} catch (\Exception $e) {
+  echo 'Failed to compile phar: ['.get_class($e).'] '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine().PHP_EOL;
+  exit(1);
+}

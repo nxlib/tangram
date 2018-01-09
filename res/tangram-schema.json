@@ -1,53 +1,49 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "additionalProperties": false,
-    "description": "module description file",
-    "name": "Module",
-    "properties": {
-        "autoload": {
-            "$ref": "#/definitions/autoload"
-        },
-        "description": {
-            "type": "string",
-            "description": "Short module description."
-        },
-        "keywords": {
-            "type": "array",
-            "items": {
-                "type": "string",
-                "description": "A tag/keyword that this module relates to."
-            }
-        },
-        "license": {
-            "type": ["string", "array"],
-            "description": "License name. Or an array of license names."
-        },
-        "minimum-stability": {
-            "type": ["string"],
-            "description": "The minimum stability the modules must have to be install-able. Possible values are: dev, alpha, beta, RC, stable.",
-            "pattern": "^dev|alpha|beta|rc|RC|stable$"
-        },
-        "name": {
-            "type": "string",
-            "description": "module name, including 'vendor-name/' prefix."
-        },
-        "require": {
-            "type": "object",
-            "description": "This is a hash of module name (keys) and version constraints (values) that are required to run this module.",
-            "additionalProperties": {
-                "type": "string"
-            }
-        },
-        "type": {
-            "type":"string",
-            "description": "Module type, either 'library' for common modules,or a custom type ([a-z0-9-]+) defined by whatever project this module applies to."
-        }
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": false,
+  "description": "project description file",
+  "name": "Module",
+  "properties": {
+    "require": {
+      "type": "object",
+      "description": "This is a hash of module name (keys) and version constraints (values) that are required to run this module.",
+      "additionalProperties": {
+        "type": "string"
+      }
     },
-    "required": [
-        "name",
-        "description",
-        "autoload",
-        "module"
-    ],
-    "type": "object"
+    "path": {
+      "type": "object",
+      "description": "controller sign",
+      "properties": {
+        "modules": {
+          "type": "string",
+          "description": "modules path"
+        },
+        "applications": {
+          "type": "string",
+          "description": "applications path"
+        }
+      }
+    },
+    "controller-sign": {
+      "type": "object",
+      "description": "controller sign",
+      "properties": {
+        "web": {
+          "type": "string",
+          "description": "web sign"
+        },
+        "restful": {
+          "type": "string",
+          "description": "restful api sign"
+        }
+      }
+    }
+  },
+  "required": [
+    "require",
+    "path",
+    "controller-sign"
+  ],
+  "type": "object"
 }

@@ -1,53 +1,63 @@
 #!/usr/bin/env php
 <?php
-function console($data){
+
+if (PHP_SAPI !== 'cli') {
+  echo 'Warning: Tangram should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
+}
+function pr($data){
     print_r($data);
     echo "\r\n";
-
 }
-if (PHP_SAPI !== 'cli') {
-    echo 'Warning: Tangram should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
+function prd($data){
+  print_r($data);
+  echo "\r\n";exit;
 }
-$args = $argv;
-unset($args[0]);
-$commandAndModule = [];
-$options = [];
-
-$runPath = __DIR__;
-$runPath = str_replace("phar://","",$runPath);
-$pos = strpos($runPath,"tangram.phar");
-
-if($pos !== false){
-    $runPath = substr($runPath,0,$pos);
-}
-
-foreach ($args as $value){
-    if(strpos($value,"--path=") === 0){
-        $runPath = str_replace("--path=","",$value);
-        continue;
-    }
-    if(strpos($value,"--") === 0){
-        $options[] = $value;
-        continue;
-    }
-    $commandAndModule[] = $value;
-}
-
-$command = isset($commandAndModule[0]) ? $commandAndModule[0] : '';
-$module = isset($commandAndModule[1]) ? $commandAndModule[1] : '';
-$option = isset($options[0]) ? $options[0] : '';
-define("TG_COMMAND",strtolower($command));
-define("TG_MODULE",$module);
-define("TG_OPTION",strtolower($option));
-
-define("TG_RUN_PATH",$runPath);
-console("run-paht:".TG_RUN_PATH);
-
 require __DIR__.'/../src/bootstrap.php';
 
+use Tangram\Factory;
+use Tangram\XdebugHandler;
 use Tangram\Console\Application;
+
+error_reporting(-1);
+
+// Create output for XdebugHandler and Application
+$output = Factory::createOutput();
+
+$xdebug = new XdebugHandler($output);
+$xdebug->check();
+unset($xdebug);
+
+if (function_exists('ini_set')) {
+  @ini_set('display_errors', 1);
+
+  $memoryInBytes = function ($value) {
+    $unit = strtolower(substr($value, -1, 1));
+    $value = (int) $value;
+    switch($unit) {
+      case 'g':
+        $value *= 1024;
+      // no break (cumulative multiplier)
+      case 'm':
+        $value *= 1024;
+      // no break (cumulative multiplier)
+      case 'k':
+        $value *= 1024;
+    }
+
+    return $value;
+  };
+
+  $memoryLimit = trim(ini_get('memory_limit'));
+  // Increase memory_limit if it is lower than 1.5GB
+  if ($memoryLimit != -1 && $memoryInBytes($memoryLimit) < 1024 * 1024 * 1536) {
+    @ini_set('memory_limit', '1536M');
+  }
+  unset($memoryInBytes, $memoryLimit);
+}
+
+putenv('TANGRAM_BINARY='.realpath($_SERVER['argv'][0]));
 
 // run the command application
 $application = new Application();
-$application->run();
 
+$application->run(null, $output);
