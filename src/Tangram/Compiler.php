@@ -228,37 +228,35 @@ class Compiler
 #!/usr/bin/env php
 <?php
 /*
- * This file is part of Composer.
+ * This file is part of Tangram.
  *
- * (c) Nils Adermann <naderman@naderman.de>
- *     Jordi Boggiano <j.boggiano@seld.be>
+ * (c) Garming Lau <garming@msn.com>
  *
  * For the full copyright and license information, please view
  * the license that is located at the bottom of this file.
  */
 
-// Avoid APC causing random fatal errors per https://github.com/composer/composer/issues/264
 if (extension_loaded('apc') && ini_get('apc.enable_cli') && ini_get('apc.cache_by_default')) {
     if (version_compare(phpversion('apc'), '3.0.12', '>=')) {
         ini_set('apc.cache_by_default', 0);
     } else {
-        fwrite(STDERR, 'Warning: APC <= 3.0.12 may cause fatal errors when running composer commands.'.PHP_EOL);
+        fwrite(STDERR, 'Warning: APC <= 3.0.12 may cause fatal errors when running tangram commands.'.PHP_EOL);
         fwrite(STDERR, 'Update APC, or set apc.enable_cli or apc.cache_by_default to 0 in your php.ini.'.PHP_EOL);
     }
 }
 
-Phar::mapPhar('composer.phar');
+Phar::mapPhar('tangram.phar');
 
 EOF;
 
         // add warning once the phar is older than 60 days
         if (preg_match('{^[a-f0-9]+$}', $this->version)) {
             $warningTime = $this->versionDate->format('U') + 60 * 86400;
-            $stub .= "define('COMPOSER_DEV_WARNING_TIME', $warningTime);\n";
+            $stub .= "define('TANGRAM_DEV_WARNING_TIME', $warningTime);\n";
         }
 
         return $stub . <<<'EOF'
-require 'phar://composer.phar/bin/composer';
+require 'phar://tangram.phar/bin/tangram';
 
 __HALT_COMPILER();
 EOF;

@@ -188,8 +188,8 @@ class Application extends BaseApplication
                 $io->writeError('<warning>You are running composer with xdebug enabled. This has a major impact on runtime performance. See https://getcomposer.org/xdebug</warning>');
             }
 
-            if (defined('COMPOSER_DEV_WARNING_TIME') && $commandName !== 'self-update' && $commandName !== 'selfupdate' && time() > COMPOSER_DEV_WARNING_TIME) {
-                $io->writeError(sprintf('<warning>Warning: This development build of composer is over 60 days old. It is recommended to update it by running "%s self-update" to get the latest version.</warning>', $_SERVER['PHP_SELF']));
+            if (defined('TANGRAM_DEV_WARNING_TIME') && $commandName !== 'self-update' && $commandName !== 'selfupdate' && time() > COMPOSER_DEV_WARNING_TIME) {
+                $io->writeError(sprintf('<warning>Warning: This development build of tangram is over 60 days old. It is recommended to update it by running "%s self-update" to get the latest version.</warning>', $_SERVER['PHP_SELF']));
             }
 
             if (getenv('COMPOSER_NO_INTERACTION')) {
@@ -379,31 +379,9 @@ class Application extends BaseApplication
     {
         $commands = array_merge(parent::getDefaultCommands(), array(
             new Command\AboutCommand(),
-            new Command\ConfigCommand(),
-            new Command\DependsCommand(),
-            new Command\ProhibitsCommand(),
-            new Command\InitCommand(),
-            new Command\InstallCommand(),
-            new Command\CreateProjectCommand(),
-            new Command\UpdateCommand(),
-            new Command\SearchCommand(),
-            new Command\ValidateCommand(),
-            new Command\ShowCommand(),
-            new Command\SuggestsCommand(),
-            new Command\RequireCommand(),
-            new Command\DumpAutoloadCommand(),
-            new Command\StatusCommand(),
-            new Command\ArchiveCommand(),
-            new Command\DiagnoseCommand(),
-            new Command\RunScriptCommand(),
-            new Command\LicensesCommand(),
-            new Command\GlobalCommand(),
-            new Command\ClearCacheCommand(),
-            new Command\RemoveCommand(),
-            new Command\HomeCommand(),
-            new Command\ExecCommand(),
-            new Command\OutdatedCommand(),
-            new Command\CheckPlatformReqsCommand(),
+            new Command\BuildCommand(),
+            new Command\CreateCommand(),
+            new Command\InitCommand()
         ));
 
         if ('phar:' === substr(__FILE__, 0, 5)) {
