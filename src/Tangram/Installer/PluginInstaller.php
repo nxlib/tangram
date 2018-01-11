@@ -60,7 +60,7 @@ class PluginInstaller extends LibraryInstaller
 
         parent::install($repo, $package);
         try {
-            $this->composer->getPluginManager()->registerPackage($package, true);
+            $this->tangram->getPluginManager()->registerPackage($package, true);
         } catch (\Exception $e) {
             // Rollback installation
             $this->io->writeError('Plugin installation failed, rolling back');
@@ -80,6 +80,6 @@ class PluginInstaller extends LibraryInstaller
         }
 
         parent::update($repo, $initial, $target);
-        $this->composer->getPluginManager()->registerPackage($target, true);
+        $this->tangram->getPluginManager()->registerPackage($target, true);
     }
 }

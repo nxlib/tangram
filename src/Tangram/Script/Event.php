@@ -25,7 +25,7 @@ use Tangram\EventDispatcher\Event as BaseEvent;
 class Event extends BaseEvent
 {
     /**
-     * @var Composer The composer instance
+     * @var Tangram The composer instance
      */
     private $tangram;
 
@@ -58,11 +58,11 @@ class Event extends BaseEvent
     }
 
     /**
-     * Returns the composer instance.
+     * Returns the tangram instance.
      *
-     * @return Composer
+     * @return Tangram
      */
-    public function getComposer()
+    public function getTangram()
     {
         return $this->tangram;
     }

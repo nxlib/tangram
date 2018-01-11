@@ -280,7 +280,7 @@ class Application extends BaseApplication
 
         Silencer::suppress();
         try {
-            $composer = $this->getComposer(false, true);
+            $composer = $this->getTangram(false, true);
             if ($composer) {
                 $config = $composer->getConfig();
 
@@ -313,7 +313,7 @@ class Application extends BaseApplication
      * @throws JsonValidationException
      * @return \Tangram\Tangram
      */
-    public function getComposer($required = true, $disablePlugins = null)
+    public function getTangram($required = true, $disablePlugins = null):Tangram
     {
         if (null === $disablePlugins) {
             $disablePlugins = $this->disablePluginsByDefault;
@@ -412,7 +412,7 @@ class Application extends BaseApplication
     {
         $commands = array();
 
-        $composer = $this->getComposer(false, false);
+        $composer = $this->getTangram(false, false);
         if (null === $composer) {
             $composer = Factory::createGlobal($this->io, false);
         }

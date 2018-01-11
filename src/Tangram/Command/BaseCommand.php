@@ -30,9 +30,9 @@ use Symfony\Component\Console\Command\Command;
 abstract class BaseCommand extends Command
 {
     /**
-     * @var Composer
+     * @var Tangram
      */
-    private $composer;
+    private $tangram;
 
     /**
      * @var IOInterface
@@ -40,18 +40,19 @@ abstract class BaseCommand extends Command
     private $io;
 
     /**
-     * @param  bool              $required
-     * @param  bool|null         $disablePlugins
-     * @throws \RuntimeException
-     * @return Composer
+     * @param  bool $required
+     * @param  bool|null $disablePlugins
+     *
+     * @return Tangram
+     * @throws \Tangram\Json\JsonValidationException
      */
-    public function getComposer($required = true, $disablePlugins = null)
+    public function getTangram($required = true, $disablePlugins = null)
     {
-        if (null === $this->composer) {
+        if (null === $this->tangram) {
             $application = $this->getApplication();
             if ($application instanceof Application) {
                 /* @var $application    Application */
-                $this->composer = $application->getComposer($required, $disablePlugins);
+                $this->tangram = $application->getTangram($required, $disablePlugins);
             } elseif ($required) {
                 throw new \RuntimeException(
                     'Could not create a Tangram\Tangram instance, you must inject '.
@@ -60,7 +61,7 @@ abstract class BaseCommand extends Command
             }
         }
 
-        return $this->composer;
+        return $this->tangram;
     }
 
     /**
@@ -68,7 +69,7 @@ abstract class BaseCommand extends Command
      */
     public function setComposer(Composer $composer)
     {
-        $this->composer = $composer;
+        $this->tangram = $composer;
     }
 
     /**
@@ -76,7 +77,7 @@ abstract class BaseCommand extends Command
      */
     public function resetComposer()
     {
-        $this->composer = null;
+        $this->tangram = null;
         $this->getApplication()->resetComposer();
     }
 

@@ -219,7 +219,7 @@ class Factory
 
     public static function getComposerFile()
     {
-        return trim(getenv('COMPOSER')) ?: './tangram.json';
+        return trim(getenv('TANGRAM')) ?: './tangram.json';
     }
 
     public static function createAdditionalStyles()

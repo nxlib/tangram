@@ -29,9 +29,9 @@ use Tangram\Repository\CompositeRepository;
 class InstallerEvent extends Event
 {
     /**
-     * @var Composer
+     * @var Tangram
      */
-    private $composer;
+    private $tangram;
 
     /**
      * @var IOInterface
@@ -85,7 +85,7 @@ class InstallerEvent extends Event
     {
         parent::__construct($eventName);
 
-        $this->composer = $composer;
+        $this->tangram = $composer;
         $this->io = $io;
         $this->devMode = $devMode;
         $this->policy = $policy;
@@ -96,11 +96,11 @@ class InstallerEvent extends Event
     }
 
     /**
-     * @return Composer
+     * @return Tangram
      */
-    public function getComposer()
+    public function getTangram()
     {
-        return $this->composer;
+        return $this->tangram;
     }
 
     /**

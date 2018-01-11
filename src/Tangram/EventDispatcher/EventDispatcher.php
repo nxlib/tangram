@@ -31,7 +31,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
  * The Event Dispatcher.
  *
  * Example in command:
- *     $dispatcher = new EventDispatcher($this->getComposer(), $this->getApplication()->getIO());
+ *     $dispatcher = new EventDispatcher($this->getTangram(), $this->getApplication()->getIO());
  *     // ...
  *     $dispatcher->dispatch(ScriptEvents::POST_INSTALL_CMD);
  *     // ...
@@ -186,7 +186,7 @@ class EventDispatcher
                         $this->io->writeError(sprintf('<warning>You made a reference to a non-existent script %s</warning>', $callable), true, IOInterface::QUIET);
                     }
 
-                    $return = $this->dispatch($scriptName, new Script\Event($scriptName, $event->getComposer(), $event->getIO(), $event->isDevMode(), $args, $flags));
+                    $return = $this->dispatch($scriptName, new Script\Event($scriptName, $event->getTangram(), $event->getIO(), $event->isDevMode(), $args, $flags));
                 }
             } elseif ($this->isPhpScript($callable)) {
                 $className = substr($callable, 0, strpos($callable, '::'));
@@ -315,13 +315,13 @@ class EventDispatcher
         if (!$event instanceof $expected && $expected === 'Tangram\Script\CommandEvent') {
             trigger_error('The callback '.$this->serializeCallback($target).' declared at '.$reflected->getDeclaringFunction()->getFileName().' accepts a '.$expected.' but '.$event->getName().' events use a '.get_class($event).' instance. Please adjust your type hint accordingly, see https://getcomposer.org/doc/articles/scripts.md#event-classes', E_USER_DEPRECATED);
             $event = new \Tangram\Script\CommandEvent(
-                $event->getName(), $event->getComposer(), $event->getIO(), $event->isDevMode(), $event->getArguments()
+                $event->getName(), $event->getTangram(), $event->getIO(), $event->isDevMode(), $event->getArguments()
             );
         }
         if (!$event instanceof $expected && $expected === 'Tangram\Script\PackageEvent') {
             trigger_error('The callback '.$this->serializeCallback($target).' declared at '.$reflected->getDeclaringFunction()->getFileName().' accepts a '.$expected.' but '.$event->getName().' events use a '.get_class($event).' instance. Please adjust your type hint accordingly, see https://getcomposer.org/doc/articles/scripts.md#event-classes', E_USER_DEPRECATED);
             $event = new \Tangram\Script\PackageEvent(
-                $event->getName(), $event->getComposer(), $event->getIO(), $event->isDevMode(),
+                $event->getName(), $event->getTangram(), $event->getIO(), $event->isDevMode(),
                 $event->getPolicy(), $event->getPool(), $event->getInstalledRepo(), $event->getRequest(),
                 $event->getOperations(), $event->getOperation()
             );
@@ -329,7 +329,7 @@ class EventDispatcher
         if (!$event instanceof $expected && $expected === 'Tangram\Script\Event') {
             trigger_error('The callback '.$this->serializeCallback($target).' declared at '.$reflected->getDeclaringFunction()->getFileName().' accepts a '.$expected.' but '.$event->getName().' events use a '.get_class($event).' instance. Please adjust your type hint accordingly, see https://getcomposer.org/doc/articles/scripts.md#event-classes', E_USER_DEPRECATED);
             $event = new \Tangram\Script\Event(
-                $event->getName(), $event->getComposer(), $event->getIO(), $event->isDevMode(),
+                $event->getName(), $event->getTangram(), $event->getIO(), $event->isDevMode(),
                 $event->getArguments(), $event->getFlags()
             );
         }

@@ -93,7 +93,7 @@ class PluginManager
     /**
      * Gets global composer or null when main composer is not fully loaded
      *
-     * @return Composer|null
+     * @return Tangram|null
      */
     public function getGlobalComposer()
     {
