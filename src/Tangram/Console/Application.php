@@ -1,15 +1,5 @@
 <?php
 
-/*
- * This file is part of Composer.
- *
- * (c) Nils Adermann <naderman@naderman.de>
- *     Jordi Boggiano <j.boggiano@seld.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Tangram\Console;
 
 use Tangram\Util\Platform;
@@ -31,9 +21,6 @@ use Tangram\Exception\NoSslException;
 /**
  * The console application that handles the commands
  *
- * @author Ryan Weaver <ryan@knplabs.com>
- * @author Jordi Boggiano <j.boggiano@seld.be>
- * @author François Pluchino <francois.pluchino@opendisplay.com>
  */
 class Application extends BaseApplication
 {
@@ -120,12 +107,12 @@ class Application extends BaseApplication
         // determine command name to be executed without including plugin commands
         $commandName = '';
         if ($name = $this->getCommandName($input)) {
+//            $input->setArgument("build","eee");
             try {
                 $commandName = $this->find($name)->getName();
             } catch (\InvalidArgumentException $e) {
             }
         }
-
         // prompt user for dir change if no composer.json is present in current dir
         if ($io->isInteractive() && !$newWorkDir && !in_array($commandName, array('', 'list', 'init', 'about', 'help', 'diagnose', 'self-update', 'global', 'create-project'), true) && !file_exists(Factory::getComposerFile())) {
             $dir = dirname(getcwd());
@@ -192,18 +179,17 @@ class Application extends BaseApplication
                 $io->writeError(sprintf('<warning>Warning: This development build of tangram is over 60 days old. It is recommended to update it by running "%s self-update" to get the latest version.</warning>', $_SERVER['PHP_SELF']));
             }
 
-            if (getenv('COMPOSER_NO_INTERACTION')) {
+            if (getenv('TANGRAM_NO_INTERACTION')) {
                 $input->setInteractive(false);
             }
 
-            if (!Platform::isWindows() && function_exists('exec') && !getenv('COMPOSER_ALLOW_SUPERUSER')) {
+            if (!Platform::isWindows() && function_exists('exec') && !getenv('TANGRAM_ALLOW_SUPERUSER')) {
                 if (function_exists('posix_getuid') && posix_getuid() === 0) {
                     if ($commandName !== 'self-update' && $commandName !== 'selfupdate') {
-                        $io->writeError('<warning>Do not run Composer as root/super user! See https://getcomposer.org/root for details</warning>');
+                        $io->writeError('<warning>Do not run Tangram as root/super user! </warning>');
                     }
                     if ($uid = (int) getenv('SUDO_UID')) {
                         // Silently clobber any sudo credentials on the invoking user to avoid privilege escalations later on
-                        // ref. https://github.com/composer/composer/issues/5119
                         Silencer::call('exec', "sudo -u \\#{$uid} sudo -K > /dev/null 2>&1");
                     }
                 }
@@ -215,7 +201,7 @@ class Application extends BaseApplication
             Silencer::call(function () use ($io) {
                 $tempfile = sys_get_temp_dir() . '/temp-' . md5(microtime());
                 if (!(file_put_contents($tempfile, __FILE__) && (file_get_contents($tempfile) == __FILE__) && unlink($tempfile) && !file_exists($tempfile))) {
-                    $io->writeError(sprintf('<error>PHP temp directory (%s) does not exist or is not writable to Composer. Set sys_temp_dir in your php.ini</error>', sys_get_temp_dir()));
+                    $io->writeError(sprintf('<error>PHP temp directory (%s) does not exist or is not writable to Tangram. Set sys_temp_dir in your php.ini</error>', sys_get_temp_dir()));
                 }
             });
 
@@ -312,12 +298,12 @@ class Application extends BaseApplication
 
         if (Platform::isWindows() && false !== strpos($exception->getMessage(), 'The system cannot find the path specified')) {
             $io->writeError('<error>The following exception may be caused by a stale entry in your cmd.exe AutoRun</error>', true, IOInterface::QUIET);
-            $io->writeError('<error>Check https://getcomposer.org/doc/articles/troubleshooting.md#-the-system-cannot-find-the-path-specified-windows- for details</error>', true, IOInterface::QUIET);
+            $io->writeError('<error>Check http://nxlib.xyz for details</error>', true, IOInterface::QUIET);
         }
 
         if (false !== strpos($exception->getMessage(), 'fork failed - Cannot allocate memory')) {
             $io->writeError('<error>The following exception is caused by a lack of memory or swap, or not having swap configured</error>', true, IOInterface::QUIET);
-            $io->writeError('<error>Check https://getcomposer.org/doc/articles/troubleshooting.md#proc-open-fork-failed-errors for details</error>', true, IOInterface::QUIET);
+            $io->writeError('<error>Check http://nxlib.xyz for details</error>', true, IOInterface::QUIET);
         }
     }
 
@@ -379,7 +365,7 @@ class Application extends BaseApplication
     {
         $commands = array_merge(parent::getDefaultCommands(), array(
             new Command\AboutCommand(),
-            new Command\BuildCommand(),
+            new Command\Build\BuildCommand(),
             new Command\CreateCommand(),
             new Command\InitCommand()
         ));
