@@ -14,9 +14,6 @@ use Tangram\Command\BaseCommandRun;
 class PremissionBuild extends BaseCommandRun
 {
     public function exec($targetApplication = null){
-        $this->getIO()->write(<<<EOT
-<info>👮 Build Premission >>></info>
-EOT
-        );
+        $this->writeHeader('👮 Build Premission >>>');
     }
 }

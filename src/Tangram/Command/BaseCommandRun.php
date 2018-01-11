@@ -25,4 +25,11 @@ class BaseCommandRun
     public function getIO(){
         return $this->io;
     }
+    public function writeHeader($title)
+    {
+        $this->io->write(<<<EOT
+<info>$title</info>
+EOT
+        );
+    }
 }

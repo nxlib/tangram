@@ -27,6 +27,7 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        pr($input);
         $app = $input->getArgument("application");
         if(array_sum($input->getOptions()) === 0){
             $input->setOption('router',1);

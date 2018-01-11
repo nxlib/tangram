@@ -14,9 +14,6 @@ class RouterBuild extends BaseCommandRun
 {
 
     public function exec($targetApplication = null){
-        $this->getIO()->write(<<<EOT
-<info>🎯 Build Router >>></info>
-EOT
-        );
+        $this->writeHeader('🎯 Build Router >>>');
     }
 }

@@ -14,10 +14,8 @@ use Tangram\Command\BaseCommandRun;
 class AuthBuild extends BaseCommandRun
 {
 
-    public function exec($targetApplication = null){
-        $this->getIO()->write(<<<EOT
-<info>🚥 Build Auth >>></info>
-EOT
-        );
+    public function exec($targetApplication = null)
+    {
+        $this->writeHeader('🚥 Build Auth >>>');
     }
 }
