@@ -31,7 +31,6 @@ class Compiler
             throw new \RuntimeException('Can\'t run git log. You must ensure to run compile from tangram git repository clone and that git binary is available.');
         }
         $this->version = trim($process->getOutput());
-
         $process = new Process('git log -n1 --pretty=%ci HEAD', __DIR__);
         if ($process->run() != 0) {
             throw new \RuntimeException('Can\'t run git log. You must ensure to run compile from composer git repository clone and that git binary is available.');
@@ -53,7 +52,7 @@ class Compiler
             }
         }
 
-        $phar = new \Phar($pharFile, 0, 'composer.phar');
+        $phar = new \Phar($pharFile, 0, 'tangram.phar');
         $phar->setSignatureAlgorithm(\Phar::SHA1);
 
         $phar->startBuffering();
@@ -106,6 +105,7 @@ class Compiler
             ->in(__DIR__.'/../../vendor/composer/semver/')
             ->in(__DIR__.'/../../vendor/composer/ca-bundle/')
             ->in(__DIR__.'/../../vendor/psr/')
+            ->in(__DIR__.'/../../vendor/myclabs/')
             ->sort($finderSort)
         ;
 

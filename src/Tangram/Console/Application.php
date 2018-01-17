@@ -68,7 +68,7 @@ class Application extends BaseApplication
                 if ($lastError && $lastError['message'] &&
                    (strpos($lastError['message'], 'Allowed memory') !== false /*Zend PHP out of memory error*/ ||
                     strpos($lastError['message'], 'exceeded memory') !== false /*HHVM out of memory errors*/)) {
-                    echo "\n". 'Check https://getcomposer.org/doc/articles/troubleshooting.md#memory-limit-errors for more info on how to handle out of memory errors.';
+                    echo "\n". 'Check https://nxlib.xyz/doc/articles/troubleshooting.md#memory-limit-errors for more info on how to handle out of memory errors.';
                 }
             });
         }
@@ -93,10 +93,9 @@ class Application extends BaseApplication
     public function doRun(InputInterface $input, OutputInterface $output)
     {
         $this->disablePluginsByDefault = $input->hasParameterOption('--no-plugins');
-
         $io = $this->io = new ConsoleIO($input, $output, $this->getHelperSet());
-        ErrorHandler::register($io);
 
+        ErrorHandler::register($io);
         // switch working dir
         if ($newWorkDir = $this->getNewWorkingDir($input)) {
             $oldWorkingDir = getcwd();
@@ -114,13 +113,13 @@ class Application extends BaseApplication
             }
         }
         // prompt user for dir change if no composer.json is present in current dir
-        if ($io->isInteractive() && !$newWorkDir && !in_array($commandName, array('', 'list', 'init', 'about', 'help', 'diagnose', 'self-update', 'global', 'create-project'), true) && !file_exists(Factory::getComposerFile())) {
+        if ($io->isInteractive() && !$newWorkDir && !in_array($commandName, array('', 'list', 'init', 'about', 'help', 'diagnose', 'self-update', 'global', 'create-project'), true) && !file_exists(Factory::getTangramFile())) {
             $dir = dirname(getcwd());
             $home = realpath(getenv('HOME') ?: getenv('USERPROFILE') ?: '/');
 
             // abort when we reach the home dir or top of the filesystem
             while (dirname($dir) !== $dir && $dir !== $home) {
-                if (file_exists($dir.'/'.Factory::getComposerFile())) {
+                if (file_exists($dir.'/'.Factory::getTangramFile())) {
                     if ($io->askConfirmation('<info>No tangram.json in current directory, do you want to use the one at '.$dir.'?</info> [<comment>Y,n</comment>]? ', true)) {
                         $oldWorkingDir = getcwd();
                         chdir($dir);
@@ -175,7 +174,7 @@ class Application extends BaseApplication
                 $io->writeError('<warning>You are running composer with xdebug enabled. This has a major impact on runtime performance. See https://getcomposer.org/xdebug</warning>');
             }
 
-            if (defined('TANGRAM_DEV_WARNING_TIME') && $commandName !== 'self-update' && $commandName !== 'selfupdate' && time() > COMPOSER_DEV_WARNING_TIME) {
+            if (defined('TANGRAM_DEV_WARNING_TIME') && $commandName !== 'self-update' && $commandName !== 'selfupdate' && time() > TANGRAM_DEV_WARNING_TIME) {
                 $io->writeError(sprintf('<warning>Warning: This development build of tangram is over 60 days old. It is recommended to update it by running "%s self-update" to get the latest version.</warning>', $_SERVER['PHP_SELF']));
             }
 
@@ -206,7 +205,7 @@ class Application extends BaseApplication
             });
 
             // add non-standard scripts as own commands
-            $file = Factory::getComposerFile();
+            $file = Factory::getTangramFile();
             if (is_file($file) && is_readable($file) && is_array($composer = json_decode(file_get_contents($file), true))) {
                 if (isset($composer['scripts']) && is_array($composer['scripts'])) {
                     foreach ($composer['scripts'] as $script => $dummy) {
@@ -278,23 +277,23 @@ class Application extends BaseApplication
     {
         $io = $this->getIO();
 
-        Silencer::suppress();
-        try {
-            $composer = $this->getTangram(false, true);
-            if ($composer) {
-                $config = $composer->getConfig();
-
-                $minSpaceFree = 1024 * 1024;
-                if ((($df = disk_free_space($dir = $config->get('home'))) !== false && $df < $minSpaceFree)
-                    || (($df = disk_free_space($dir = $config->get('vendor-dir'))) !== false && $df < $minSpaceFree)
-                    || (($df = disk_free_space($dir = sys_get_temp_dir())) !== false && $df < $minSpaceFree)
-                ) {
-                    $io->writeError('<error>The disk hosting '.$dir.' is full, this may be the cause of the following exception</error>', true, IOInterface::QUIET);
-                }
-            }
-        } catch (\Exception $e) {
-        }
-        Silencer::restore();
+//        Silencer::suppress();
+//        try {
+//            $composer = $this->getTangram(false, true);
+//            if ($composer) {
+//                $config = $composer->getConfig();
+//
+//                $minSpaceFree = 1024 * 1024;
+//                if ((($df = disk_free_space($dir = $config->get('home'))) !== false && $df < $minSpaceFree)
+//                    || (($df = disk_free_space($dir = $config->get('vendor-dir'))) !== false && $df < $minSpaceFree)
+//                    || (($df = disk_free_space($dir = sys_get_temp_dir())) !== false && $df < $minSpaceFree)
+//                ) {
+//                    $io->writeError('<error>The disk hosting '.$dir.' is full, this may be the cause of the following exception</error>', true, IOInterface::QUIET);
+//                }
+//            }
+//        } catch (\Exception $e) {
+//        }
+//        Silencer::restore();
 
         if (Platform::isWindows() && false !== strpos($exception->getMessage(), 'The system cannot find the path specified')) {
             $io->writeError('<error>The following exception may be caused by a stale entry in your cmd.exe AutoRun</error>', true, IOInterface::QUIET);
@@ -412,26 +411,26 @@ class Application extends BaseApplication
     {
         $commands = array();
 
-        $composer = $this->getTangram(false, false);
-        if (null === $composer) {
-            $composer = Factory::createGlobal($this->io, false);
-        }
-
-        if (null !== $composer) {
-            $pm = $composer->getPluginManager();
-            foreach ($pm->getPluginCapabilities('Tangram\Plugin\Capability\CommandProvider', array('composer' => $composer, 'io' => $this->io)) as $capability) {
-                $newCommands = $capability->getCommands();
-                if (!is_array($newCommands)) {
-                    throw new \UnexpectedValueException('Plugin capability '.get_class($capability).' failed to return an array from getCommands');
-                }
-                foreach ($newCommands as $command) {
-                    if (!$command instanceof Command\BaseCommand) {
-                        throw new \UnexpectedValueException('Plugin capability '.get_class($capability).' returned an invalid value, we expected an array of Tangram\Command\BaseCommand objects');
-                    }
-                }
-                $commands = array_merge($commands, $newCommands);
-            }
-        }
+//        $composer = $this->getTangram(false, false);
+//        if (null === $composer) {
+//            $composer = Factory::createGlobal($this->io, false);
+//        }
+//
+//        if (null !== $composer) {
+//            $pm = $composer->getPluginManager();
+//            foreach ($pm->getPluginCapabilities('Tangram\Plugin\Capability\CommandProvider', array('composer' => $composer, 'io' => $this->io)) as $capability) {
+//                $newCommands = $capability->getCommands();
+//                if (!is_array($newCommands)) {
+//                    throw new \UnexpectedValueException('Plugin capability '.get_class($capability).' failed to return an array from getCommands');
+//                }
+//                foreach ($newCommands as $command) {
+//                    if (!$command instanceof Command\BaseCommand) {
+//                        throw new \UnexpectedValueException('Plugin capability '.get_class($capability).' returned an invalid value, we expected an array of Tangram\Command\BaseCommand objects');
+//                    }
+//                }
+//                $commands = array_merge($commands, $newCommands);
+//            }
+//        }
 
         return $commands;
     }

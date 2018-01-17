@@ -68,7 +68,7 @@ class InitCommand extends BaseCommand
 The <info>init</info> command creates a basic composer.json file
 in the current directory.
 
-<info>php composer.phar init</info>
+<info>php tangram.phar init</info>
 
 EOT
             )
@@ -115,7 +115,7 @@ EOT
             }
         }
 
-        $file = new JsonFile(Factory::getComposerFile());
+        $file = new JsonFile(Factory::getTangramFile());
         $json = $file->encode($options);
 
         if ($input->isInteractive()) {
@@ -643,7 +643,7 @@ EOT
             return $input->getOption('stability') ?: 'stable';
         }
 
-        $file = Factory::getComposerFile();
+        $file = Factory::getTangramFile();
         if (is_file($file) && is_readable($file) && is_array($composer = json_decode(file_get_contents($file), true))) {
             if (!empty($composer['minimum-stability'])) {
                 return $composer['minimum-stability'];

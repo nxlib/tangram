@@ -144,11 +144,14 @@ class JsonFile
     /**
      * Validates the schema of the current json file according to composer-schema.json rules
      *
-     * @param  int                     $schema a JsonFile::*_SCHEMA constant
-     * @throws JsonValidationException
+     * @param  int $schema a JsonFile::*_SCHEMA constant
+     * @param null $schemaFile
+     *
      * @return bool                    true on success
+     * @throws \Seld\JsonLint\ParsingException
+     * @throws \Tangram\Json\JsonValidationException
      */
-    public function validateSchema($schema = self::STRICT_SCHEMA)
+    public function validateSchema($schema = self::STRICT_SCHEMA,$schemaFile = null)
     {
         $content = file_get_contents($this->path);
         $data = json_decode($content);
@@ -156,8 +159,9 @@ class JsonFile
         if (null === $data && 'null' !== $content) {
             self::validateSyntax($content, $this->path);
         }
-
-        $schemaFile = self::SCHEMA_FILE;
+        if(is_null($schemaFile)){
+            $schemaFile = self::SCHEMA_FILE;
+        }
 
         // Prepend with file:// only when not using a special schema already (e.g. in the phar)
         if (false === strpos($schemaFile, '://')) {

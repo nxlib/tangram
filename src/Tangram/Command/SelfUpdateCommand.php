@@ -41,7 +41,7 @@ class SelfUpdateCommand extends BaseCommand
         $this
             ->setName('self-update')
             ->setAliases(array('selfupdate'))
-            ->setDescription('Updates composer.phar to the latest version.')
+            ->setDescription('Updates tangram.phar to the latest version.')
             ->setDefinition(array(
                 new InputOption('rollback', 'r', InputOption::VALUE_NONE, 'Revert to an older installation of composer'),
                 new InputOption('clean-backups', null, InputOption::VALUE_NONE, 'Delete old backups during an update. This makes the current version of composer the only backup available after the update'),
@@ -57,7 +57,7 @@ class SelfUpdateCommand extends BaseCommand
 The <info>self-update</info> command checks getcomposer.org for newer
 versions of composer and if found, installs the latest.
 
-<info>php composer.phar self-update</info>
+<info>php tangram.phar self-update</info>
 
 EOT
             )
@@ -144,7 +144,7 @@ EOT
         $updatingToTag = !preg_match('{^[0-9a-f]{40}$}', $updateVersion);
 
         $io->write(sprintf("Updating to version <info>%s</info> (%s channel).", $updateVersion, $versionsUtil->getChannel()));
-        $remoteFilename = $baseUrl . ($updatingToTag ? "/download/{$updateVersion}/composer.phar" : '/composer.phar');
+        $remoteFilename = $baseUrl . ($updatingToTag ? "/download/{$updateVersion}/tangram.phar" : '/tangram.phar');
         $signature = $remoteFilesystem->getContents(self::HOMEPAGE, $remoteFilename.'.sig', false);
         $io->writeError('   ', false);
         $remoteFilesystem->copy(self::HOMEPAGE, $remoteFilename, $tempFilename, !$input->getOption('no-progress'));
