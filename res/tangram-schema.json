@@ -13,7 +13,7 @@
     },
     "path": {
       "type": "object",
-      "description": "controller sign",
+      "description": "path config",
       "properties": {
         "modules": {
           "type": "string",

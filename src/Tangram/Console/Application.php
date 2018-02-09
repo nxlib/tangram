@@ -2,6 +2,7 @@
 
 namespace Tangram\Console;
 
+use Tangram\Config\ProjectConfig;
 use Tangram\Util\Platform;
 use Tangram\Util\Silencer;
 use Symfony\Component\Console\Application as BaseApplication;
@@ -102,7 +103,6 @@ class Application extends BaseApplication
             chdir($newWorkDir);
             $io->writeError('Changed CWD to ' . getcwd(), true, IOInterface::DEBUG);
         }
-
         // determine command name to be executed without including plugin commands
         $commandName = '';
         if ($name = $this->getCommandName($input)) {
@@ -205,26 +205,26 @@ class Application extends BaseApplication
             });
 
             // add non-standard scripts as own commands
-            $file = Factory::getTangramFile();
-            if (is_file($file) && is_readable($file) && is_array($composer = json_decode(file_get_contents($file), true))) {
-                if (isset($composer['scripts']) && is_array($composer['scripts'])) {
-                    foreach ($composer['scripts'] as $script => $dummy) {
-                        if (!defined('Tangram\Script\ScriptEvents::'.str_replace('-', '_', strtoupper($script)))) {
-                            if ($this->has($script)) {
-                                $io->writeError('<warning>A script named '.$script.' would override a Composer command and has been skipped</warning>');
-                            } else {
-                                $description = null;
-
-                                if (isset($composer['scripts-descriptions'][$script])) {
-                                    $description = $composer['scripts-descriptions'][$script];
-                                }
-
-                                $this->add(new Command\ScriptAliasCommand($script, $description));
-                            }
-                        }
-                    }
-                }
-            }
+//            $file = Factory::getTangramFile();
+//            if (is_file($file) && is_readable($file) && is_array($composer = json_decode(file_get_contents($file), true))) {
+//                if (isset($composer['scripts']) && is_array($composer['scripts'])) {
+//                    foreach ($composer['scripts'] as $script => $dummy) {
+//                        if (!defined('Tangram\Script\ScriptEvents::'.str_replace('-', '_', strtoupper($script)))) {
+//                            if ($this->has($script)) {
+//                                $io->writeError('<warning>A script named '.$script.' would override a Composer command and has been skipped</warning>');
+//                            } else {
+//                                $description = null;
+//
+//                                if (isset($composer['scripts-descriptions'][$script])) {
+//                                    $description = $composer['scripts-descriptions'][$script];
+//                                }
+//
+//                                $this->add(new Command\ScriptAliasCommand($script, $description));
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
 
         try {
@@ -366,7 +366,8 @@ class Application extends BaseApplication
             new Command\AboutCommand(),
             new Command\Build\BuildCommand(),
             new Command\CreateCommand(),
-            new Command\InitCommand()
+            new Command\InitCommand(),
+            new Command\FrameworkCommand()
         ));
 
         if ('phar:' === substr(__FILE__, 0, 5)) {
