@@ -23,10 +23,6 @@ error_reporting(-1);
 // Create output for XdebugHandler and Application
 $output = Factory::createOutput();
 
-$xdebug = new XdebugHandler($output);
-$xdebug->check();
-unset($xdebug);
-
 if (function_exists('ini_set')) {
   @ini_set('display_errors', 1);
 
