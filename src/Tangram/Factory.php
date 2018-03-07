@@ -28,15 +28,38 @@ use Tangram\Downloader\TransportException;
 use Seld\JsonLint\JsonParser;
 
 /**
- * Creates a configured instance of composer.
- *
- * @author Ryan Weaver <ryan@knplabs.com>
- * @author Jordi Boggiano <j.boggiano@seld.be>
- * @author Igor Wiedler <igor@wiedler.ch>
- * @author Nils Adermann <naderman@naderman.de>
+ * Creates a configured instance of tangram.
  */
 class Factory
 {
+    /**
+     * @return bool
+     */
+    private static function useXdg()
+    {
+        foreach (array_keys($_SERVER) as $key) {
+            if (substr($key, 0, 4) === 'XDG_') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @throws \RuntimeException
+     * @return string
+     */
+    private static function getUserDir()
+    {
+        $home = getenv('HOME');
+        if (!$home) {
+            throw new \RuntimeException('The HOME or TANGRAM_HOME environment variable must be set for tangram to run correctly');
+        }
+
+        return rtrim(strtr($home, '\\', '/'), '/');
+    }
+
     /**
      * @throws \RuntimeException
      * @return string
@@ -50,25 +73,25 @@ class Factory
 
         if (Platform::isWindows()) {
             if (!getenv('APPDATA')) {
-                throw new \RuntimeException('The APPDATA or TANGRAM_HOME environment variable must be set for composer to run correctly');
+                throw new \RuntimeException('The APPDATA or TANGRAM_HOME environment variable must be set for tangram to run correctly');
             }
 
-            return rtrim(strtr(getenv('APPDATA'), '\\', '/'), '/') . '/Composer';
+            return rtrim(strtr(getenv('APPDATA'), '\\', '/'), '/') . '/Tangram';
         }
 
         $userDir = self::getUserDir();
-        if (is_dir($userDir . '/.composer')) {
-            return $userDir . '/.composer';
+        if (is_dir($userDir . '/.tangram')) {
+            return $userDir . '/.tangram';
         }
 
         if (self::useXdg()) {
             // XDG Base Directory Specifications
             $xdgConfig = getenv('XDG_CONFIG_HOME') ?: $userDir . '/.config';
 
-            return $xdgConfig . '/composer';
+            return $xdgConfig . '/tangram';
         }
 
-        return $userDir . '/.composer';
+        return $userDir . '/.tangram';
     }
 
     /**
@@ -127,23 +150,15 @@ class Factory
         }
 
         $userDir = self::getUserDir();
-        if ($home !== $userDir . '/.composer' && self::useXdg()) {
+        if ($home !== $userDir . '/.tangram' && self::useXdg()) {
             $xdgData = getenv('XDG_DATA_HOME') ?: $userDir . '/.local/share';
 
-            return $xdgData . '/composer';
+            return $xdgData . '/tangram';
         }
 
         return $home;
     }
 
-    /**
-     * @param  IOInterface|null $io
-     * @return Config
-     */
-    public static function createConfig(IOInterface $io = null, $cwd = null)
-    {
-        return (new \stdClass());
-    }
 
     public static function getTangramFile()
     {
@@ -151,7 +166,7 @@ class Factory
     }
     public static function getComposerConfigureFile()
     {
-        return trim(getenv('TANGRAM')) ?: './composer.json';
+        return trim(getenv('COMPOSER_CONFIG')) ?: './composer.json';
     }
 
     public static function createAdditionalStyles()
@@ -175,108 +190,139 @@ class Factory
         return new ConsoleOutput(ConsoleOutput::VERBOSITY_NORMAL, null, $formatter);
     }
 
-    /**
-     * @deprecated Use Tangram\Repository\RepositoryFactory::defaultRepos instead
-     */
-    public static function createDefaultRepositories(IOInterface $io = null, Config $config = null, RepositoryManager $rm = null)
-    {
-        return RepositoryFactory::defaultRepos($io, $config, $rm);
-    }
 
     /**
-     * Creates a Composer instance
+     * Creates a Tangram instance
      *
-     * @param  IOInterface               $io             IO instance
-     * @param  array|string|null         $localConfig    either a configuration array or a filename to read from, if null it will
+     * @param  IOInterface $io IO instance
+     * @param  array|string|null $localConfig either a configuration array or a filename to read from, if null it will
      *                                                   read from the default filename
-     * @param  bool                      $disablePlugins Whether plugins should not be loaded
-     * @param  bool                      $fullLoad       Whether to initialize everything or only main project stuff (used when loading the global composer)
+     * @param null $cwd
      *
-     * @throws \InvalidArgumentException
-     * @throws \UnexpectedValueException
      * @return Tangram
+     * @throws \Seld\JsonLint\ParsingException
+     * @throws \Tangram\Json\JsonValidationException
      */
-    public function createTangram(IOInterface $io, $localConfig = null, $disablePlugins = false, $cwd = null, $fullLoad = true)
+    public function createTangram(IOInterface $io, $localConfig = null, $cwd = null)
     {
         $cwd = $cwd ?: getcwd();
-
         // load Tangram configuration
         if (null === $localConfig) {
-            $localConfig = static::getComposerConfigureFile();
+            $localConfig = static::getTangramFile();
         }
-
         if (is_string($localConfig)) {
             $tangramFile = $localConfig;
             $file = new JsonFile($localConfig, null, $io);
             if (!$file->exists()) {
-                if ($localConfig === './composer.json' || $localConfig === 'composer.json') {
-                    $message = 'Tangram could not find a composer.json file in '.$cwd;
+                if ($localConfig === './tangram.json' || $localConfig === 'tangram.json') {
+                    $message = 'Tangram could not find a tangram.json file in '.$cwd;
                 } else {
                     $message = 'Tangram could not find the config file: '.$localConfig;
                 }
-                $instructions = 'To initialize a project, please create a composer.json file as described in the https://nxlib.xyz/ "Getting Started" section';
-                $io->writeError($message);
+                $instructions = 'To initialize a project, please create a tangram.json file ';
                 throw new \InvalidArgumentException($message.PHP_EOL.$instructions);
             }
-
-//            $file->validateSchema(JsonFile::LAX_SCHEMA);
+            $file->validateSchema(JsonFile::LAX_SCHEMA);
             $jsonParser = new JsonParser;
-
             try {
                 $jsonParser->parse(file_get_contents($localConfig), JsonParser::DETECT_KEY_CONFLICTS);
             } catch (DuplicateKeyException $e) {
                 $details = $e->getDetails();
                 $io->writeError('<warning>Key '.$details['key'].' is a duplicate in '.$localConfig.' at line '.$details['line'].'</warning>');
             }
-
             $localConfig = $file->read();
         }
-
         // Load config and override with local config/auth config
         $config = static::createConfig($io, $cwd);
-
-        // initialize tangram
-        $tangram = new Tangram();
-        return $tangram;
-    }
-
-    /**
-     * @param  IOInterface $io             IO instance
-     * @param  bool        $disablePlugins Whether plugins should not be loaded
-     *
-     * @return Tangram
-     */
-    public static function createGlobal(IOInterface $io, $disablePlugins = false)
-    {
-        $factory = new static();
-
-        return $factory->createGlobalComposer($io, static::createConfig($io), $disablePlugins, true);
-    }
-
-    /**
-     * @param Repository\RepositoryManager $rm
-     * @param string                       $vendorDir
-     */
-    protected function addLocalRepository(IOInterface $io, RepositoryManager $rm, $vendorDir)
-    {
-        $rm->setLocalRepository(new Repository\InstalledFilesystemRepository(new JsonFile($vendorDir.'/composer/installed.json', null, $io)));
-    }
-
-    /**
-     * @param  Config        $config
-     *
-     * @return Tangram|null
-     */
-    protected function createGlobalComposer(IOInterface $io, Config $config, $disablePlugins, $fullLoad = false)
-    {
-        $tangram = null;
-        try {
-            $tangram = $this->createTangram($io, $config->get('home') . '/composer.json', $disablePlugins, $config->get('home'), $fullLoad);
-        } catch (\Exception $e) {
-            $io->writeError('Failed to initialize global composer: '.$e->getMessage(), true, IOInterface::DEBUG);
+        $config->merge($localConfig);
+        if (isset($tangramFile)) {
+            $io->writeError('Loading config file ' . $tangramFile, true, IOInterface::DEBUG);
+            $config->setConfigSource(new JsonConfigSource(new JsonFile(realpath($tangramFile), null, $io)));
+            $localAuthFile = new JsonFile(dirname(realpath($tangramFile)) . '/auth.json', null, $io);
+            if ($localAuthFile->exists()) {
+                $io->writeError('Loading config file ' . $localAuthFile->getPath(), true, IOInterface::DEBUG);
+                $config->merge(array('config' => $localAuthFile->read()));
+                $config->setAuthConfigSource(new JsonConfigSource($localAuthFile, true));
+            }
         }
 
+        if (is_string($localConfig)) {
+            $file = new JsonFile($localConfig, null, $io);
+            if (!$file->exists()) {
+                if ($localConfig === './tangram.json' || $localConfig === 'tangram.json') {
+                    $message = 'Tangram could not find a tangram.json file in '.$cwd;
+                } else {
+                    $message = 'Tangram could not find the config file: '.$localConfig;
+                }
+                $instructions = 'To initialize a project, please create a composer.json file as described in the http://nxlib.xyz/ "Getting Started" section';
+                throw new \InvalidArgumentException($message.PHP_EOL.$instructions);
+            }
+            $file->validateSchema(JsonFile::LAX_SCHEMA);
+            $jsonParser = new JsonParser;
+            try {
+                $jsonParser->parse(file_get_contents($localConfig), JsonParser::DETECT_KEY_CONFLICTS);
+            } catch (DuplicateKeyException $e) {
+                $details = $e->getDetails();
+                $io->writeError('<warning>Key '.$details['key'].' is a duplicate in '.$localConfig.' at line '.$details['line'].'</warning>');
+            }
+        }
+        // initialize composer
+        $tangram = new Tangram();
+        $tangram->setConfig($config);
         return $tangram;
+    }
+
+    /**
+     * @param  IOInterface|null $io
+     * @param null $cwd
+     * @return Config
+     * @throws \Exception
+     */
+    public static function createConfig(IOInterface $io = null, $cwd = null)
+    {
+        $cwd = $cwd ?: getcwd();
+        $config = new Config(true, $cwd);
+        // determine and add main dirs to the config
+        $home = self::getHomeDir();
+        $config->merge(array('config' => array(
+            'home' => $home,
+            'cache-dir' => self::getCacheDir($home),
+            'data-dir' => self::getDataDir($home),
+        )));
+        $htaccessProtect = (bool) $config->get('htaccess-protect');
+        if ($htaccessProtect) {
+            // Protect directory against web access. Since HOME could be
+            // the www-data's user home and be web-accessible it is a
+            // potential security risk
+            $dirs = array($config->get('home'), $config->get('cache-dir'), $config->get('data-dir'));
+            foreach ($dirs as $dir) {
+                if (!file_exists($dir . '/.htaccess')) {
+                    if (!is_dir($dir)) {
+                        Silencer::call('mkdir', $dir, 0777, true);
+                    }
+                    Silencer::call('file_put_contents', $dir . '/.htaccess', 'Deny from all');
+                }
+            }
+        }
+        // load global config
+        $file = new JsonFile($config->get('home').'/config.json');
+        if ($file->exists()) {
+            if ($io && $io->isDebug()) {
+                $io->writeError('Loading config file ' . $file->getPath());
+            }
+            $config->merge($file->read());
+        }
+        $config->setConfigSource(new JsonConfigSource($file));
+        // load global auth file
+        $file = new JsonFile($config->get('home').'/auth.json');
+        if ($file->exists()) {
+            if ($io && $io->isDebug()) {
+                $io->writeError('Loading config file ' . $file->getPath());
+            }
+            $config->merge(array('config' => $file->read()));
+        }
+        $config->setAuthConfigSource(new JsonConfigSource($file, true));
+        return $config;
     }
 
     /**
@@ -459,31 +505,5 @@ class Factory
         return $remoteFilesystem;
     }
 
-    /**
-     * @return bool
-     */
-    private static function useXdg()
-    {
-        foreach (array_keys($_SERVER) as $key) {
-            if (substr($key, 0, 4) === 'XDG_') {
-                return true;
-            }
-        }
 
-        return false;
-    }
-
-    /**
-     * @throws \RuntimeException
-     * @return string
-     */
-    private static function getUserDir()
-    {
-        $home = getenv('HOME');
-        if (!$home) {
-            throw new \RuntimeException('The HOME or TANGRAM_HOME environment variable must be set for composer to run correctly');
-        }
-
-        return rtrim(strtr($home, '\\', '/'), '/');
-    }
 }

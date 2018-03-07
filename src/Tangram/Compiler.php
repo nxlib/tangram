@@ -3,7 +3,6 @@
 namespace Tangram;
 
 use Tangram\Json\JsonFile;
-use Composer\Spdx\SpdxLicenses;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 use Seld\PharUtils\Timestamps;
@@ -33,7 +32,7 @@ class Compiler
         $this->version = trim($process->getOutput());
         $process = new Process('git log -n1 --pretty=%ci HEAD', __DIR__);
         if ($process->run() != 0) {
-            throw new \RuntimeException('Can\'t run git log. You must ensure to run compile from composer git repository clone and that git binary is available.');
+            throw new \RuntimeException('Can\'t run git log. You must ensure to run compile from tangram git repository clone and that git binary is available.');
         }
 
         $this->versionDate = new \DateTime(trim($process->getOutput()));
@@ -51,7 +50,6 @@ class Compiler
                 $this->branchAliasVersion = $localConfig['extra']['branch-alias']['dev-master'];
             }
         }
-
         $phar = new \Phar($pharFile, 0, 'tangram.phar');
         $phar->setSignatureAlgorithm(\Phar::SHA1);
 
@@ -80,7 +78,7 @@ class Compiler
         $finder->files()
             ->name('*.json')
             ->in(__DIR__.'/../../res')
-            ->in(SpdxLicenses::getResourcesDir())
+//            ->in(SpdxLicenses::getResourcesDir())
             ->sort($finderSort)
         ;
 
@@ -101,9 +99,9 @@ class Compiler
             ->in(__DIR__.'/../../vendor/seld/jsonlint/')
             ->in(__DIR__.'/../../vendor/seld/cli-prompt/')
             ->in(__DIR__.'/../../vendor/justinrainbow/json-schema/')
-            ->in(__DIR__.'/../../vendor/composer/spdx-licenses/')
-            ->in(__DIR__.'/../../vendor/composer/semver/')
-            ->in(__DIR__.'/../../vendor/composer/ca-bundle/')
+//            ->in(__DIR__.'/../../vendor/composer/spdx-licenses/')
+//            ->in(__DIR__.'/../../vendor/composer/semver/')
+//            ->in(__DIR__.'/../../vendor/composer/ca-bundle/')
             ->in(__DIR__.'/../../vendor/psr/')
             ->in(__DIR__.'/../../vendor/myclabs/')
             ->sort($finderSort)
@@ -137,7 +135,7 @@ class Compiler
         // disabled for interoperability with systems without gzip ext
         // $phar->compressFiles(\Phar::GZ);
 
-        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../LICENSE'), false);
+//        $this->addFile($phar, new \SplFileInfo(__DIR__.'/../../LICENSE'), false);
 
         unset($phar);
 

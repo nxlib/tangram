@@ -1,15 +1,5 @@
 <?php
 
-/*
- * This file is part of Composer.
- *
- * (c) Nils Adermann <naderman@naderman.de>
- *     Jordi Boggiano <j.boggiano@seld.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Tangram;
 
 use Tangram\Config\ConfigSourceInterface;
@@ -17,9 +7,6 @@ use Tangram\Downloader\TransportException;
 use Tangram\IO\IOInterface;
 use Tangram\Util\Platform;
 
-/**
- * @author Jordi Boggiano <j.boggiano@seld.be>
- */
 class Config
 {
     const RELATIVE_PATHS = 1;
@@ -30,7 +17,7 @@ class Config
         'preferred-install' => 'auto',
         'notify-on-install' => true,
         'github-protocols' => array('https', 'ssh', 'git'),
-        'vendor-dir' => 'vendor',
+        'vendor-dir' => 'tangram-modules',
         'bin-dir' => '{$vendor-dir}/bin',
         'cache-dir' => '{$home}/cache',
         'data-dir' => '{$home}',
@@ -88,7 +75,7 @@ class Config
     private $warnedHosts = array();
 
     /**
-     * @param bool   $useEnvironment Use COMPOSER_ environment variables to replace config settings
+     * @param bool   $useEnvironment Use TANGRAM_ environment variables to replace config settings
      * @param string $baseDir        Optional base directory of the config
      */
     public function __construct($useEnvironment = true, $baseDir = null)
@@ -217,10 +204,10 @@ class Config
             case 'cafile':
             case 'capath':
             case 'htaccess-protect':
-                // convert foo-bar to COMPOSER_FOO_BAR and check if it exists since it overrides the local config
-                $env = 'COMPOSER_' . strtoupper(strtr($key, '-', '_'));
+                // convert foo-bar to TANGRAM_FOO_BAR and check if it exists since it overrides the local config
+                $env = 'TANGRAM_' . strtoupper(strtr($key, '-', '_'));
 
-                $val = $this->getComposerEnv($env);
+                $val = $this->getTangramEnv($env);
                 $val = rtrim((string) $this->process(false !== $val ? $val : $this->config[$key], $flags), '/\\');
                 $val = Platform::expandPath($val);
 
@@ -269,7 +256,7 @@ class Config
                 return rtrim($this->process($val, $flags), '/\\');
 
             case 'bin-compat':
-                $value = $this->getComposerEnv('COMPOSER_BIN_COMPAT') ?: $this->config[$key];
+                $value = $this->getTangramEnv('TANGRAM_BIN_COMPAT') ?: $this->config[$key];
 
                 if (!in_array($value, array('auto', 'full'))) {
                     throw new \RuntimeException(
@@ -280,10 +267,10 @@ class Config
                 return $value;
 
             case 'discard-changes':
-                if ($env = $this->getComposerEnv('COMPOSER_DISCARD_CHANGES')) {
+                if ($env = $this->getTangramEnv('TANGRAM_DISCARD_CHANGES')) {
                     if (!in_array($env, array('stash', 'true', 'false', '1', '0'), true)) {
                         throw new \RuntimeException(
-                            "Invalid value for COMPOSER_DISCARD_CHANGES: {$env}. Expected 1, 0, true, false or stash"
+                            "Invalid value for TANGRAM_DISCARD_CHANGES: {$env}. Expected 1, 0, true, false or stash"
                         );
                     }
                     if ('stash' === $env) {
@@ -397,15 +384,15 @@ class Config
     }
 
     /**
-     * Reads the value of a Composer environment variable
+     * Reads the value of a Tangram environment variable
      *
-     * This should be used to read COMPOSER_ environment variables
+     * This should be used to read TANGRAM_ environment variables
      * that overload config values.
      *
      * @param  string      $var
      * @return string|bool
      */
-    private function getComposerEnv($var)
+    private function getTangramEnv($var)
     {
         if ($this->useEnvironment) {
             return getenv($var);
@@ -440,7 +427,7 @@ class Config
         $scheme = parse_url($url, PHP_URL_SCHEME);
         if (in_array($scheme, array('http', 'git', 'ftp', 'svn'))) {
             if ($this->get('secure-http')) {
-                throw new TransportException("Your configuration does not allow connections to $url. See https://getcomposer.org/doc/06-config.md#secure-http for details.");
+                throw new TransportException("Your configuration does not allow connections to $url.");
             } elseif ($io) {
                 $host = parse_url($url, PHP_URL_HOST);
                 if (!isset($this->warnedHosts[$host])) {

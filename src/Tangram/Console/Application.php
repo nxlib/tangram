@@ -112,7 +112,7 @@ class Application extends BaseApplication
             } catch (\InvalidArgumentException $e) {
             }
         }
-        // prompt user for dir change if no composer.json is present in current dir
+        // prompt user for dir change if no tangram.json is present in current dir
         if ($io->isInteractive() && !$newWorkDir && !in_array($commandName, array('', 'list', 'init', 'about', 'help', 'diagnose', 'self-update', 'global', 'create-project'), true) && !file_exists(Factory::getTangramFile())) {
             $dir = dirname(getcwd());
             $home = realpath(getenv('HOME') ?: getenv('USERPROFILE') ?: '/');
@@ -370,9 +370,9 @@ class Application extends BaseApplication
             new Command\FrameworkCommand()
         ));
 
-        if ('phar:' === substr(__FILE__, 0, 5)) {
-            $commands[] = new Command\SelfUpdateCommand();
-        }
+//        if ('phar:' === substr(__FILE__, 0, 5)) {
+//            $commands[] = new Command\SelfUpdateCommand();
+//        }
 
         return $commands;
     }

@@ -15,7 +15,6 @@ function prd($data){
 require __DIR__.'/../src/bootstrap.php';
 
 use Tangram\Factory;
-use Tangram\XdebugHandler;
 use Tangram\Console\Application;
 
 error_reporting(-1);
