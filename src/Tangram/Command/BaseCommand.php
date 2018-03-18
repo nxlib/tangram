@@ -75,10 +75,10 @@ abstract class BaseCommand extends Command
     /**
      * Removes the cached composer instance
      */
-    public function resetComposer()
+    public function resetTangram()
     {
         $this->tangram = null;
-        $this->getApplication()->resetComposer();
+        $this->getApplication()->resetTangram();
     }
 
     /**

@@ -6,24 +6,17 @@ use Tangram\Config\JsonConfigSource;
 use Tangram\Json\JsonFile;
 use Tangram\IO\IOInterface;
 use Tangram\Package\Archiver;
-use Tangram\Package\Version\VersionGuesser;
-use Tangram\Repository\RepositoryManager;
-use Tangram\Repository\RepositoryFactory;
 use Tangram\Repository\WritableRepositoryInterface;
 use Tangram\Util\Filesystem;
 use Tangram\Util\Platform;
 use Tangram\Util\ProcessExecutor;
 use Tangram\Util\RemoteFilesystem;
 use Tangram\Util\Silencer;
-use Tangram\Plugin\PluginEvents;
-use Tangram\EventDispatcher\Event;
 use Seld\JsonLint\DuplicateKeyException;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Tangram\EventDispatcher\EventDispatcher;
-use Tangram\Autoload\AutoloadGenerator;
-use Tangram\Package\Version\VersionParser;
 use Tangram\Downloader\TransportException;
 use Seld\JsonLint\JsonParser;
 
@@ -200,6 +193,7 @@ class Factory
      * @param null $cwd
      *
      * @return Tangram
+     * @throws \Exception
      * @throws \Seld\JsonLint\ParsingException
      * @throws \Tangram\Json\JsonValidationException
      */
@@ -444,12 +438,15 @@ class Factory
     }
 
     /**
-     * @param  IOInterface $io             IO instance
-     * @param  mixed       $config         either a configuration array or a filename to read from, if null it will read from
+     * @param  IOInterface $io IO instance
+     * @param  mixed $config either a configuration array or a filename to read from, if null it will read from
      *                                     the default filename
-     * @param  bool        $disablePlugins Whether plugins should not be loaded
+     * @param  bool $disablePlugins Whether plugins should not be loaded
      *
      * @return Tangram
+     * @throws \Exception
+     * @throws \Seld\JsonLint\ParsingException
+     * @throws \Tangram\Json\JsonValidationException
      */
     public static function create(IOInterface $io, $config = null, $disablePlugins = false)
     {

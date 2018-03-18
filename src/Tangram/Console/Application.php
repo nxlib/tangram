@@ -277,23 +277,23 @@ class Application extends BaseApplication
     {
         $io = $this->getIO();
 
-//        Silencer::suppress();
-//        try {
-//            $composer = $this->getTangram(false, true);
-//            if ($composer) {
-//                $config = $composer->getConfig();
-//
-//                $minSpaceFree = 1024 * 1024;
-//                if ((($df = disk_free_space($dir = $config->get('home'))) !== false && $df < $minSpaceFree)
-//                    || (($df = disk_free_space($dir = $config->get('vendor-dir'))) !== false && $df < $minSpaceFree)
-//                    || (($df = disk_free_space($dir = sys_get_temp_dir())) !== false && $df < $minSpaceFree)
-//                ) {
-//                    $io->writeError('<error>The disk hosting '.$dir.' is full, this may be the cause of the following exception</error>', true, IOInterface::QUIET);
-//                }
-//            }
-//        } catch (\Exception $e) {
-//        }
-//        Silencer::restore();
+        Silencer::suppress();
+        try {
+            $tangarm = $this->getTangram(false, true);
+            if ($tangarm) {
+                $config = $tangarm->getConfig();
+
+                $minSpaceFree = 1024 * 1024;
+                if ((($df = disk_free_space($dir = $config->get('home'))) !== false && $df < $minSpaceFree)
+                    || (($df = disk_free_space($dir = $config->get('vendor-dir'))) !== false && $df < $minSpaceFree)
+                    || (($df = disk_free_space($dir = sys_get_temp_dir())) !== false && $df < $minSpaceFree)
+                ) {
+                    $io->writeError('<error>The disk hosting '.$dir.' is full, this may be the cause of the following exception</error>', true, IOInterface::QUIET);
+                }
+            }
+        } catch (\Exception $e) {
+        }
+        Silencer::restore();
 
         if (Platform::isWindows() && false !== strpos($exception->getMessage(), 'The system cannot find the path specified')) {
             $io->writeError('<error>The following exception may be caused by a stale entry in your cmd.exe AutoRun</error>', true, IOInterface::QUIET);
@@ -307,10 +307,13 @@ class Application extends BaseApplication
     }
 
     /**
-     * @param  bool                    $required
-     * @param  bool|null               $disablePlugins
-     * @throws JsonValidationException
+     * @param  bool $required
+     * @param  bool|null $disablePlugins
+     *
      * @return \Tangram\Tangram
+     * @throws \Exception
+     * @throws \Seld\JsonLint\ParsingException
+     * @throws \Tangram\Json\JsonValidationException
      */
     public function getTangram($required = true, $disablePlugins = null):Tangram
     {
@@ -339,7 +342,7 @@ class Application extends BaseApplication
     /**
      * Removes the cached composer instance
      */
-    public function resetComposer()
+    public function resetTangram()
     {
         $this->tangram = null;
     }
