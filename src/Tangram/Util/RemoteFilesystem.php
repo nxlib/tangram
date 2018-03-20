@@ -3,8 +3,8 @@
 namespace Tangram\Util;
 
 use Tangram\Config;
-use Tangram\IO\IOInterface;
 use Tangram\Downloader\TransportException;
+use Tangram\IO\IOInterface;
 
 class RemoteFilesystem
 {
