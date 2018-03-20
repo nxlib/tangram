@@ -7,8 +7,6 @@
 namespace Tangram;
 
 use Tangram\Config;
-use Tangram\Downloader\DownloadManager;
-use Tangram\Autoload\AutoloadGenerator;
 
 class Tangram
 {
@@ -20,49 +18,6 @@ class Tangram
      * @var \Tangram\Config
      */
     private $config;
-    /**
-     * @var Downloader\DownloadManager
-     */
-    private $downloadManager;
-
-
-    /**
-     * @var Autoload\AutoloadGenerator
-     */
-    private $autoloadGenerator;
-
-
-    /**
-     * @param Downloader\DownloadManager $manager
-     */
-    public function setDownloadManager(DownloadManager $manager)
-    {
-        $this->downloadManager = $manager;
-    }
-
-    /**
-     * @return Downloader\DownloadManager
-     */
-    public function getDownloadManager()
-    {
-        return $this->downloadManager;
-    }
-
-    /**
-     * @param Autoload\AutoloadGenerator $autoloadGenerator
-     */
-    public function setAutoloadGenerator(AutoloadGenerator $autoloadGenerator)
-    {
-        $this->autoloadGenerator = $autoloadGenerator;
-    }
-
-    /**
-     * @return Autoload\AutoloadGenerator
-     */
-    public function getAutoloadGenerator()
-    {
-        return $this->autoloadGenerator;
-    }
 
     /**
      * @return \Tangram\Config

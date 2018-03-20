@@ -1,15 +1,5 @@
 <?php
 
-/*
- * This file is part of Composer.
- *
- * (c) Nils Adermann <naderman@naderman.de>
- *     Jordi Boggiano <j.boggiano@seld.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Tangram\IO;
 
 use Tangram\Question\StrictConfirmationQuestion;
@@ -20,12 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 
-/**
- * The Input/Output helper.
- *
- * @author François Pluchino <francois.pluchino@opendisplay.com>
- * @author Jordi Boggiano <j.boggiano@seld.be>
- */
+
 class ConsoleIO extends BaseIO
 {
     /** @var InputInterface */

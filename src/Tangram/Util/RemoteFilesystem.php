@@ -1,28 +1,11 @@
 <?php
 
-/*
- * This file is part of Composer.
- *
- * (c) Nils Adermann <naderman@naderman.de>
- *     Jordi Boggiano <j.boggiano@seld.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Tangram\Util;
 
 use Tangram\Config;
 use Tangram\IO\IOInterface;
 use Tangram\Downloader\TransportException;
-use Composer\CaBundle\CaBundle;
-use Psr\Log\LoggerInterface;
 
-/**
- * @author François Pluchino <francois.pluchino@opendisplay.com>
- * @author Jordi Boggiano <j.boggiano@seld.be>
- * @author Nils Adermann <naderman@naderman.de>
- */
 class RemoteFilesystem
 {
     private $io;
@@ -480,21 +463,11 @@ class RemoteFilesystem
             // 4. To prevent any attempt at being hoodwinked by switching the
             //    certificate between steps 2 and 3 the fingerprint of the certificate
             //    presented in step 3 is compared against the one recorded in step 2.
-            if (CaBundle::isOpensslParseSafe()) {
-                $certDetails = $this->getCertificateCnAndFp($this->fileUrl, $options);
-
-                if ($certDetails) {
-                    $this->peerCertificateMap[$this->getUrlAuthority($this->fileUrl)] = $certDetails;
-
-                    $this->retry = true;
-                }
-            } else {
-                $this->io->writeError('');
-                $this->io->writeError(sprintf(
-                    '<error>Your version of PHP, %s, is affected by CVE-2013-6420 and cannot safely perform certificate validation, we strongly suggest you upgrade.</error>',
-                    PHP_VERSION
-                ));
-            }
+            $this->io->writeError('');
+            $this->io->writeError(sprintf(
+                '<error>Your version of PHP, %s, is affected by CVE-2013-6420 and cannot safely perform certificate validation, we strongly suggest you upgrade.</error>',
+                PHP_VERSION
+            ));
         }
 
         if ($this->retry) {
@@ -886,26 +859,6 @@ class RemoteFilesystem
 
         if (isset($options['ssl'])) {
             $defaults['ssl'] = array_replace_recursive($defaults['ssl'], $options['ssl']);
-        }
-
-        $caBundleLogger = $this->io instanceof LoggerInterface ? $this->io : null;
-
-        /**
-         * Attempt to find a local cafile or throw an exception if none pre-set
-         * The user may go download one if this occurs.
-         */
-        if (!isset($defaults['ssl']['cafile']) && !isset($defaults['ssl']['capath'])) {
-            $result = CaBundle::getSystemCaRootBundlePath($caBundleLogger);
-
-            if (is_dir($result)) {
-                $defaults['ssl']['capath'] = $result;
-            } else {
-                $defaults['ssl']['cafile'] = $result;
-            }
-        }
-
-        if (isset($defaults['ssl']['cafile']) && (!is_readable($defaults['ssl']['cafile']) || !CaBundle::validateCaFile($defaults['ssl']['cafile'], $caBundleLogger))) {
-            throw new TransportException('The configured cafile was not valid or could not be read.');
         }
 
         if (isset($defaults['ssl']['capath']) && (!is_dir($defaults['ssl']['capath']) || !is_readable($defaults['ssl']['capath']))) {

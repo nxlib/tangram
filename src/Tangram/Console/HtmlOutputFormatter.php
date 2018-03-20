@@ -1,22 +1,9 @@
 <?php
 
-/*
- * This file is part of Composer.
- *
- * (c) Nils Adermann <naderman@naderman.de>
- *     Jordi Boggiano <j.boggiano@seld.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Tangram\Console;
 
 use Symfony\Component\Console\Formatter\OutputFormatter;
 
-/**
- * @author Jordi Boggiano <j.boggiano@seld.be>
- */
 class HtmlOutputFormatter extends OutputFormatter
 {
     private static $availableForegroundColors = array(

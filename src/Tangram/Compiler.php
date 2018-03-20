@@ -72,7 +72,7 @@ class Compiler
         foreach ($finder as $file) {
             $this->addFile($phar, $file);
         }
-        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/Autoload/ClassLoader.php'), false);
+//        $this->addFile($phar, new \SplFileInfo(__DIR__ . '/Autoload/ClassLoader.php'), false);
 
         $finder = new Finder();
         $finder->files()

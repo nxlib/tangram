@@ -2,7 +2,6 @@
 
 namespace Tangram\Console;
 
-use Tangram\Config\ProjectConfig;
 use Tangram\Util\Platform;
 use Tangram\Util\Silencer;
 use Symfony\Component\Console\Application as BaseApplication;
@@ -17,7 +16,6 @@ use Tangram\IO\ConsoleIO;
 use Tangram\Json\JsonValidationException;
 use Tangram\Util\ErrorHandler;
 use Tangram\EventDispatcher\ScriptExecutionException;
-use Tangram\Exception\NoSslException;
 
 /**
  * The console application that handles the commands
@@ -128,22 +126,6 @@ class Application extends BaseApplication
                 }
                 $dir = dirname($dir);
             }
-        }
-
-        if (!$this->disablePluginsByDefault && !$this->hasPluginCommands && 'global' !== $commandName) {
-            try {
-                foreach ($this->getPluginCommands() as $command) {
-                    if ($this->has($command->getName())) {
-                        $io->writeError('<warning>Plugin command '.$command->getName().' ('.get_class($command).') would override a Composer command and has been skipped</warning>');
-                    } else {
-                        $this->add($command);
-                    }
-                }
-            } catch (NoSslException $e) {
-                // suppress these as they are not relevant at this point
-            }
-
-            $this->hasPluginCommands = true;
         }
 
         // determine command name to be executed incl plugin commands, and check if it's a proxy command
@@ -369,7 +351,6 @@ class Application extends BaseApplication
             new Command\AboutCommand(),
             new Command\Build\BuildCommand(),
             new Command\CreateCommand(),
-            new Command\InitCommand(),
             new Command\FrameworkCommand()
         ));
 
@@ -409,33 +390,5 @@ class Application extends BaseApplication
         $definition->addOption(new InputOption('--working-dir', '-d', InputOption::VALUE_REQUIRED, 'If specified, use the given directory as working directory.'));
 
         return $definition;
-    }
-
-    private function getPluginCommands()
-    {
-        $commands = array();
-
-//        $composer = $this->getTangram(false, false);
-//        if (null === $composer) {
-//            $composer = Factory::createGlobal($this->io, false);
-//        }
-//
-//        if (null !== $composer) {
-//            $pm = $composer->getPluginManager();
-//            foreach ($pm->getPluginCapabilities('Tangram\Plugin\Capability\CommandProvider', array('composer' => $composer, 'io' => $this->io)) as $capability) {
-//                $newCommands = $capability->getCommands();
-//                if (!is_array($newCommands)) {
-//                    throw new \UnexpectedValueException('Plugin capability '.get_class($capability).' failed to return an array from getCommands');
-//                }
-//                foreach ($newCommands as $command) {
-//                    if (!$command instanceof Command\BaseCommand) {
-//                        throw new \UnexpectedValueException('Plugin capability '.get_class($capability).' returned an invalid value, we expected an array of Tangram\Command\BaseCommand objects');
-//                    }
-//                }
-//                $commands = array_merge($commands, $newCommands);
-//            }
-//        }
-
-        return $commands;
     }
 }

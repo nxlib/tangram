@@ -5,19 +5,11 @@ namespace Tangram;
 use Tangram\Config\JsonConfigSource;
 use Tangram\Json\JsonFile;
 use Tangram\IO\IOInterface;
-use Tangram\Package\Archiver;
-use Tangram\Repository\WritableRepositoryInterface;
-use Tangram\Util\Filesystem;
-use Tangram\Util\Platform;
-use Tangram\Util\ProcessExecutor;
-use Tangram\Util\RemoteFilesystem;
 use Tangram\Util\Silencer;
 use Seld\JsonLint\DuplicateKeyException;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Tangram\EventDispatcher\EventDispatcher;
-use Tangram\Downloader\TransportException;
 use Seld\JsonLint\JsonParser;
 
 /**
@@ -319,123 +311,6 @@ class Factory
         return $config;
     }
 
-    /**
-     * @param  IO\IOInterface             $io
-     * @param  Config                     $config
-     * @param  EventDispatcher            $eventDispatcher
-     * @return Downloader\DownloadManager
-     */
-    public function createDownloadManager(IOInterface $io, Config $config, EventDispatcher $eventDispatcher = null, RemoteFilesystem $rfs = null)
-    {
-        $cache = null;
-        if ($config->get('cache-files-ttl') > 0) {
-            $cache = new Cache($io, $config->get('cache-files-dir'), 'a-z0-9_./');
-        }
-
-        $dm = new Downloader\DownloadManager($io);
-        switch ($preferred = $config->get('preferred-install')) {
-            case 'dist':
-                $dm->setPreferDist(true);
-                break;
-            case 'source':
-                $dm->setPreferSource(true);
-                break;
-            case 'auto':
-            default:
-                // noop
-                break;
-        }
-
-        if (is_array($preferred)) {
-            $dm->setPreferences($preferred);
-        }
-
-        $executor = new ProcessExecutor($io);
-        $fs = new Filesystem($executor);
-
-        $dm->setDownloader('git', new Downloader\GitDownloader($io, $config, $executor, $fs));
-        $dm->setDownloader('svn', new Downloader\SvnDownloader($io, $config, $executor, $fs));
-        $dm->setDownloader('fossil', new Downloader\FossilDownloader($io, $config, $executor, $fs));
-        $dm->setDownloader('hg', new Downloader\HgDownloader($io, $config, $executor, $fs));
-        $dm->setDownloader('perforce', new Downloader\PerforceDownloader($io, $config));
-        $dm->setDownloader('zip', new Downloader\ZipDownloader($io, $config, $eventDispatcher, $cache, $executor, $rfs));
-        $dm->setDownloader('rar', new Downloader\RarDownloader($io, $config, $eventDispatcher, $cache, $executor, $rfs));
-        $dm->setDownloader('tar', new Downloader\TarDownloader($io, $config, $eventDispatcher, $cache, $rfs));
-        $dm->setDownloader('gzip', new Downloader\GzipDownloader($io, $config, $eventDispatcher, $cache, $executor, $rfs));
-        $dm->setDownloader('xz', new Downloader\XzDownloader($io, $config, $eventDispatcher, $cache, $executor, $rfs));
-        $dm->setDownloader('phar', new Downloader\PharDownloader($io, $config, $eventDispatcher, $cache, $rfs));
-        $dm->setDownloader('file', new Downloader\FileDownloader($io, $config, $eventDispatcher, $cache, $rfs));
-        $dm->setDownloader('path', new Downloader\PathDownloader($io, $config, $eventDispatcher, $cache, $rfs));
-
-        return $dm;
-    }
-
-    /**
-     * @param  Config                     $config The configuration
-     * @param  Downloader\DownloadManager $dm     Manager use to download sources
-     * @return Archiver\ArchiveManager
-     */
-    public function createArchiveManager(Config $config, Downloader\DownloadManager $dm = null)
-    {
-        if (null === $dm) {
-            $io = new IO\NullIO();
-            $io->loadConfiguration($config);
-            $dm = $this->createDownloadManager($io, $config);
-        }
-
-        $am = new Archiver\ArchiveManager($dm);
-        $am->addArchiver(new Archiver\ZipArchiver);
-        $am->addArchiver(new Archiver\PharArchiver);
-
-        return $am;
-    }
-
-    /**
-     * @param  IOInterface $io
-     * @param  Tangram             $tangram
-     * @param  Tangram             $globalComposer
-     * @param  bool                 $disablePlugins
-     *
-     * @return Plugin\PluginManager
-     */
-    protected function createPluginManager(IOInterface $io, Tangram $tangram, Tangram $globalComposer = null, $disablePlugins = false)
-    {
-        return new Plugin\PluginManager($io, $tangram, $globalComposer, $disablePlugins);
-    }
-
-    /**
-     * @return Installer\InstallationManager
-     */
-    protected function createInstallationManager()
-    {
-        return new Installer\InstallationManager();
-    }
-
-    /**
-     * @param Installer\InstallationManager $im
-     * @param Tangram                      $tangram
-     * @param IO\IOInterface                $io
-     */
-    protected function createDefaultInstallers(Installer\InstallationManager $im, Tangram $tangram, IOInterface $io)
-    {
-        $im->addInstaller(new Installer\LibraryInstaller($io, $tangram, null));
-        $im->addInstaller(new Installer\PearInstaller($io, $tangram, 'pear-library'));
-        $im->addInstaller(new Installer\PluginInstaller($io, $tangram));
-        $im->addInstaller(new Installer\MetapackageInstaller($io));
-    }
-
-    /**
-     * @param WritableRepositoryInterface   $repo repository to purge packages from
-     * @param Installer\InstallationManager $im   manager to check whether packages are still installed
-     */
-    protected function purgePackages(WritableRepositoryInterface $repo, Installer\InstallationManager $im)
-    {
-        foreach ($repo->getPackages() as $package) {
-            if (!$im->isPackageInstalled($repo, $package)) {
-                $repo->removePackage($package);
-            }
-        }
-    }
 
     /**
      * @param  IOInterface $io IO instance
@@ -454,53 +329,4 @@ class Factory
 
         return $factory->createTangram($io, $config, $disablePlugins);
     }
-
-    /**
-     * @param  IOInterface      $io      IO instance
-     * @param  Config           $config  Config instance
-     * @param  array            $options Array of options passed directly to RemoteFilesystem constructor
-     * @return RemoteFilesystem
-     */
-    public static function createRemoteFilesystem(IOInterface $io, Config $config = null, $options = array())
-    {
-        static $warned = false;
-        $disableTls = false;
-        if ($config && $config->get('disable-tls') === true) {
-            if (!$warned) {
-                $io->write('<warning>You are running Composer with SSL/TLS protection disabled.</warning>');
-            }
-            $warned = true;
-            $disableTls = true;
-        } elseif (!extension_loaded('openssl')) {
-            throw new Exception\NoSslException('The openssl extension is required for SSL/TLS protection but is not available. '
-                . 'If you can not enable the openssl extension, you can disable this error, at your own risk, by setting the \'disable-tls\' option to true.');
-        }
-        $remoteFilesystemOptions = array();
-        if ($disableTls === false) {
-            if ($config && $config->get('cafile')) {
-                $remoteFilesystemOptions['ssl']['cafile'] = $config->get('cafile');
-            }
-            if ($config && $config->get('capath')) {
-                $remoteFilesystemOptions['ssl']['capath'] = $config->get('capath');
-            }
-            $remoteFilesystemOptions = array_replace_recursive($remoteFilesystemOptions, $options);
-        }
-        try {
-            $remoteFilesystem = new RemoteFilesystem($io, $config, $remoteFilesystemOptions, $disableTls);
-        } catch (TransportException $e) {
-            if (false !== strpos($e->getMessage(), 'cafile')) {
-                $io->write('<error>Unable to locate a valid CA certificate file. You must set a valid \'cafile\' option.</error>');
-                $io->write('<error>A valid CA certificate file is required for SSL/TLS protection.</error>');
-                if (PHP_VERSION_ID < 50600) {
-                    $io->write('<error>It is recommended you upgrade to PHP 5.6+ which can detect your system CA file automatically.</error>');
-                }
-                $io->write('<error>You can disable this error, at your own risk, by setting the \'disable-tls\' option to true.</error>');
-            }
-            throw $e;
-        }
-
-        return $remoteFilesystem;
-    }
-
-
 }
