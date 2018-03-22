@@ -218,6 +218,7 @@ class Factory
             }
             $localConfig = $file->read();
         }
+
         // Load config and override with local config/auth config
         $config = static::createConfig($io, $cwd);
         $config->merge($localConfig);
@@ -323,10 +324,10 @@ class Factory
      * @throws \Seld\JsonLint\ParsingException
      * @throws \Tangram\Json\JsonValidationException
      */
-    public static function create(IOInterface $io, $config = null, $disablePlugins = false)
+    public static function create(IOInterface $io, $config = null)
     {
         $factory = new static();
 
-        return $factory->createTangram($io, $config, $disablePlugins);
+        return $factory->createTangram($io, $config);
     }
 }

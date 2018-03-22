@@ -104,10 +104,11 @@ class Application extends BaseApplication
         // determine command name to be executed without including plugin commands
         $commandName = '';
         if ($name = $this->getCommandName($input)) {
-//            $input->setArgument("build","eee");
             try {
                 $commandName = $this->find($name)->getName();
             } catch (\InvalidArgumentException $e) {
+                $io->writeError(PHP_EOL.'<error>'.$e->getMessage().'</error>'.PHP_EOL);
+                exit(1);
             }
         }
         // prompt user for dir change if no tangram.json is present in current dir
@@ -136,9 +137,10 @@ class Application extends BaseApplication
                 $commandName = $command->getName();
                 $isProxyCommand = ($command instanceof Command\BaseCommand && $command->isProxyCommand());
             } catch (\InvalidArgumentException $e) {
+                $io->writeError(PHP_EOL.'<error>'.$e->getMessage().'</error>'.PHP_EOL);
+                exit(1);
             }
         }
-
         if (!$isProxyCommand) {
             $io->writeError(sprintf(
                 'Running %s (%s) with %s on %s',
@@ -297,7 +299,7 @@ class Application extends BaseApplication
      * @throws \Seld\JsonLint\ParsingException
      * @throws \Tangram\Json\JsonValidationException
      */
-    public function getTangram($required = true, $disablePlugins = null):Tangram
+    public function getTangram($required = true, $disablePlugins = null)
     {
         if (null === $disablePlugins) {
             $disablePlugins = $this->disablePluginsByDefault;
@@ -317,7 +319,6 @@ class Application extends BaseApplication
                 throw new JsonValidationException($message);
             }
         }
-
         return $this->tangram;
     }
 
