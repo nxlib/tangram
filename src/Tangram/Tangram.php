@@ -20,6 +20,11 @@ class Tangram
     private $config;
 
     /**
+     * @var \Tangram\Config\ProjectConfig
+     */
+    private $porjectConfig;
+
+    /**
      * @return \Tangram\Config
      */
     public function getConfig(): Config {
@@ -32,4 +37,21 @@ class Tangram
     public function setConfig(Config $config) {
         $this->config = $config;
     }
+
+    /**
+     * @return \Tangram\Config\ProjectConfig
+     */
+    public function getPorjectConfig(): \Tangram\Config\ProjectConfig {
+        return $this->porjectConfig;
+    }
+
+    /**
+     * @param \Tangram\Config\ProjectConfig $porjectConfig
+     */
+    public function setPorjectConfig(
+        \Tangram\Config\ProjectConfig $porjectConfig
+    ) {
+        $this->porjectConfig = $porjectConfig;
+    }
+
 }

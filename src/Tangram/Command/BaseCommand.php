@@ -47,17 +47,10 @@ abstract class BaseCommand extends Command
                 );
             }
         }
-
+        var_dump($this->tangram);
         return $this->tangram;
     }
 
-    /**
-     * @param Composer $composer
-     */
-    public function setComposer(Composer $composer)
-    {
-        $this->tangram = $composer;
-    }
 
     /**
      * Removes the cached composer instance
@@ -104,6 +97,14 @@ abstract class BaseCommand extends Command
     public function setIO(IOInterface $io)
     {
         $this->io = $io;
+    }
+
+    /**
+     * @param \Tangram\Tangram $tangram
+     */
+    public function setTangram(\Tangram\Tangram $tangram)
+    {
+        $this->tangram = $tangram;
     }
 
     /**

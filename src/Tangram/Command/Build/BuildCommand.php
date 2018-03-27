@@ -27,23 +27,23 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $app = $input->getArgument("application");
         if(array_sum($input->getOptions()) === 0){
             $input->setOption('router',1);
             $input->setOption('premission',1);
             $input->setOption('auth',1);
         }
+        (new ClassMapBuild())->exec();
         foreach ($input->getOptions() as $k => $v){
             if($v){
                 switch ($k){
                     case 'router':
-                        (new RouterBuild($this->getIO()))->exec();
+                        (new RouterBuild())->exec();
                         break;
                     case 'premission':
-                        (new PremissionBuild($this->getIO()))->exec();
+                        (new PremissionBuild())->exec();
                         break;
                     case 'auth':
-                        (new AuthBuild($this->getIO()))->exec();
+                        (new AuthBuild())->exec();
                         break;
                     default:
                         break;

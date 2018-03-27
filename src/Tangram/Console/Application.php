@@ -83,7 +83,9 @@ class Application extends BaseApplication
         if (null === $output) {
             $output = Factory::createOutput();
         }
+        pr('my-run');
         return parent::run($input, $output);
+        pr('my-run-done');
     }
 
     /**
@@ -91,6 +93,7 @@ class Application extends BaseApplication
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
+        pr('my-app-do-run');
         $this->disablePluginsByDefault = $input->hasParameterOption('--no-plugins');
         $io = $this->io = new ConsoleIO($input, $output, $this->getHelperSet());
 

@@ -3,6 +3,7 @@
 namespace Tangram;
 
 use Tangram\Config\JsonConfigSource;
+use Tangram\Config\ProjectConfig;
 use Tangram\Json\JsonFile;
 use Tangram\IO\IOInterface;
 use Tangram\Util\Silencer;
@@ -221,7 +222,7 @@ class Factory
 
         // Load config and override with local config/auth config
         $config = static::createConfig($io, $cwd);
-        $config->merge($localConfig);
+//        $config->merge($localConfig);
         if (isset($tangramFile)) {
             $io->writeError('Loading config file ' . $tangramFile, true, IOInterface::DEBUG);
             $config->setConfigSource(new JsonConfigSource(new JsonFile(realpath($tangramFile), null, $io)));
@@ -233,29 +234,10 @@ class Factory
             }
         }
 
-        if (is_string($localConfig)) {
-            $file = new JsonFile($localConfig, null, $io);
-            if (!$file->exists()) {
-                if ($localConfig === './tangram.json' || $localConfig === 'tangram.json') {
-                    $message = 'Tangram could not find a tangram.json file in '.$cwd;
-                } else {
-                    $message = 'Tangram could not find the config file: '.$localConfig;
-                }
-                $instructions = 'To initialize a project, please create a composer.json file as described in the http://nxlib.xyz/ "Getting Started" section';
-                throw new \InvalidArgumentException($message.PHP_EOL.$instructions);
-            }
-            $file->validateSchema(JsonFile::LAX_SCHEMA);
-            $jsonParser = new JsonParser;
-            try {
-                $jsonParser->parse(file_get_contents($localConfig), JsonParser::DETECT_KEY_CONFLICTS);
-            } catch (DuplicateKeyException $e) {
-                $details = $e->getDetails();
-                $io->writeError('<warning>Key '.$details['key'].' is a duplicate in '.$localConfig.' at line '.$details['line'].'</warning>');
-            }
-        }
-        // initialize composer
+        // initialize tangram
         $tangram = new Tangram();
         $tangram->setConfig($config);
+        $tangram->setPorjectConfig(new ProjectConfig());
         return $tangram;
     }
 

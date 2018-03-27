@@ -17,6 +17,8 @@ class ProjectConfig {
     private $applicationPath;
     private $webControllerSign;
     private $restControllerSign;
+    private $absoluteApplicationPath;
+    private $absoluteModulePath;
 
     public function __construct() {
         $this->projectRoot = getcwd();
@@ -28,6 +30,8 @@ class ProjectConfig {
         $this->applicationPath = $data['path']['applications'] ?? 'applications';
         $this->webControllerSign = $data['controller-sign']['web'] ?? 'web-page';
         $this->restControllerSign = $data['controller-sign']['restful'] ?? 'restful';
+        $this->absoluteApplicationPath = $this->projectRoot.DIRECTORY_SEPARATOR.$this->applicationPath;
+        $this->absoluteModulePath = $this->projectRoot.DIRECTORY_SEPARATOR.$this->modulePath;
     }
 
     /**
@@ -77,5 +81,21 @@ class ProjectConfig {
      */
     public function getProjectRoot() {
         return $this->projectRoot;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAbsoluteApplicationPath()
+    {
+        return $this->absoluteApplicationPath;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAbsoluteModulePath()
+    {
+        return $this->absoluteModulePath;
     }
 }
