@@ -49,10 +49,10 @@ class Application extends BaseApplication
     {
         static $shutdownRegistered = false;
 
-        if (function_exists('ini_set') && extension_loaded('xdebug')) {
-            ini_set('xdebug.show_exception_trace', false);
-            ini_set('xdebug.scream', false);
-        }
+//        if (function_exists('ini_set') && extension_loaded('xdebug')) {
+//            ini_set('xdebug.show_exception_trace', false);
+//            ini_set('xdebug.scream', false);
+//        }
 
         if (function_exists('date_default_timezone_set') && function_exists('date_default_timezone_get')) {
             date_default_timezone_set(Silencer::call('date_default_timezone_get'));
@@ -157,9 +157,9 @@ class Application extends BaseApplication
                 $io->writeError('<warning>Composer only officially supports PHP 5.3.2 and above, you will most likely encounter problems with your PHP '.PHP_VERSION.', upgrading is strongly recommended.</warning>');
             }
 
-            if (extension_loaded('xdebug') && !getenv('COMPOSER_DISABLE_XDEBUG_WARN')) {
-                $io->writeError('<warning>You are running composer with xdebug enabled. This has a major impact on runtime performance. See https://getcomposer.org/xdebug</warning>');
-            }
+//            if (extension_loaded('xdebug') && !getenv('COMPOSER_DISABLE_XDEBUG_WARN')) {
+//                $io->writeError('<warning>You are running composer with xdebug enabled. This has a major impact on runtime performance. See https://getcomposer.org/xdebug</warning>');
+//            }
 
             if (defined('TANGRAM_DEV_WARNING_TIME') && $commandName !== 'self-update' && $commandName !== 'selfupdate' && time() > TANGRAM_DEV_WARNING_TIME) {
                 $io->writeError(sprintf('<warning>Warning: This development build of tangram is over 60 days old. It is recommended to update it by running "%s self-update" to get the latest version.</warning>', $_SERVER['PHP_SELF']));
