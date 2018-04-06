@@ -10,11 +10,33 @@ namespace Tangram\Command;
 
 class BaseCommandRun
 {
+
+    /**
+     * @var \Tangram\IO\IOInterface
+     */
+    private $instance;
+    public function __construct(BaseCommand $instance)
+    {
+        $this->instance = $instance;
+    }
+
     public function writeHeader($title)
     {
-//        $this->getIO()->write(<<<EOT
-//<info>$title</info>
-//EOT
-//        );
+        $this->getIO()->write(<<<EOT
+<info>$title</info>
+EOT
+        );
+    }
+
+    /**
+     * @return \Tangram\IO\IOInterface
+     */
+    public function getIO(): \Tangram\IO\IOInterface
+    {
+        return $this->instance->getIO();
+    }
+    public function __call($name, $arguments)
+    {
+        return $this->instance->$name($arguments);
     }
 }

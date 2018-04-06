@@ -47,7 +47,6 @@ abstract class BaseCommand extends Command
                 );
             }
         }
-        var_dump($this->tangram);
         return $this->tangram;
     }
 

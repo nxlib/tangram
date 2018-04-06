@@ -22,6 +22,11 @@ class Module {
     private $config;
 
     /**
+     * @var string
+     */
+    private $absolutePath;
+
+    /**
      * @return \Tangram\Config\ModuleConfig
      */
     public function getConfig(): \Tangram\Config\ModuleConfig
@@ -33,9 +38,17 @@ class Module {
     {
         try{
             $this->config = new ModuleConfig($moduleName,$absoluteModulePath);
-            pr($this->config);
+            $this->absolutePath = $absoluteModulePath.DIRECTORY_SEPARATOR.$moduleName;
         }catch (ModuleConfigException $e) {
             $io->writeError($e->getMessage());
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getAbsolutePath(): string
+    {
+        return $this->absolutePath;
     }
 }

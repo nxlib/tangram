@@ -104,6 +104,7 @@ class Compiler
 //            ->in(__DIR__.'/../../vendor/composer/ca-bundle/')
             ->in(__DIR__.'/../../vendor/psr/')
             ->in(__DIR__.'/../../vendor/myclabs/')
+            ->in(__DIR__.'/../../vendor/nette/')
             ->sort($finderSort)
         ;
 

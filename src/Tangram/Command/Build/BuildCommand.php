@@ -32,24 +32,24 @@ EOT
             $input->setOption('premission',1);
             $input->setOption('auth',1);
         }
-        (new ClassMapBuild())->exec();
-        foreach ($input->getOptions() as $k => $v){
-            if($v){
-                switch ($k){
-                    case 'router':
-                        (new RouterBuild())->exec();
-                        break;
-                    case 'premission':
-                        (new PremissionBuild())->exec();
-                        break;
-                    case 'auth':
-                        (new AuthBuild())->exec();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
+        (new ClassMapBuild($this))->exec();
+//        foreach ($input->getOptions() as $k => $v){
+//            if($v){
+//                switch ($k){
+//                    case 'router':
+//                        (new RouterBuild())->exec();
+//                        break;
+//                    case 'premission':
+//                        (new PremissionBuild())->exec();
+//                        break;
+//                    case 'auth':
+//                        (new AuthBuild())->exec();
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        }
     }
     private function setDefinitions():array
     {
@@ -59,5 +59,12 @@ EOT
             new InputOption('auth', 'a', InputOption::VALUE_NONE, 'only build auth'),
             new InputArgument("application",InputArgument::OPTIONAL,"build for the target application,default all applications")
         ];
+    }
+    protected function writeHeader($title)
+    {
+        $this->getIO()->write(<<<EOT
+<info>$title</info>
+EOT
+        );
     }
 }
