@@ -27,6 +27,16 @@ class BaseGenerator {
             $this->fileName;
         $file->dumpFile($name,$content);
     }
+    protected function writeAutoLoad($absolutePathPerfix,$content)
+    {
+        $file = new Filesystem();
+        $name = $absolutePathPerfix.
+            DIRECTORY_SEPARATOR.
+            $this->module.
+            DIRECTORY_SEPARATOR.
+            "autoload.php";
+        $file->dumpFile($name,$content);
+    }
 
     /**
      * @return mixed

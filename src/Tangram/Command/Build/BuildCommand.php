@@ -50,6 +50,8 @@ EOT
 //                }
 //            }
 //        }
+        //command
+        (new AutoLoaderBuild($this))->exec();
     }
     private function setDefinitions():array
     {

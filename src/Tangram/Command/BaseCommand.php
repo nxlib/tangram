@@ -52,7 +52,7 @@ abstract class BaseCommand extends Command
 
 
     /**
-     * Removes the cached composer instance
+     * Removes the cached tangram instance
      */
     public function resetTangram()
     {

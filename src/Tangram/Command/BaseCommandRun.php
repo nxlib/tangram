@@ -12,9 +12,10 @@ class BaseCommandRun
 {
 
     /**
-     * @var \Tangram\IO\IOInterface
+     * @var \Tangram\Command\BaseCommand
      */
     private $instance;
+
     public function __construct(BaseCommand $instance)
     {
         $this->instance = $instance;

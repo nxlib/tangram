@@ -20,9 +20,8 @@ class Applications {
             $projectConfig = new ProjectConfig();
             $list = Folder::scan(getcwd().DIRECTORY_SEPARATOR.$projectConfig->getApplicationPath());
             static::$allApplications = array_keys($list);
-            return static::$allApplications;
         }
-        return [];
+        return static::$allApplications;
     }
     public static function applicationExist(string $applicationName):bool
     {
