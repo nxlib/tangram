@@ -8,7 +8,7 @@
 namespace Tangram\Command\Build;
 
 
-use Symfony\Component\Filesystem\Filesystem;
+use Tangram\Application\Application;
 use Tangram\AutoGenerator\ClassMapGenerator;
 use Tangram\Command\BaseCommandRun;
 use Tangram\Module\Module;
@@ -21,7 +21,9 @@ class ClassMapBuild extends BaseCommandRun {
 
     public function exec($targetApplication = NULL)
     {
+        /** @var \Tangram\Tangram $tangram */
         $tangram = $this->getTangram();
+
         $projectConfig = $tangram->getPorjectConfig();
 
         $modules = Modules::all();
@@ -38,7 +40,7 @@ class ClassMapBuild extends BaseCommandRun {
         }
         $applications = Applications::all();
         foreach ($applications as $application) {
-            $applicationInstance = new Module(
+            $applicationInstance = new Application(
                 $application,
                 $projectConfig->getAbsoluteApplicationPath(),
                 $this->getIO()

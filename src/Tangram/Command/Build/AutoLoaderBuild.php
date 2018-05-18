@@ -21,9 +21,7 @@ class AutoLoaderBuild extends BaseCommandRun {
 
     public function exec($targetApplication = NULL)
     {
-        /**
-         * @var \Tangram\Tangram
-         */
+        /** @var \Tangram\Tangram $tangram */
         $tangram = $this->getTangram();
         $projectConfig = $tangram->getPorjectConfig();
         $applications = Applications::all();

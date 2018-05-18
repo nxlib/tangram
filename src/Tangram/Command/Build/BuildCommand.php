@@ -29,27 +29,27 @@ EOT
     {
         if(array_sum($input->getOptions()) === 0){
             $input->setOption('router',1);
-            $input->setOption('premission',1);
+            $input->setOption('permission',1);
             $input->setOption('auth',1);
         }
         (new ClassMapBuild($this))->exec();
-//        foreach ($input->getOptions() as $k => $v){
-//            if($v){
-//                switch ($k){
-//                    case 'router':
-//                        (new RouterBuild())->exec();
-//                        break;
-//                    case 'premission':
-//                        (new PremissionBuild())->exec();
-//                        break;
-//                    case 'auth':
-//                        (new AuthBuild())->exec();
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        }
+        foreach ($input->getOptions() as $k => $v){
+            if($v){
+                switch ($k){
+                    case 'router':
+                        (new RouterBuild($this))->exec();
+                        break;
+                    case 'permission':
+                        (new PermissionBuild($this))->exec();
+                        break;
+                    case 'auth':
+                        (new AuthBuild($this))->exec();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         //command
         (new AutoLoaderBuild($this))->exec();
     }
@@ -57,7 +57,7 @@ EOT
     {
         return [
             new InputOption('router', 'r', InputOption::VALUE_NONE, 'only build router'),
-            new InputOption('premission', 'p', InputOption::VALUE_NONE, 'only build premission'),
+            new InputOption('permission', 'p', InputOption::VALUE_NONE, 'only build premission'),
             new InputOption('auth', 'a', InputOption::VALUE_NONE, 'only build auth'),
             new InputArgument("application",InputArgument::OPTIONAL,"build for the target application,default all applications")
         ];

@@ -9,7 +9,10 @@
 namespace Tangram\Command\Build;
 
 
+use Tangram\Application\Application;
 use Tangram\Command\BaseCommandRun;
+use Tangram\Reflection\AnnotationReflection;
+use Tangram\Resourse\Applications;
 
 class AuthBuild extends BaseCommandRun
 {
@@ -17,5 +20,17 @@ class AuthBuild extends BaseCommandRun
     public function exec($targetApplication = null)
     {
         $this->writeHeader('🚥 Build Auth >>>');
+        $tangram = $this->getTangram();
+        $projectConfig = $tangram->getPorjectConfig();
+
+        $applications = Applications::all();
+        foreach ($applications as $application) {
+            $applicationInstance = new Application(
+                $application,
+                $projectConfig->getAbsoluteApplicationPath(),
+                $this->getIO()
+            );
+            $authMap = AnnotationReflection::getAnnotations($applicationInstance,"auth");
+        }
     }
 }

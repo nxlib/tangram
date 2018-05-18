@@ -11,9 +11,9 @@ namespace Tangram\Command\Build;
 
 use Tangram\Command\BaseCommandRun;
 
-class PremissionBuild extends BaseCommandRun
+class PermissionBuild extends BaseCommandRun
 {
     public function exec($targetApplication = null){
-        $this->writeHeader('👮 Build Premission >>>');
+        $this->writeHeader('👮Build Permission >>>');
     }
 }

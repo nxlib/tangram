@@ -4,14 +4,20 @@
 if (PHP_SAPI !== 'cli') {
   echo 'Warning: Tangram should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
 }
-function pr($data){
-    print_r($data);
-    echo "\r\n";
+if(!function_exists("pr")){
+    function pr($data){
+        print_r($data);
+        echo "\r\n";
+    }
 }
-function prd($data){
-  print_r($data);
-  echo "\r\n";exit;
+
+if(!function_exists("prd")){
+    function prd($data){
+        print_r($data);
+        echo "\r\n";exit;
+    }
 }
+
 require __DIR__.'/../src/bootstrap.php';
 
 use Tangram\Factory;

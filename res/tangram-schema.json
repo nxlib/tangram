@@ -24,26 +24,11 @@
           "description": "applications path"
         }
       }
-    },
-    "controller-sign": {
-      "type": "object",
-      "description": "controller sign",
-      "properties": {
-        "web": {
-          "type": "string",
-          "description": "web sign"
-        },
-        "restful": {
-          "type": "string",
-          "description": "restful api sign"
-        }
-      }
     }
   },
   "required": [
     "require",
-    "path",
-    "controller-sign"
+    "path"
   ],
   "type": "object"
 }

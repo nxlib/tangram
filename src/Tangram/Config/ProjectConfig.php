@@ -15,8 +15,6 @@ class ProjectConfig {
     private $namespace;
     private $modulePath;
     private $applicationPath;
-    private $webControllerSign;
-    private $restControllerSign;
     private $absoluteApplicationPath;
     private $absoluteModulePath;
 
@@ -28,8 +26,6 @@ class ProjectConfig {
         $this->namespace = $data['namespace'];
         $this->modulePath = $data['path']['modules'] ?? 'modules';
         $this->applicationPath = $data['path']['applications'] ?? 'applications';
-        $this->webControllerSign = $data['controller-sign']['web'] ?? 'web-page';
-        $this->restControllerSign = $data['controller-sign']['restful'] ?? 'restful';
         $this->absoluteApplicationPath = $this->projectRoot.DIRECTORY_SEPARATOR.$this->applicationPath;
         $this->absoluteModulePath = $this->projectRoot.DIRECTORY_SEPARATOR.$this->modulePath;
     }
@@ -60,20 +56,6 @@ class ProjectConfig {
      */
     public function getApplicationPath() {
         return $this->applicationPath;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWebControllerSign() {
-        return $this->webControllerSign;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRestControllerSign() {
-        return $this->restControllerSign;
     }
 
     /**
