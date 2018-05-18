@@ -9,12 +9,10 @@
 namespace Tangram\Command\Build;
 
 use Tangram\Application\Application;
-use Tangram\AutoGenerator\ClassMapGenerator;
+use Tangram\AutoGenerator\RouterMapGenerator;
 use Tangram\Command\BaseCommandRun;
-use Tangram\Module\Module;
 use Tangram\Reflection\AnnotationReflection;
 use Tangram\Resourse\Applications;
-use Tangram\Resourse\Modules;
 
 class RouterBuild extends BaseCommandRun
 {
@@ -34,7 +32,12 @@ class RouterBuild extends BaseCommandRun
                 $this->getIO()
             );
             $routerMap = AnnotationReflection::getAnnotations($applicationInstance,"router");
-            pr($routerMap);
+            $generator = new RouterMapGenerator();
+            $this->writeHeader("    💡".$application." : ".$generator->getFileName());
+
+            $generator->setClassMap($routerMap)
+                ->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $application);
+
         }
     }
 }
