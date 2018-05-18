@@ -10,6 +10,7 @@ namespace Tangram\Command\Build;
 
 
 use Tangram\Application\Application;
+use Tangram\AutoGenerator\AuthMapGenerator;
 use Tangram\Command\BaseCommandRun;
 use Tangram\Reflection\AnnotationReflection;
 use Tangram\Resourse\Applications;
@@ -31,6 +32,10 @@ class AuthBuild extends BaseCommandRun
                 $this->getIO()
             );
             $authMap = AnnotationReflection::getAnnotations($applicationInstance,"auth");
+            $generator = new AuthMapGenerator();
+            $this->writeHeader("    💡".$application." : ".$generator->getFileName());
+            $generator->setClassMap($authMap)
+                ->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $application);
         }
     }
 }

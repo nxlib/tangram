@@ -39,11 +39,11 @@ EOT
                     case 'router':
                         (new RouterBuild($this))->exec();
                         break;
-                    case 'permission':
-                        (new PermissionBuild($this))->exec();
-                        break;
                     case 'auth':
                         (new AuthBuild($this))->exec();
+                        break;
+                    case 'permission':
+                        (new PermissionBuild($this))->exec();
                         break;
                     default:
                         break;

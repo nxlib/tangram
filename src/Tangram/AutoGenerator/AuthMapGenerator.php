@@ -12,7 +12,7 @@ class AuthMapGenerator extends BaseGenerator
 {
     public function __construct()
     {
-        $this->fileName = "autoload_classmap.php";
+        $this->fileName = "autoload_auth_map.php";
         $this->classMap = [];
     }
 
@@ -32,9 +32,9 @@ class AuthMapGenerator extends BaseGenerator
     /**
      * @param array $classMap
      *
-     * @return \Tangram\AutoGenerator\ClassMapGenerator
+     * @return \Tangram\AutoGenerator\AuthMapGenerator
      */
-    public function setClassMap(array $classMap):ClassMapGenerator
+    public function setClassMap(array $classMap):AuthMapGenerator
     {
         $this->classMap = array_merge($this->classMap,$classMap);
         return $this;
@@ -45,8 +45,13 @@ class AuthMapGenerator extends BaseGenerator
         $content = [];
         foreach ($this->classMap as $k => $v) {
             $k = str_replace('\\',"\\\\",$k);
-            $content[] = "        '{$k}' => ['{$v}']";
+            if($v){
+                $content[] = "        '{$k}' => true";
+            }else{
+                $content[] = "        '{$k}' => false";
+            }
         }
+        sort($content);
         $content = implode(",\r\n", $content);
         $this->write($absolutePathPerfix,$this->fileContent($content));
     }
