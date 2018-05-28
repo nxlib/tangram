@@ -53,7 +53,7 @@ class AnnotationReflection {
 //                        $requestPath = '/' . $module['uri-prefix'] . '/' . strtolower($modulePath) . '/' . strtolower(str_replace('Controller', '', $requestPath));
 //                        $requestPath = str_replace("//", "/", $requestPath);
 //                        $requestPath = str_replace("\\", "/", $requestPath);
-                        $PermissionModuleName = "";
+                        $permissionName = "";
                         $requestPath = "";
                         if (!empty($requestMapping)) {
                             if (is_string($requestMapping)) {
@@ -63,8 +63,10 @@ class AnnotationReflection {
                                 $requestPath = rtrim($requestMapping->path, "/**");
                             }
                         }
-                        if (isset($mainPermission->module)) {
-                            $PermissionModuleName = $mainPermission->module;
+                        if (!empty($mainPermission)) {
+                            if (is_string($mainPermission)) {
+                                $permissionName = rtrim($mainPermission, "/**");
+                            }
                         }
                         //auth-handler
                         if (!is_null($isAuth) && boolval($isAuth)) {
@@ -75,16 +77,15 @@ class AnnotationReflection {
                             foreach ($methods as $method) {
                                 if ($method->isPublic()) {
                                     //公有方法才能做权限点
-                                    $permission = [
-                                        'module' => $PermissionModuleName,//主权限点
-                                        'nav' => '',//导航权限点
-                                        'menu' => '',//菜单权限点
-                                        'name' => ''//权限名
-                                    ];
+
                                     //读取默认约定
                                     $main_uri = $requestPath . "/";
                                     $main_uri = str_replace("//", "/", $main_uri);
                                     $main_uri = str_replace("\\", "/", $main_uri);
+
+                                    if(!empty($permissionName)){
+                                        $permissionName = "/".$permissionName . "/";
+                                    }
 
                                     $requestMethod = "GET";
                                     $uri = $method->name;
@@ -97,9 +98,17 @@ class AnnotationReflection {
                                     if ($method->getDocComment()) {
                                         //有method的comment
                                         $methodRequestMapping = $method->getAnnotation('RequestMapping');
-                                        $viewPermission = $method->getAnnotation('ViewPermission');
                                         $methodPermission = $method->getAnnotation('Permission');
 
+                                        if(!empty($methodPermission)){
+                                            if (is_string($methodPermission)) {
+                                                if (empty($permissionName)) {
+                                                    $permissionName = $methodPermission;
+                                                } else {
+                                                    $permissionName = $permissionName . $methodPermission;
+                                                }
+                                            }
+                                        }
                                         if (!empty($methodRequestMapping)) {
                                             $uri = "";
                                             if (is_string($methodRequestMapping)) {
@@ -123,16 +132,16 @@ class AnnotationReflection {
                                         $requestMethod = isset($methodRequestMapping->method) ? $methodRequestMapping->method : $requestMethod;
                                         $requestMethod = strtoupper($requestMethod);
 
-                                        if (!empty($viewPermission)) {
-                                            //页面权限优先级高于功能权限
-                                            $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
-                                            $permission['nav'] = isset($methodPermission->nav) ? $methodPermission->nav : $permission['nav'];
-                                            $permission['menu'] = isset($methodPermission->menu) ? $methodPermission->menu : $permission['menu'];
-                                        } else {
-                                            //功能权限
-                                            $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
-                                            $permission['name'] = isset($methodPermission->name) ? $methodPermission->name : $permission['name'];
-                                        }
+//                                        if (!empty($viewPermission)) {
+//                                            //页面权限优先级高于功能权限
+//                                            $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
+//                                            $permission['nav'] = isset($methodPermission->nav) ? $methodPermission->nav : $permission['nav'];
+//                                            $permission['menu'] = isset($methodPermission->menu) ? $methodPermission->menu : $permission['menu'];
+//                                        } else {
+//                                            //功能权限
+//                                            $permission['module'] = isset($methodPermission->module) ? $methodPermission->module : $permission['module'];
+//                                            $permission['name'] = isset($methodPermission->name) ? $methodPermission->name : $permission['name'];
+//                                        }
 
                                         $methodAuth = $method->getAnnotation('Auth');
                                         if (!is_null($methodAuth)) {
@@ -143,13 +152,14 @@ class AnnotationReflection {
                                         $uri = $main_uri . $uri;
                                     }
 
+                                    $permissionName = str_replace("//", "/", $permissionName);
+                                    $permissionName = str_replace("\\", "/", $permissionName);
+                                    $permissionName = rtrim($permissionName,"/");
+
                                     $rs = [
                                         'uri' => str_replace(DIRECTORY_SEPARATOR, "/", $uri),
                                         'method' => strtolower($requestMethod),
-                                        'module' => $permission['module'], //模块名
-                                        'nav' => $permission['nav'], //
-                                        'menu' => $permission['menu'], //菜单名
-                                        'name' => $permission['name'], //权限点名称
+                                        'permission' => $permissionName,
                                         'rest' => $isRestController,//rest controller will return json
 //                                        'namespace' => $reflect->getNamespaceName(),
                                         'namespace' => $namespace,//
@@ -157,7 +167,9 @@ class AnnotationReflection {
                                         'function' => $method->name
                                     ];
                                     static::$annotationMap[$applicationName]["router"][] = $rs;
-                                    static::$annotationMap[$applicationName]["permission"][] = $rs;
+                                    if(!empty($permissionName)){
+                                        static::$annotationMap[$applicationName]["permission"][] = $rs;
+                                    }
                                 }
                             }
                         }

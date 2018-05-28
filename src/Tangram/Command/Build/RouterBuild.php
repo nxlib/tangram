@@ -17,7 +17,7 @@ use Tangram\Resourse\Applications;
 class RouterBuild extends BaseCommandRun
 {
     public function exec($targetApplication = null){
-        $this->writeHeader('🎯Build Router >>>');
+        $this->writeHeader('🎯Build Router ');
 
         /** @var \Tangram\Tangram $tangram */
         $tangram = $this->getTangram();
@@ -33,7 +33,7 @@ class RouterBuild extends BaseCommandRun
             );
             $routerMap = AnnotationReflection::getAnnotations($applicationInstance,"router");
             $generator = new RouterMapGenerator();
-            $this->writeHeader("    💡".$application." : ".$generator->getFileName());
+            $this->writeHeader("    💡".$generator->getFileName()."     >> $application");
 
             $generator->setClassMap($routerMap)
                 ->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $application);

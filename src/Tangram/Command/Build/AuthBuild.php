@@ -20,7 +20,7 @@ class AuthBuild extends BaseCommandRun
 
     public function exec($targetApplication = null)
     {
-        $this->writeHeader('🚥 Build Auth >>>');
+        $this->writeHeader('🚥 Build Auth ');
         $tangram = $this->getTangram();
         $projectConfig = $tangram->getPorjectConfig();
 
@@ -33,7 +33,7 @@ class AuthBuild extends BaseCommandRun
             );
             $authMap = AnnotationReflection::getAnnotations($applicationInstance,"auth");
             $generator = new AuthMapGenerator();
-            $this->writeHeader("    💡".$application." : ".$generator->getFileName());
+            $this->writeHeader("    💡".$generator->getFileName()."       >> $application");
             $generator->setClassMap($authMap)
                 ->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $application);
         }

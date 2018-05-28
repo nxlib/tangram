@@ -13,6 +13,6 @@ use Tangram\Command\BaseCommandRun;
 class ViewBuild extends BaseCommandRun
 {
     public function exec($targetApplication = null){
-        $this->writeHeader('👮 Build Premission >>>');
+        $this->writeHeader('👮 Build Views ');
     }
 }

@@ -49,6 +49,7 @@ class ClassMapBuild extends BaseCommandRun {
                 $this->classMap,
                 $applicationInstance->getConfig()->getPsr4Autoload()
             );
+            $this->writeHeader("💫 autoload_classmap.php          >> {$application} ");
             (new ClassMapGenerator())->setClassMap($this->classMap)
                 ->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $application);
 

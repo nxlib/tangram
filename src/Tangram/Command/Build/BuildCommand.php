@@ -32,7 +32,7 @@ EOT
             $input->setOption('permission',1);
             $input->setOption('auth',1);
         }
-        (new ClassMapBuild($this))->exec();
+
         foreach ($input->getOptions() as $k => $v){
             if($v){
                 switch ($k){
@@ -51,6 +51,8 @@ EOT
             }
         }
         //command
+        $this->writeHeader("");
+        (new ClassMapBuild($this))->exec();
         (new AutoLoaderBuild($this))->exec();
     }
     private function setDefinitions():array

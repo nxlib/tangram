@@ -26,6 +26,7 @@ class AutoLoaderBuild extends BaseCommandRun {
         $projectConfig = $tangram->getPorjectConfig();
         $applications = Applications::all();
         foreach ($applications as $application) {
+            $this->writeHeader("💫 autoload_real.php              >> {$application}");
             (new AutoLoaderGenerator())->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $application);
         }
     }
