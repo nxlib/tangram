@@ -159,7 +159,7 @@ class Application extends BaseApplication
 //            }
 
             if (defined('TANGRAM_DEV_WARNING_TIME') && $commandName !== 'self-update' && $commandName !== 'selfupdate' && time() > TANGRAM_DEV_WARNING_TIME) {
-                $io->writeError(sprintf('<warning>Warning: This development build of tangram is over 60 days old. It is recommended to update it by running "%s self-update" to get the latest version.</warning>', $_SERVER['PHP_SELF']));
+//                $io->writeError(sprintf('<warning>Warning: This development build of tangram is over 60 days old. It is recommended to update it by running "%s self-update" to get the latest version.</warning>', $_SERVER['PHP_SELF']));
             }
 
             if (getenv('TANGRAM_NO_INTERACTION')) {

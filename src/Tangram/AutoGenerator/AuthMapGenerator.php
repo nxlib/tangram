@@ -58,7 +58,7 @@ class AuthMapGenerator extends BaseGenerator
     private function fileContent($str){
         return <<<"EOF"
 <?php
-class AutoLoadClassMap{
+class AutoLoadAuthMap{
     private static \$map = [
 {$str}
     ];

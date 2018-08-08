@@ -27,31 +27,39 @@ class ClassMapBuild extends BaseCommandRun {
         $projectConfig = $tangram->getPorjectConfig();
 
         $modules = Modules::all();
-        foreach ($modules as $module) {
+        foreach ($modules as $moduleName) {
             $module = new Module(
-                $module,
+              $moduleName,
                 $projectConfig->getAbsoluteModulePath(),
                 $this->getIO()
             );
+            $psr4 = $module->getConfig()->getPsr4Autoload();
+            foreach ($psr4 as &$value){
+              $value = rtrim($projectConfig->getModulePath().DIRECTORY_SEPARATOR.$moduleName.DIRECTORY_SEPARATOR.$value,DIRECTORY_SEPARATOR);
+            }
             $this->classMap = array_merge(
                 $this->classMap,
-                $module->getConfig()->getPsr4Autoload()
+                $psr4
             );
         }
         $applications = Applications::all();
-        foreach ($applications as $application) {
+        foreach ($applications as $applicationName) {
             $applicationInstance = new Application(
-                $application,
+                $applicationName,
                 $projectConfig->getAbsoluteApplicationPath(),
                 $this->getIO()
             );
+            $psr4 = $applicationInstance->getConfig()->getPsr4Autoload();
+            foreach ($psr4 as &$value){
+                $value = rtrim($projectConfig->getApplicationPath().DIRECTORY_SEPARATOR.$applicationName.DIRECTORY_SEPARATOR.$value,DIRECTORY_SEPARATOR);
+            }
             $this->classMap = array_merge(
                 $this->classMap,
-                $applicationInstance->getConfig()->getPsr4Autoload()
+                $psr4
             );
-            $this->writeHeader("💫 autoload_classmap.php          >> {$application} ");
+            $this->writeHeader("💫 autoload_classmap.php          >> {$applicationName} ");
             (new ClassMapGenerator())->setClassMap($this->classMap)
-                ->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $application);
+                ->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $applicationName);
 
         }
     }
