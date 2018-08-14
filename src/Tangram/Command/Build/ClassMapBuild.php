@@ -60,7 +60,7 @@ class ClassMapBuild extends BaseCommandRun {
             $this->writeHeader("💫 autoload_classmap.php          >> {$applicationName} ");
             (new ClassMapGenerator())->setClassMap($this->classMap)
                 ->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $applicationName);
-
+            $this->classMap = [];
         }
     }
 
