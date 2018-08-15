@@ -53,14 +53,13 @@ class ClassMapBuild extends BaseCommandRun {
             foreach ($psr4 as &$value){
                 $value = rtrim($projectConfig->getApplicationPath().DIRECTORY_SEPARATOR.$applicationName.DIRECTORY_SEPARATOR.$value,DIRECTORY_SEPARATOR);
             }
-            $this->classMap = array_merge(
+            $classMap = array_merge(
                 $this->classMap,
                 $psr4
             );
             $this->writeHeader("💫 autoload_classmap.php          >> {$applicationName} ");
-            (new ClassMapGenerator())->setClassMap($this->classMap)
+            (new ClassMapGenerator())->setClassMap($classMap)
                 ->generate($projectConfig->getAbsoluteApplicationPath() . DIRECTORY_SEPARATOR . $applicationName);
-            $this->classMap = [];
         }
     }
 
