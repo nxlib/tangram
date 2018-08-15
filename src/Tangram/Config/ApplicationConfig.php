@@ -30,6 +30,7 @@ class ApplicationConfig {
     private $psr4Autoload;
     private $web;
     private $restful;
+    private $view;
 
     /**
      * ModuleConfig constructor.
@@ -75,6 +76,7 @@ class ApplicationConfig {
         $this->psr4Autoload = $config['autoload']['psr-4'] ?? [];
         $this->web = $config['web'];
         $this->restful = $config['restful'];
+        $this->view = $config['view'] ?? "";
     }
 
     /**
@@ -154,6 +156,14 @@ class ApplicationConfig {
     public function getRestful()
     {
         return $this->restful;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getView()
+    {
+        return $this->view;
     }
 
 

@@ -27,7 +27,7 @@ include __DIR__.DIRECTORY_SEPARATOR."autoload_router_map.php";
 include __DIR__.DIRECTORY_SEPARATOR."autoload_permission_map.php";
 include __DIR__.DIRECTORY_SEPARATOR."autoload_classmap.php";
 include __DIR__.DIRECTORY_SEPARATOR."autoload_auth_map.php";
-//include __DIR__.DIRECTORY_SEPARATOR."autoload_views_path.php";
+include __DIR__.DIRECTORY_SEPARATOR."autoload_view_map.php";
 
 class {$str} {
     public static function getLoader(){

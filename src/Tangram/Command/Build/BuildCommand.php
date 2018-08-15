@@ -31,6 +31,7 @@ EOT
             $input->setOption('router',1);
             $input->setOption('permission',1);
             $input->setOption('auth',1);
+            $input->setOption('view',1);
         }
 
         foreach ($input->getOptions() as $k => $v){
@@ -45,6 +46,9 @@ EOT
                     case 'permission':
                         (new PermissionBuild($this))->exec();
                         break;
+                    case 'view':
+                        (new ViewBuild($this))->exec();
+                        break;
                     default:
                         break;
                 }
@@ -54,6 +58,7 @@ EOT
         $this->writeHeader("");
         (new ClassMapBuild($this))->exec();
         (new AutoLoaderBuild($this))->exec();
+
     }
     private function setDefinitions():array
     {
@@ -61,6 +66,7 @@ EOT
             new InputOption('router', 'r', InputOption::VALUE_NONE, 'only build router'),
             new InputOption('permission', 'p', InputOption::VALUE_NONE, 'only build premission'),
             new InputOption('auth', 'a', InputOption::VALUE_NONE, 'only build auth'),
+            new InputOption('view', 'vw', InputOption::VALUE_NONE, 'only build view'),
             new InputArgument("application",InputArgument::OPTIONAL,"build for the target application,default all applications")
         ];
     }
