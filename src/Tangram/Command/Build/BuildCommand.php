@@ -27,6 +27,9 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        //todo console auto add `application` argument ??
+        $env = $input->getArgument("application");
+
         if(array_sum($input->getOptions()) === 0){
             $input->setOption('router',1);
             $input->setOption('permission',1);
@@ -54,11 +57,11 @@ EOT
                 }
             }
         }
+        (new EnvBuild($this))->exec($env);
         //command
         $this->writeHeader("");
         (new ClassMapBuild($this))->exec();
         (new AutoLoaderBuild($this))->exec();
-
     }
     private function setDefinitions():array
     {

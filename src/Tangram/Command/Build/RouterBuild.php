@@ -17,7 +17,7 @@ use Tangram\Resourse\Applications;
 class RouterBuild extends BaseCommandRun
 {
     public function exec($targetApplication = null){
-        $this->writeHeader('🎯Build Router ');
+        $this->writeHeader('🎯 Build Router ');
 
         /** @var \Tangram\Tangram $tangram */
         $tangram = $this->getTangram();

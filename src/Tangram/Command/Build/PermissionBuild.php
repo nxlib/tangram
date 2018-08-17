@@ -18,7 +18,7 @@ use Tangram\Resourse\Applications;
 class PermissionBuild extends BaseCommandRun
 {
     public function exec($targetApplication = null){
-        $this->writeHeader('👮Build Permission');
+        $this->writeHeader('👮 Build Permission');
         //permission可以放在controller或者action上，这里的实现只解析permission注解，业务逻辑不实现
         /** @var \Tangram\Tangram $tangram */
         $tangram = $this->getTangram();

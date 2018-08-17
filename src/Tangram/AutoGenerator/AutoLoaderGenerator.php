@@ -23,6 +23,7 @@ class AutoLoaderGenerator extends BaseGenerator
     private function autoload_real_fileContent($str){
         return <<<"EOF"
 <?php
+include __DIR__.DIRECTORY_SEPARATOR."autobuild_env.php";
 include __DIR__.DIRECTORY_SEPARATOR."autoload_router_map.php";
 include __DIR__.DIRECTORY_SEPARATOR."autoload_permission_map.php";
 include __DIR__.DIRECTORY_SEPARATOR."autoload_classmap.php";
