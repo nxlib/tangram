@@ -44,9 +44,9 @@ class AnnotationReflection {
                         include $tmpFile;
 
                         $reflect = new ClassType($shamNamespace."\\".$clazz);
-                        $isAuth = $reflect->getAnnotation("Auth");
+                        $isCtrlAuth = $reflect->getAnnotation("Auth");
                         $isRestController = $reflect->getAnnotation("RestController");
-                        $requestMapping = $reflect->getAnnotation("RequestMapping");
+                        $ctrlRequestMapping = $reflect->getAnnotation("RequestMapping");
                         $mainPermission = $reflect->getAnnotation("Permission");
 //                        pr($mainPermission);
 //                        $requestPath = str_replace($reflect->getNamespaceName() . '\\', '', $reflect->getName());
@@ -55,12 +55,12 @@ class AnnotationReflection {
 //                        $requestPath = str_replace("\\", "/", $requestPath);
                         $permissionName = "";
                         $requestPath = "";
-                        if (!empty($requestMapping)) {
-                            if (is_string($requestMapping)) {
-                                $requestPath = rtrim($requestMapping, "/**");
+                        if (!empty($ctrlRequestMapping)) {
+                            if (is_string($ctrlRequestMapping)) {
+                                $requestPath = rtrim($ctrlRequestMapping, "/**");
                             }
-                            if (isset($requestMapping->path)) {
-                                $requestPath = rtrim($requestMapping->path, "/**");
+                            if (isset($ctrlRequestMapping->path)) {
+                                $requestPath = rtrim($ctrlRequestMapping->path, "/**");
                             }
                         }
                         if (!empty($mainPermission)) {
@@ -69,9 +69,9 @@ class AnnotationReflection {
                             }
                         }
                         //auth-handler
-                        if (!is_null($isAuth) && boolval($isAuth)) {
-                            static::$annotationMap[$applicationName]["auth"][$requestPath . "/**"] = true;
-                        }
+//                        if (!is_null($isCtrlAuth) && boolval($isCtrlAuth)) {
+//                            static::$annotationMap[$applicationName]["auth"][$requestPath . "/**"] = true;
+//                        }
                         $methods = $reflect->getMethods();
                         if (!empty($methods)) {
                             foreach ($methods as $method) {
@@ -112,18 +112,28 @@ class AnnotationReflection {
                                         if (!empty($methodRequestMapping)) {
                                             $uri = "";
                                             if (is_string($methodRequestMapping)) {
-                                                if (empty($requestMapping)) {
+                                                if(strpos($methodRequestMapping,"/") === 0){
                                                     $uri = $methodRequestMapping;
-                                                } else {
-                                                    $uri = $main_uri . $methodRequestMapping;
+                                                }else{
+                                                    if (empty($ctrlRequestMapping)) {
+                                                        $uri = $methodRequestMapping;
+                                                    } else {
+                                                        $uri = $main_uri . $methodRequestMapping;
+                                                    }
                                                 }
+
                                             }
                                             if (isset($methodRequestMapping->path)) {
-                                                if (empty($requestMapping)) {
-                                                    $uri = $methodRequestMapping->path;
-                                                } else {
-                                                    $uri = $main_uri . $methodRequestMapping->path;
+                                                if(strpos($methodRequestMapping->path,"/") === 0){
+
+                                                }else{
+                                                    if (empty($ctrlRequestMapping)) {
+                                                        $uri = $methodRequestMapping->path;
+                                                    } else {
+                                                        $uri = $main_uri . $methodRequestMapping->path;
+                                                    }
                                                 }
+
                                             }
                                         } else {
                                             $uri = $main_uri . $uri;
@@ -166,6 +176,10 @@ class AnnotationReflection {
                                         'class' => str_replace($reflect->getNamespaceName(),$namespace,$reflect->name),
                                         'function' => $method->name
                                     ];
+                                    if (!is_null($isCtrlAuth) && boolval($isCtrlAuth)) {
+                                        $authKey = strtoupper($rs['method']) . '#' . $rs['uri'];
+                                        static::$annotationMap[$applicationName]["auth"][$authKey] = boolval($isCtrlAuth);
+                                    }
                                     static::$annotationMap[$applicationName]["router"][] = $rs;
                                     if(!empty($permissionName)){
                                         static::$annotationMap[$applicationName]["permission"][] = $rs;
