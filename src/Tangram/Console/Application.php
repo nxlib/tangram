@@ -118,12 +118,15 @@ class Application extends BaseApplication
 
             // abort when we reach the home dir or top of the filesystem
             while (dirname($dir) !== $dir && $dir !== $home) {
-                if (file_exists($dir.'/'.Factory::getTangramFile())) {
-                    if ($io->askConfirmation('<info>No tangram.json in current directory, do you want to use the one at '.$dir.'?</info> [<comment>Y,n</comment>]? ', true)) {
-                        $oldWorkingDir = getcwd();
-                        chdir($dir);
-                    }
-                    break;
+
+                if (!file_exists($dir.'/'.Factory::getTangramFile())) {
+//                    if ($io->askConfirmation('<info>No tangram.json in current directory, do you want to use the one at '.$dir.'?</info> [<comment>Y,n</comment>]? ', true)) {
+//                        $oldWorkingDir = getcwd();
+//                        chdir($dir);
+//                    }
+//                    break;
+                    $io->alert('<info>No tangram.json in current directory, You must create one first!');
+                    exit;
                 }
                 $dir = dirname($dir);
             }

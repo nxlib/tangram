@@ -125,7 +125,7 @@ class AnnotationReflection {
                                             }
                                             if (isset($methodRequestMapping->path)) {
                                                 if(strpos($methodRequestMapping->path,"/") === 0){
-
+                                                    $uri = $methodRequestMapping->path;
                                                 }else{
                                                     if (empty($ctrlRequestMapping)) {
                                                         $uri = $methodRequestMapping->path;
@@ -153,11 +153,6 @@ class AnnotationReflection {
 //                                            $permission['name'] = isset($methodPermission->name) ? $methodPermission->name : $permission['name'];
 //                                        }
 
-                                        $methodAuth = $method->getAnnotation('Auth');
-                                        if (!is_null($methodAuth)) {
-                                            $authKey = $requestMethod . '#' . $uri;
-                                            static::$annotationMap[$applicationName]["auth"][$authKey] = boolval($methodAuth);
-                                        }
                                     } else {
                                         $uri = $main_uri . $uri;
                                     }
@@ -179,6 +174,11 @@ class AnnotationReflection {
                                     if (!is_null($isCtrlAuth) && boolval($isCtrlAuth)) {
                                         $authKey = strtoupper($rs['method']) . '#' . $rs['uri'];
                                         static::$annotationMap[$applicationName]["auth"][$authKey] = boolval($isCtrlAuth);
+                                    }
+                                    $methodAuth = $method->getAnnotation('Auth');
+                                    if (!is_null($methodAuth)) {
+                                        $authKey = $requestMethod . '#' . $uri;
+                                        static::$annotationMap[$applicationName]["auth"][$authKey] = boolval($methodAuth);
                                     }
                                     static::$annotationMap[$applicationName]["router"][] = $rs;
                                     if(!empty($permissionName)){
