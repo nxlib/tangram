@@ -77,7 +77,6 @@
   "required": [
     "name",
     "description",
-    "autoload",
-    "module"
+    "autoload"
   ]
 }

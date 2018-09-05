@@ -65,7 +65,8 @@ class ModuleConfig {
         }
         $config = $file->read();
         $this->name = $config['name'];
-        $this->module = $config['module'];
+        $module = explode("/",$this->name);
+        $this->module = isset($config['module']) ? $config['module'] : end($module);
         $this->description = $config['description'];
         $this->keywords = $config['keywords'];
         $this->type = $config['type'];
