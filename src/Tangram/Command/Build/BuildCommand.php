@@ -27,8 +27,7 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        //todo console auto add `application` argument ??
-        $env = $input->getArgument("application");
+        $env = $input->getArgument("env");
 
         if(array_sum($input->getOptions()) === 0){
             $input->setOption('router',1);
@@ -69,8 +68,8 @@ EOT
             new InputOption('router', 'r', InputOption::VALUE_NONE, 'only build router'),
             new InputOption('permission', 'p', InputOption::VALUE_NONE, 'only build premission'),
             new InputOption('auth', 'a', InputOption::VALUE_NONE, 'only build auth'),
-            new InputOption('view', 'vw', InputOption::VALUE_NONE, 'only build view'),
-            new InputArgument("application",InputArgument::OPTIONAL,"build for the target application,default all applications")
+            new InputOption('view', 'w', InputOption::VALUE_NONE, 'only build view'),
+            new InputArgument("env",InputArgument::OPTIONAL,"build env")
         ];
     }
     protected function writeHeader($title)
