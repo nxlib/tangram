@@ -53,8 +53,8 @@ class AnnotationReflection {
 //                        $requestPath = '/' . $module['uri-prefix'] . '/' . strtolower($modulePath) . '/' . strtolower(str_replace('Controller', '', $requestPath));
 //                        $requestPath = str_replace("//", "/", $requestPath);
 //                        $requestPath = str_replace("\\", "/", $requestPath);
-                        $permissionName = "";
                         $requestPath = "";
+                        $ctrlPermissionName = "";
                         if (!empty($ctrlRequestMapping)) {
                             if (is_string($ctrlRequestMapping)) {
                                 $requestPath = rtrim($ctrlRequestMapping, "/**");
@@ -65,7 +65,7 @@ class AnnotationReflection {
                         }
                         if (!empty($mainPermission)) {
                             if (is_string($mainPermission)) {
-                                $permissionName = rtrim($mainPermission, "/**");
+                                $ctrlPermissionName = rtrim($mainPermission, "/**");
                             }
                         }
                         //auth-handler
@@ -83,10 +83,10 @@ class AnnotationReflection {
                                     $main_uri = str_replace("//", "/", $main_uri);
                                     $main_uri = str_replace("\\", "/", $main_uri);
 
-                                    if(!empty($permissionName)){
-                                        $permissionName = "/".$permissionName . "/";
+                                    if(!empty($ctrlPermissionName) && strpos($ctrlPermissionName,"/") != 0){
+                                        $ctrlPermissionName = "/".$ctrlPermissionName;
                                     }
-
+                                    $permissionName = "";
                                     $requestMethod = "GET";
                                     $uri = $method->name;
 
@@ -99,13 +99,12 @@ class AnnotationReflection {
                                         //有method的comment
                                         $methodRequestMapping = $method->getAnnotation('RequestMapping');
                                         $methodPermission = $method->getAnnotation('Permission');
-
                                         if(!empty($methodPermission)){
                                             if (is_string($methodPermission)) {
-                                                if (empty($permissionName)) {
+                                                if (empty($ctrlPermissionName) || strpos($methodPermission,"/") === 0) {
                                                     $permissionName = $methodPermission;
                                                 } else {
-                                                    $permissionName = $permissionName . $methodPermission;
+                                                    $permissionName = $ctrlPermissionName . "/". $methodPermission;
                                                 }
                                             }
                                         }
@@ -184,6 +183,7 @@ class AnnotationReflection {
                                     if(!empty($permissionName)){
                                         static::$annotationMap[$applicationName]["permission"][] = $rs;
                                     }
+                                    $permissionName = "";
                                 }
                             }
                         }

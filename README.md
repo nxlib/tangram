@@ -32,6 +32,10 @@ source ~/.bash_profile
 2. `tangram create moduleName`
     > create module which named `moduleName`
 
+## #Plan
+1. dependency
+2. data permission
+
 License
 -------
 
