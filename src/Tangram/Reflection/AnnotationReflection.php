@@ -161,7 +161,7 @@ class AnnotationReflection {
                                     $permissionName = rtrim($permissionName,"/");
 
                                     $rs = [
-                                        'uri' => str_replace(DIRECTORY_SEPARATOR, "/", $uri),
+                                        'uri' => $uri,
                                         'method' => strtolower($requestMethod),
                                         'permission' => $permissionName,
                                         'rest' => $isRestController,//rest controller will return json

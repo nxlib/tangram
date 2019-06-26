@@ -6,6 +6,7 @@ use Tangram\Config\JsonConfigSource;
 use Tangram\Config\ProjectConfig;
 use Tangram\Json\JsonFile;
 use Tangram\IO\IOInterface;
+use Tangram\Util\Platform;
 use Tangram\Util\Silencer;
 use Seld\JsonLint\DuplicateKeyException;
 use Symfony\Component\Console\Formatter\OutputFormatter;
