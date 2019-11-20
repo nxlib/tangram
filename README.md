@@ -1,7 +1,7 @@
 Tangram - Module Management for PHP
 ========================================
 ## #Install
-download the file [tangram-bin.zip](https://github.com/nxlib/tangram/releases/download/v3.0.0/tangram.zip)
+download the file [tangram-bin.zip](https://github.com/nxlib/tangram/releases/download/v3.2.3/tangram.zip)
 ### For windows
 1. unzip the `tangram-bin.zip` to `target-path`. eg: `C:\tangram`
 2. add `TANGRAM_HOME` to `environment variable`.eg:
